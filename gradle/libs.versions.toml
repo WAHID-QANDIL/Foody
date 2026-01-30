@@ -9,6 +9,11 @@ material = "1.13.0"
 activity = "1.12.2"
 constraintlayout = "2.2.1"
 cardview = "1.0.0"
+navigationFragment = "2.9.7"
+navigationUi = "2.9.7"
+annotation = "1.9.1"
+lifecycleLivedataKtx = "2.10.0"
+lifecycleViewmodelKtx = "2.10.0"
 
 [libraries]
 core-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "coreSplashscreen" }
@@ -20,6 +25,11 @@ material = { group = "com.google.android.material", name = "material", version.r
 activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
 constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
 cardview = { group = "androidx.cardview", name = "cardview", version.ref = "cardview" }
+navigation-ui = { module = "androidx.navigation:navigation-ui", version.ref = "navigationUi" }
+navigation-fragment = { module = "androidx.navigation:navigation-fragment", version.ref = "navigationFragment" }
+annotation = { group = "androidx.annotation", name = "annotation", version.ref = "annotation" }
+lifecycle-livedata-ktx = { group = "androidx.lifecycle", name = "lifecycle-livedata-ktx", version.ref = "lifecycleLivedataKtx" }
+lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifecycleViewmodelKtx" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
