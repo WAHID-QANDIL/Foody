@@ -9,7 +9,7 @@
 
     <fragment
         android:id="@+id/fragment_first_onboarding_screen"
-        android:name="org.wahid.foody.ui.FirstOnboardingScreenFragment"
+        android:name="org.wahid.foody.view.FirstOnboardingScreenFragment"
         tools:layout="@layout/fragment_first_onboarding_screen"
         android:label="onboarding1"
         >
@@ -21,7 +21,7 @@
 
     <fragment
         android:id="@+id/fragment_second_onboarding_screen"
-        android:name="org.wahid.foody.ui.SecondOnboardingScreenFragment"
+        android:name="org.wahid.foody.view.SecondOnboardingScreenFragment"
         tools:layout="@layout/fragment_second_onboarding_screen"
         android:label="onboarding2"
         >
@@ -35,7 +35,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragment_login"
-        android:name="org.wahid.foody.ui.LoginFragment"
+        android:name="org.wahid.foody.view.LoginFragment"
         tools:layout="@layout/fragment_login"
         android:label="login"
         >
@@ -46,7 +46,7 @@
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
-        android:name="org.wahid.foody.ui.RegisterFragment"
+        android:name="org.wahid.foody.view.RegisterFragment"
         android:label="fragment_register"
         tools:layout="@layout/fragment_register" >
         <action

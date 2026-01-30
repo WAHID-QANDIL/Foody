@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Foody">
         <activity
-            android:name=".MainActivity"
+            android:name=".view.MainActivity"
             android:exported="true"
             android:theme="@style/Base.Theme.Foody.SplashScreen"
             >

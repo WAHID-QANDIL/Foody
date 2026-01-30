@@ -1,17 +1,16 @@
-package org.wahid.foody;
-import android.app.ActionBar;
-import android.graphics.Color;
+package org.wahid.foody.view;
 import android.os.Bundle;
 
 import androidx.activity.EdgeToEdge;
 import androidx.activity.SystemBarStyle;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.splashscreen.SplashScreen;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
+import org.wahid.foody.R;
 
 public class MainActivity extends AppCompatActivity {
 
