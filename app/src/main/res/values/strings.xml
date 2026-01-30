@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Foody</string>
+    <string name="splash_icon">splash icon</string>
 </resources>
