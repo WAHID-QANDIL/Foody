@@ -24,4 +24,9 @@
     <string name="enter_your_emaiil">Enter your emaiil</string>
     <string name="enter_your_password">Enter your password</string>
     <string name="login">Login</string>
+    <string name="cook_everywhere">Cook Everywhere</string>
+    <string name="google">Google</string>
+    <string name="facebook">Facebook</string>
+    <string name="or_contention_with">OR CONTENTION WITH</string>
+    <string name="join_now">Join now</string>
 </resources>

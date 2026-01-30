@@ -7,24 +7,38 @@
     >
 
 
-<fragment
-    android:id="@+id/fragment_first_onboarding_screen"
-    android:name="org.wahid.foody.ui.FirstOnboardingScreenFragment"
-    tools:layout="@layout/fragment_first_onboarding_screen"
-    android:label="onboarding1"
-    >
+    <fragment
+        android:id="@+id/fragment_first_onboarding_screen"
+        android:name="org.wahid.foody.ui.FirstOnboardingScreenFragment"
+        tools:layout="@layout/fragment_first_onboarding_screen"
+        android:label="onboarding1"
+        >
 
-    <action
-        android:id="@+id/action_from_onboarding1_to_onboarding2"
-        app:destination="@id/fragment_second_onboarding_screen"
-        />
-
-</fragment>
+        <action
+            android:id="@+id/action_fragment_first_onboarding_screen_to_fragment_second_onboarding_screen"
+            app:destination="@id/fragment_second_onboarding_screen" />
+    </fragment>
 
     <fragment
         android:id="@+id/fragment_second_onboarding_screen"
         android:name="org.wahid.foody.ui.SecondOnboardingScreenFragment"
         tools:layout="@layout/fragment_second_onboarding_screen"
-        android:label="onboarding2"/>
+        android:label="onboarding2"
+        >
 
+        <action
+            android:id="@+id/action_fragment_second_onboarding_screen_to_fragment_login"
+            app:destination="@id/fragment_login"
+            app:popUpTo="@id/fragment_first_onboarding_screen"
+            app:popUpToInclusive="true"
+            />
+    </fragment>
+    <fragment
+        android:id="@+id/fragment_login"
+        android:name="org.wahid.foody.ui.LoginFragment"
+        tools:layout="@layout/fragment_login"
+        android:label="login"
+        >
+
+    </fragment>
 </navigation>
