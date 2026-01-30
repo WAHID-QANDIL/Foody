@@ -8,6 +8,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,11 +25,6 @@ public class FirstOnboardingScreenFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        ActionBar toolbar = Objects.requireNonNull(requireActivity()).getActionBar();
-        if (toolbar!= null){
-
-            toolbar.hide();
-        }
         binding = FragmentFirstOnboardingScreenBinding.inflate(getLayoutInflater(),container,false);
         return binding.getRoot();
     }
@@ -37,18 +33,28 @@ public class FirstOnboardingScreenFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        binding.firstOnboardingImage.setImageResource(R.drawable.fried_chicken_with_vegetables_herbs_aluminum_skillet);
+        binding.firstOnboardingImage.setImageResource(R.drawable.top_view_meals_tasty_yummy_different_pastries_dishes_brown_surface);
 
         binding.nextBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Navigation.findNavController(view).navigate(R.id.action_from_onboarding1_to_onboarding2);
+                Navigation.findNavController(binding.getRoot()).navigate(R.id.action_fragment_first_onboarding_screen_to_fragment_second_onboarding_screen);
+                Log.d("TAG", "onClick: navigated");
             }
         });
 
 
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        ActionBar toolbar = Objects.requireNonNull(requireActivity()).getActionBar();
+        if (toolbar!= null){
+
+            toolbar.hide();
+        }
+    }
 
     @Override
     public void onDestroyView() {
