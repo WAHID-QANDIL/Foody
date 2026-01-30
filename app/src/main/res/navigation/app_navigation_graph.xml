@@ -3,16 +3,28 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/app_navigation_graph"
-    app:startDestination="@id/fragment_fullscreen"
+    app:startDestination="@id/fragment_first_onboarding_screen"
     >
 
 
 <fragment
-    android:id="@+id/fragment_fullscreen"
-    android:name="org.wahid.foody.FullscreenFragment"
-    tools:layout="@layout/fragment_fullscreen"
-    android:label="onboarding1"/>
+    android:id="@+id/fragment_first_onboarding_screen"
+    android:name="org.wahid.foody.ui.FirstOnboardingScreenFragment"
+    tools:layout="@layout/fragment_first_onboarding_screen"
+    android:label="onboarding1"
+    >
 
+    <action
+        android:id="@+id/action_from_onboarding1_to_onboarding2"
+        app:destination="@id/fragment_second_onboarding_screen"
+        />
 
+</fragment>
+
+    <fragment
+        android:id="@+id/fragment_second_onboarding_screen"
+        android:name="org.wahid.foody.ui.SecondOnboardingScreenFragment"
+        tools:layout="@layout/fragment_second_onboarding_screen"
+        android:label="onboarding2"/>
 
 </navigation>

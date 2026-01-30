@@ -9,4 +9,19 @@
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="skip">Skip</string>
+    <string name="plan_your_week">Plan Your Week</string>
+    <string name="frst_onboarding_screen_desription">Get your favorites meals handy</string>
+    <string name="image">image</string>
+    <string name="next">Next</string>
+    <string name="get_started">Get Started</string>
+    <string name="save_recipes_for_offline_use_and_cook_even_without_an_internet_connection">Save recipes for offline use and cook\n even without an internet connection</string>
+    <string name="back">back</string>
+    <string name="welcome_back">Welcome Back</string>
+    <string name="let_s_get_spicy_log_in_to_your_meal_plan">Let\'s get spicy! Log in to your meal plan.</string>
+    <string name="enter_your_emaiil">Enter your emaiil</string>
+    <string name="enter_your_password">Enter your password</string>
+    <string name="login">Login</string>
 </resources>
