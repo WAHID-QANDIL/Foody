@@ -10,5 +10,23 @@
         <item name="cornerSize">16dp</item>
     </style>
 
+    <style name="AuthInputStyle">
+        <item name="android:background">@drawable/bg_input</item>
+        <item name="android:textColor">@color/primary</item>
+        <item name="android:textColorHint">@color/secondary</item>
+        <item name="android:padding">14dp</item>
+        <item name="android:drawablePadding">12dp</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+
+    <style name="PrimaryButton">
+        <item name="android:background">@drawable/bg_primary_button</item>
+        <item name="android:textColor">@color/background</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+
 
 </resources>

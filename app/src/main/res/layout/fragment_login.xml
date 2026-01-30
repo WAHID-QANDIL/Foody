@@ -40,6 +40,7 @@
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/welcome_tv"
+                android:textStyle="bold"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="@dimen/extra_large_padding"
