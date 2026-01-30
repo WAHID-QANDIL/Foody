@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.LoginFragment"
+    >
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        >
+
+        <LinearLayout
+            android:id="@+id/headers_section"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/large_padding"
+            android:layout_marginVertical="@dimen/extra_large_padding"
+            android:layout_marginTop="16dp"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            >
+
+            <ImageView
+                android:id="@+id/login_img"
+                android:layout_width="wrap_content"
+                android:scaleType="centerInside"
+                android:layout_height="120dp"
+                android:layout_gravity="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+
+                tools:src="@drawable/login_logo"/>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/welcome_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/extra_large_padding"
+                android:textSize="@dimen/header_text_size"
+                android:gravity="center"
+                android:text="@string/welcome_back" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/welcome_description_tv"
+                android:layout_width="match_parent"
+                android:textSize="@dimen/medium_text_size"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/let_s_get_spicy_log_in_to_your_meal_plan" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ed_input_section"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginHorizontal="@dimen/large_padding"
+            android:layout_marginVertical="@dimen/extra_large_padding"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/headers_section"
+            >
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/ed_login_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/enter_your_emaiil"
+                android:ems="10"
+                android:inputType="text" />
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/ed_login_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/large_padding"
+                android:ems="10"
+                android:hint="@string/enter_your_password"
+                android:inputType="textPassword"
+
+                />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/login_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/login"
+                android:layout_gravity="center"
+                app:backgroundTint="@color/primary"
+                android:background="@drawable/rounded_corner_shape"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginVertical="@dimen/medium_padding"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ed_input_section"
+            android:weightSum="3"
+            android:layout_marginHorizontal="4dp"
+            >
+
+            <com.google.android.material.divider.MaterialDivider
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="center_vertical"
+                android:layout_marginHorizontal="2dp"
+                />
+
+            <TextView
+                android:id="@+id/contunio_with_tv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/or_contention_with"
+                android:gravity="center|center_vertical"
+                />
+            <com.google.android.material.divider.MaterialDivider
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="center_vertical"
+                android:layout_marginHorizontal="2dp"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/social_btn_section"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
+            app:layout_constraintEnd_toEndOf="@+id/ed_input_section"
+            app:layout_constraintHorizontal_bias="0.142"
+            app:layout_constraintStart_toStartOf="@+id/divider"
+            app:layout_constraintTop_toBottomOf="@+id/divider"
+            app:layout_constraintVertical_bias="0.5">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/google_login_btn"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
+                android:layout_width="0dp"
+                android:layout_height="80dp"
+                android:layout_marginHorizontal="@dimen/medium_padding"
+                android:layout_weight="1"
+                android:backgroundTint="@color/background"
+                android:drawablePadding="8dp"
+                android:gravity="center"
+                android:paddingStart="24dp"
+                android:paddingTop="@dimen/medium_padding"
+                android:paddingEnd="24dp"
+                android:paddingBottom="@dimen/medium_padding"
+                android:text="@string/google"
+                android:textColor="@color/white"
+                app:cornerRadius="@dimen/medium_padding"
+                app:icon="@drawable/google"
+                app:iconTint="@color/white" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/facebook_login_btn"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
+                android:layout_width="0dp"
+                android:layout_height="80dp"
+                android:layout_marginHorizontal="@dimen/medium_padding"
+                android:layout_weight="1"
+                android:backgroundTint="@color/background"
+                android:drawablePadding="8dp"
+                android:drawableTint="@color/white"
+                android:gravity="center"
+                android:paddingStart="24dp"
+                android:paddingTop="@dimen/medium_padding"
+                android:paddingEnd="24dp"
+                android:paddingBottom="@dimen/medium_padding"
+                android:text="@string/facebook"
+                android:textColor="@color/white"
+                app:cornerRadius="@dimen/medium_padding"
+                app:icon="@drawable/facebook_logo"
+                app:iconTint="@color/white" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/social_btn_section"
+            app:layout_constraintStart_toStartOf="@+id/social_btn_section"
+            app:layout_constraintTop_toBottomOf="@+id/social_btn_section">
+
+            <TextView
+                android:id="@+id/new_to_foody_tv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="end|center_vertical"
+                android:text="New to Foody? " />
+
+            <TextView
+                android:id="@+id/join_now_btn"
+                android:clickable="true"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="start|center_vertical"
+                android:text="@string/join_now"
+                android:textColor="@color/primary" />
+
+        </LinearLayout>
+
+
+
+
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+</ScrollView>
