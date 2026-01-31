@@ -14,9 +14,9 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import org.wahid.foody.R;
-import org.wahid.foody.domain.remote.meal_service.MealResponse;
-import org.wahid.foody.domain.remote.meal_service.RemoteMealRepository;
-import org.wahid.foody.domain.remote.meal_service.RemoteMealResponse;
+import org.wahid.foody.domain.remote.meal_service.dto.MealResponse;
+import org.wahid.foody.domain.remote.meal_service.api.RemoteMealRepository;
+import org.wahid.foody.domain.remote.meal_service.api.RemoteMealResponseCallback;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         RemoteMealRepository remoteMealRepository = new RemoteMealRepository();
 
 
-        remoteMealRepository.getMealsByFirstChar("b", new RemoteMealResponse<MealResponse, Throwable>() {
+        remoteMealRepository.getMealsByFirstChar("b", new RemoteMealResponseCallback<MealResponse, Throwable>() {
             @RequiresApi(api = Build.VERSION_CODES.VANILLA_ICE_CREAM)
             @Override
             public void onSuccess(MealResponse response) {

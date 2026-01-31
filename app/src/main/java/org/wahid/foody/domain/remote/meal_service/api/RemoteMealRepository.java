@@ -1,14 +1,15 @@
-package org.wahid.foody.domain.remote.meal_service;
+package org.wahid.foody.domain.remote.meal_service.api;
 
+import org.wahid.foody.domain.remote.meal_service.dto.MealResponse;
 import org.wahid.foody.domain.remote.network.RetrofitClient;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class RemoteMealRepository {
-    MealsApiService mealsApiService = RetrofitClient.getRetrofitServiceInstance(MealsApiService.class);
+    MealApiService mealsApiService = RetrofitClient.getRetrofitServiceInstance(MealApiService.class);
 
-    public void getMealsByFirstChar(String firstChar, RemoteMealResponse<MealResponse,Throwable> callback){
+    public void getMealsByFirstChar(String firstChar, RemoteMealResponseCallback<MealResponse,Throwable> callback){
 
         mealsApiService.getAllMeals(firstChar).enqueue(new Callback<MealResponse>() {
             @Override
