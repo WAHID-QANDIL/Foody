@@ -52,4 +52,8 @@ dependencies {
     implementation(libs.core.splashscreen)
     implementation(libs.navigation.fragment)
     implementation(libs.navigation.ui)
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
+    implementation(libs.logging.interceptor)
+
 }
