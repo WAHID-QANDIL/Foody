@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/app_navigation_graph"
+    app:startDestination="@id/fragment_first_onboarding_screen"
+    >
+
+
+    <fragment
+        android:id="@+id/fragment_first_onboarding_screen"
+        android:name="org.wahid.foody.view.FirstOnboardingScreenFragment"
+        tools:layout="@layout/fragment_first_onboarding_screen"
+        android:label="onboarding1"
+        >
+
+        <action
+            android:id="@+id/action_fragment_first_onboarding_screen_to_fragment_second_onboarding_screen"
+            app:destination="@id/fragment_second_onboarding_screen" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragment_second_onboarding_screen"
+        android:name="org.wahid.foody.view.SecondOnboardingScreenFragment"
+        tools:layout="@layout/fragment_second_onboarding_screen"
+        android:label="onboarding2"
+        >
+
+        <action
+            android:id="@+id/action_fragment_second_onboarding_screen_to_fragment_login"
+            app:destination="@id/fragment_login"
+            app:popUpTo="@id/fragment_first_onboarding_screen"
+            app:popUpToInclusive="true"
+            />
+    </fragment>
+    <fragment
+        android:id="@+id/fragment_login"
+        android:name="org.wahid.foody.view.LoginFragment"
+        tools:layout="@layout/fragment_login"
+        android:label="login"
+        >
+
+        <action
+            android:id="@+id/action_fragment_login_to_registerFragment"
+            app:destination="@id/registerFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="org.wahid.foody.view.RegisterFragment"
+        android:label="fragment_register"
+        tools:layout="@layout/fragment_register" >
+        <action
+            android:id="@+id/action_registerFragment_to_fragment_login"
+            app:destination="@id/fragment_login" />
+    </fragment>
+</navigation>

@@ -12,6 +12,6 @@
         <item name="android:windowSplashScreenBehavior" tools:targetApi="33">icon_preferred</item>
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
 
-        
+
     </style>
 </resources>

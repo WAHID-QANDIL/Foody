@@ -2,9 +2,9 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.Foody.SplashScreen" parent="Theme.SplashScreen">
 
-    <item name="android:windowSplashScreenBackground" tools:targetApi="31">@color/primary</item>
+        <item name="splashScreenIconSize">160dp</item>
+        <item name="postSplashScreenTheme">@style/Base.Theme.Foody</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
 
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
 </resources>

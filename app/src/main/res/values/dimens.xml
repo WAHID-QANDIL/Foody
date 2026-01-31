@@ -1,0 +1,19 @@
+<resources>
+
+
+    // Components
+    <dimen name="fragment_horizontal_margin">16dp</dimen>
+    <dimen name="fragment_vertical_margin">16dp</dimen>
+    <dimen name="small_padding">8dp</dimen>
+    <dimen name="medium_padding">16dp</dimen>
+    <dimen name="large_padding">24dp</dimen>
+    <dimen name="extra_large_padding">32dp</dimen>
+
+    //Text font size
+
+    <dimen name="small_text_size">8sp</dimen>
+    <dimen name="medium_text_size">16sp</dimen>
+    <dimen name="large_text_size">24sp</dimen>
+    <dimen name="extra_large_text_size">32sp</dimen>
+    <dimen name="header_text_size">40sp</dimen>
+</resources>

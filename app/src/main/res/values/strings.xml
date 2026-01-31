@@ -1,4 +1,41 @@
 <resources>
     <string name="app_name">Foody</string>
     <string name="splash_icon">splash icon</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome!"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="skip">Skip</string>
+    <string name="plan_your_week">Plan Your Week</string>
+    <string name="frst_onboarding_screen_desription">Get your favorites meals handy</string>
+    <string name="image">image</string>
+    <string name="next">Next</string>
+    <string name="get_started">Get Started</string>
+    <string name="save_recipes_for_offline_use_and_cook_even_without_an_internet_connection">Save recipes for offline use and cook\n even without an internet connection</string>
+    <string name="back">back</string>
+    <string name="welcome_back">Welcome Back</string>
+    <string name="let_s_get_spicy_log_in_to_your_meal_plan">Let\'s get spicy! Log in to your meal plan.</string>
+    <string name="enter_your_emaiil">Enter your emaiil</string>
+    <string name="enter_your_password">Enter your password</string>
+    <string name="login">Login</string>
+    <string name="cook_everywhere">Cook Everywhere</string>
+    <string name="google">Google</string>
+    <string name="facebook">Facebook</string>
+    <string name="or_continue_with">OR CONTINUE WITH</string>
+    <string name="join_now">Join now</string>
+    <string name="register">Register</string>
+    <string name="by_signing_up_you_agree_to_our_terms_of_service_and_privacy_policy">By signing up, you agree to our Terms of Service and Privacy Policy.</string>
+    <string name="full_name">Full Name</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="plan_your_weekly_meals_and_discover_new_recipes_join_our_community_of_food_lovers_today">Plan your weekly meals and discover new recipes. Join our community of food lovers today.</string>
+    <string name="create_account">Create Account</string>
+    <string name="enter_your_full_name">Enter Your Full Name</string>
+    <string name="new_to_foody">New to Foody?</string>
 </resources>
