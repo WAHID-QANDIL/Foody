@@ -30,10 +30,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         int color = ContextCompat.getColor(this, R.color.primary);
         EdgeToEdge.enable(this,
-                SystemBarStyle.dark(
+                SystemBarStyle.light(
+                        color,
                         color
                 ),
-                SystemBarStyle.dark(
+                SystemBarStyle.light(
+                        color,
                         color
                 )
         );
@@ -47,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
             public void run() {
                 Log.d("TAG", "RUN: "+ Thread.currentThread().getName());
                 MealsApiService mealsApiService = RetrofitClient.getRetrofitServiceInstance();
-                mealsApiService.getAllMeals().enqueue(new Callback<MealResponse>() {
+                mealsApiService.getAllMeals("b").enqueue(new Callback<MealResponse>() {
 
                     @Override
                     public void onResponse(Call<MealResponse> call, Response<MealResponse> response) {
