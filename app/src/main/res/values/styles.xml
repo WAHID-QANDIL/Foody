@@ -27,6 +27,28 @@
         <item name="android:textSize">16sp</item>
     </style>
 
+    <style name="Widget.App.TextInputLayout.Filled"
+        parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
 
+        <!-- Background color -->
+        <item name="boxBackgroundColor">@color/colorPrimaryLight</item>
 
+        <!-- Corner radius -->
+        <item name="boxCornerRadiusTopStart">@dimen/medium_padding</item>
+        <item name="boxCornerRadiusTopEnd">@dimen/medium_padding</item>
+        <item name="boxCornerRadiusBottomStart">@dimen/medium_padding</item>
+        <item name="boxCornerRadiusBottomEnd">@dimen/medium_padding</item>
+
+        <!-- Stroke colors -->
+        <item name="boxStrokeColor">@color/colorPrimaryLight</item>
+        <item name="boxStrokeWidth">1dp</item>
+        <item name="boxStrokeWidthFocused">2dp</item>
+
+        <!-- Hint & label -->
+        <item name="hintTextColor">@color/textPrimary</item>
+        <item name="android:textColorHint">@color/textPrimary</item>
+        <item name="errorTextColor">@color/error</item>
+        <item name="boxStrokeErrorColor">@color/error</item>
+
+    </style>
 </resources>

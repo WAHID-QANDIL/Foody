@@ -10,7 +10,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/primary_dark"
+        android:background="@color/color_primary"
         android:orientation="vertical"
         android:paddingHorizontal="@dimen/extra_large_padding"
         android:paddingVertical="@dimen/large_padding">
@@ -21,10 +21,10 @@
 
             <ImageView
                 android:id="@+id/register_Back_btn"
-                android:layout_width="24dp"
+                android:layout_width="@dimen/medium_padding"
                 android:layout_height="match_parent"
-                android:layout_alignParentStart="true"
-                android:paddingVertical="16dp"
+                android:layout_margin="@dimen/medium_padding"
+                android:backgroundTint="@color/colorPrimaryLight"
                 android:contentDescription="@string/register"
                 android:src="@drawable/outline_arrow_back_ios_24" />
 
@@ -39,7 +39,7 @@
                 android:background="@drawable/rounded_corner_shape"
                 android:fontFamily="@font/agbalumo"
                 android:text="@string/login"
-                android:textColor="@color/primary"
+                android:textColor="@color/textOnPrimary"
                 android:textStyle="bold"
                 android:clickable="true" />
         </RelativeLayout>
@@ -58,7 +58,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:text="@string/create_account"
-            android:textColor="@color/primary"
+            android:textColor="@color/textOnPrimary"
             android:textSize="@dimen/extra_large_text_size"
             android:textStyle="bold" />
 
@@ -67,50 +67,81 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="@string/plan_your_weekly_meals_and_discover_new_recipes_join_our_community_of_food_lovers_today"
-            android:textColor="@color/primary"
-            android:textSize="@dimen/medium_text_size" />
+            android:textColor="@color/textOnPrimary"
+            android:textSize="@dimen/small_text_size" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/large_padding"
             android:text="@string/full_name"
-            android:textColor="@color/secondary" />
+            android:textColor="@color/textOnPrimary" />
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/ed_register_ustername"
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.App.TextInputLayout.Filled"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/enter_your_full_name"
-            android:inputType="text" />
+            android:textColorHint="@color/textDisabled"
+            >
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/ed_register_ustername"
+                android:layout_width="match_parent"
+                android:textSize="@dimen/medium_text_size"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:textColor="@color/textOnPrimary"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/medium_padding"
             android:text="@string/email"
-            android:textColor="@color/secondary" />
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/ed_register_email"
+            android:textColor="@color/textOnPrimary" />
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.App.TextInputLayout.Filled"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/enter_your_emaiil"
-            android:inputType="textEmailAddress" />
+            android:textColorHint="@color/textDisabled"
+            >
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/ed_register_email"
+                android:layout_width="match_parent"
+                android:textColorHint="@color/textDisabled"
+                android:textSize="@dimen/medium_text_size"
+                android:layout_height="wrap_content"
+
+                android:inputType="textEmailAddress" />
+        </com.google.android.material.textfield.TextInputLayout>
+
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/medium_padding"
             android:text="@string/password"
-            android:textColor="@color/secondary" />
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/ed_register_password"
+            android:textColor="@color/textOnPrimary" />
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.App.TextInputLayout.Filled"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/enter_your_password"
-            android:inputType="textPassword" />
+            android:textColorHint="@color/textDisabled"
+            >
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/ed_register_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColorHint="@color/textDisabled"
+                android:textSize="@dimen/medium_text_size"
+                android:inputType="textPassword" />
+        </com.google.android.material.textfield.TextInputLayout>
+
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/register_btn"
@@ -119,7 +150,9 @@
             android:layout_marginVertical="@dimen/large_padding"
             android:text="@string/register"
             android:background="@drawable/rounded_corner_shape"
-            app:backgroundTint="@color/primary" />
+            app:backgroundTint="@color/colorPrimaryLight"
+            android:textColor="@color/textPrimary"
+            />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -131,11 +164,13 @@
             <com.google.android.material.divider.MaterialDivider
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                app:dividerColor="@color/divider"
                 android:layout_weight="1" />
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:textColor="@color/textOnPrimary"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="@string/or_continue_with" />
@@ -143,6 +178,7 @@
             <com.google.android.material.divider.MaterialDivider
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                app:dividerColor="@color/divider"
                 android:layout_weight="1" />
         </LinearLayout>
 
@@ -168,10 +204,10 @@
                 android:layout_marginStart="8dp"
                 android:text="@string/google"
                 app:icon="@drawable/google"
-                android:textColor="@color/white"
                 app:cornerRadius="@dimen/medium_padding"
-                app:backgroundTint="@color/background"
-                app:iconTint="@color/white"
+                app:backgroundTint="@color/colorPrimaryLight"
+                android:textColor="@color/colorAccent"
+                app:iconTint="@color/colorAccent"
 
                 />
             <com.google.android.material.button.MaterialButton
@@ -188,11 +224,11 @@
                 android:paddingBottom="@dimen/medium_padding"
                 android:layout_marginStart="8dp"
                 android:text="@string/facebook"
-                android:textColor="@color/white"
                 app:cornerRadius="@dimen/medium_padding"
                 app:icon="@drawable/facebook_logo"
-                app:backgroundTint="@color/background"
-                app:iconTint="@color/white"
+                android:textColor="@color/colorAccent"
+                app:backgroundTint="@color/colorPrimaryLight"
+                app:iconTint="@color/colorAccent"
                 />
         </LinearLayout>
 
@@ -202,7 +238,7 @@
             android:layout_marginTop="24dp"
             android:gravity="center"
             android:text="@string/by_signing_up_you_agree_to_our_terms_of_service_and_privacy_policy"
-            android:textColor="@color/secondary"
+            android:textColor="@color/textOnPrimary"
             android:textSize="12sp"
             android:clickable="true" />
 

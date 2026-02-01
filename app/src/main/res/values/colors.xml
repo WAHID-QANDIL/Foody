@@ -1,17 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="primary_dark">#F5EDD9</color>
-    <color name="secondary">#FFe02a0f</color>
-    <color name="primary">#FFdb5a19</color>
-    <color name="dark_yellow">#FFd5801f</color>
-    <color name="yellow">#FFd9b327</color>
-    <color name="background">#122D52</color>
+
+
+    <!--    <color name="background">#122D52</color>-->
     <color name="light_blue_600">#FF039BE5</color>
     <color name="light_blue_900">#FF01579B</color>
     <color name="light_blue_A200">#FF40C4FF</color>
     <color name="light_blue_A400">#FF00B0FF</color>
     <color name="black_overlay">#66000000</color>
     <color name="input_bg">#1B3A63</color>
+
+
+    <!-- ================= BRAND COLORS ================= -->
+
+    <!-- Primary (Main brand / CTA) -->
+    <color name="color_primary">#C95D43</color>
+    <color name="colorPrimaryDark">#C95D43</color>
+    <color name="colorPrimaryLight">#FCE8E2</color>
+    <!-- Secondary (Fresh / health accent) -->
+    <color name="colorSecondary">#2A9D8F</color>
+    <color name="colorSecondaryDark">#1F7F74</color>
+    <color name="colorSecondaryLight">#DFF3F1</color>
+
+    <!-- Tertiary / Accent (Spice highlight) -->
+    <color name="colorAccent">#F4A261</color>
+    <color name="accent_yellow">#FFD9B327</color>
+    <!-- ================= UI NEUTRALS ================= -->
+
+    <!-- Backgrounds -->
+    <color name="background">#FFFFFF</color>
+    <color name="surface">#FAFAFA</color>
+
+    <!-- Cards / Containers -->
+    <color name="cardBackground">#FFFFFF</color>
+    <color name="divider">#E0E0E0</color>
+
+    <!-- ================= TEXT COLORS ================= -->
+
+    <!-- Primary text -->
+    <color name="textPrimary">#212121</color>
+
+    <!-- Secondary / hint text -->
+    <color name="textSecondary">#616161</color>
+
+    <!-- Disabled text -->
+    <color name="textDisabled">#9E9E9E</color>
+
+    <!-- Text on colored backgrounds -->
+    <color name="textOnPrimary">#FFFFFF</color>
+    <color name="textOnSecondary">#FFFFFF</color>
+
+
+    <!-- ================= STATUS COLORS ================= -->
+
+    <!-- Success (sync completed, saved) -->
+    <color name="success">#4CAF50</color>
+
+    <!-- Error (login failed, network issue) -->
+    <color name="error">#D32F2F</color>
+
+    <!-- Warning (offline mode banner) -->
+    <color name="warning">#F9A825</color>
+
+
 </resources>
