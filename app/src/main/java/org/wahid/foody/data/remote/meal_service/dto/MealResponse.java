@@ -1,6 +1,6 @@
 // YApi QuickType插件生成，具体参考文档:https://plugins.jetbrains.com/plugin/18847-yapi-quicktype/documentation
 
-package org.wahid.foody.domain.remote.meal_service.dto;
+package org.wahid.foody.data.remote.meal_service.dto;
 
 import java.util.List;
 

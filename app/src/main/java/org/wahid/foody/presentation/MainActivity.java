@@ -1,4 +1,4 @@
-package org.wahid.foody.view;
+package org.wahid.foody.presentation;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,16 +14,16 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import org.wahid.foody.R;
-import org.wahid.foody.domain.remote.meal_service.dto.MealResponse;
-import org.wahid.foody.domain.remote.meal_service.api.RemoteMealRepository;
-import org.wahid.foody.domain.remote.meal_service.api.RemoteMealResponseCallback;
+import org.wahid.foody.data.remote.meal_service.dto.MealResponse;
+import org.wahid.foody.data.remote.meal_service.api.RemoteMealRepository;
+import org.wahid.foody.data.remote.meal_service.api.RemoteMealResponseCallback;
 
 public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        int color = ContextCompat.getColor(this, R.color.primary);
+        int color = ContextCompat.getColor(this, R.color.color_primary);
         EdgeToEdge.enable(this,
                 SystemBarStyle.light(
                         color,

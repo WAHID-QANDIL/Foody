@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.LoginFragment"
+    tools:context=".presentation.auth.LoginFragment"
     android:background="@color/color_primary"
     >
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -83,12 +83,16 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/enter_your_emaiil"
                 android:textColorHint="@color/textDisabled"
+                app:cursorColor="@color/colorAccent"
+                app:cursorErrorColor="@color/error"
+                android:outlineAmbientShadowColor="@color/colorAccent"
+                app:errorTextColor="@color/error"
                 >
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/ed_login_email"
                     android:layout_width="match_parent"
                     android:textColorHint="@color/textDisabled"
-                    android:textColor="@color/textOnPrimary"
+                    android:textColor="@color/colorAccent"
                     android:layout_height="wrap_content"
                     android:ems="10"
                     android:inputType="text" />
@@ -106,12 +110,15 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/enter_your_password"
                 android:textColorHint="@color/textDisabled"
+                app:cursorColor="@color/colorAccent"
+                app:cursorErrorColor="@color/error"
+                android:outlineAmbientShadowColor="@color/colorAccent"
                 >
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/ed_login_password"
                     android:layout_width="match_parent"
-                    android:textColor="@color/textOnPrimary"
+                    android:textColor="@color/colorAccent"
                     android:textColorHint="@color/textDisabled"
                     android:layout_height="wrap_content"
                     android:ems="10"

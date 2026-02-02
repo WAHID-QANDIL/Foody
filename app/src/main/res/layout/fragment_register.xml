@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
-    tools:context=".view.RegisterFragment">
+    tools:context=".presentation.auth.RegisterFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -83,6 +83,9 @@
             android:layout_height="wrap_content"
             android:hint="@string/enter_your_full_name"
             android:textColorHint="@color/textDisabled"
+            app:cursorColor="@color/colorAccent"
+            app:cursorErrorColor="@color/error"
+            android:outlineAmbientShadowColor="@color/colorAccent"
             >
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/ed_register_ustername"
@@ -90,7 +93,7 @@
                 android:textSize="@dimen/medium_text_size"
                 android:layout_height="wrap_content"
                 android:inputType="text"
-                android:textColor="@color/textOnPrimary"
+                android:textColor="@color/colorAccent"
                 />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -108,6 +111,9 @@
             android:layout_height="wrap_content"
             android:hint="@string/enter_your_emaiil"
             android:textColorHint="@color/textDisabled"
+            app:cursorColor="@color/colorAccent"
+            app:cursorErrorColor="@color/error"
+            android:outlineAmbientShadowColor="@color/colorAccent"
             >
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/ed_register_email"
@@ -115,7 +121,7 @@
                 android:textColorHint="@color/textDisabled"
                 android:textSize="@dimen/medium_text_size"
                 android:layout_height="wrap_content"
-
+                android:textColor="@color/colorAccent"
                 android:inputType="textEmailAddress" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -132,12 +138,16 @@
             android:layout_height="wrap_content"
             android:hint="@string/enter_your_password"
             android:textColorHint="@color/textDisabled"
+            app:cursorColor="@color/colorAccent"
+            app:cursorErrorColor="@color/error"
+            android:outlineAmbientShadowColor="@color/colorAccent"
             >
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/ed_register_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColorHint="@color/textDisabled"
+                android:textColor="@color/colorAccent"
                 android:textSize="@dimen/medium_text_size"
                 android:inputType="textPassword" />
         </com.google.android.material.textfield.TextInputLayout>

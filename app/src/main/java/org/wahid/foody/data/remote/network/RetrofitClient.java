@@ -1,9 +1,9 @@
-package org.wahid.foody.domain.remote.network;
+package org.wahid.foody.data.remote.network;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import org.wahid.foody.domain.remote.meal_service.dto.MealDto;
+import org.wahid.foody.data.remote.meal_service.dto.MealDto;
 import org.wahid.foody.utils.RemoteMealResponseTypeAdapter;
 
 import okhttp3.OkHttpClient;

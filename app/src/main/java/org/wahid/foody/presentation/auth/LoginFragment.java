@@ -1,4 +1,4 @@
-package org.wahid.foody.view;
+package org.wahid.foody.presentation.auth;
 
 import android.app.ActionBar;
 import android.os.Bundle;
@@ -8,24 +8,24 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import org.wahid.foody.R;
-import org.wahid.foody.databinding.FragmentFirstOnboardingScreenBinding;
+import org.wahid.foody.databinding.FragmentLoginBinding;
 
 import java.util.Objects;
 
-public class FirstOnboardingScreenFragment extends Fragment {
+public class LoginFragment extends Fragment {
 
+    private FragmentLoginBinding binding;
 
-    private FragmentFirstOnboardingScreenBinding binding;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding = FragmentFirstOnboardingScreenBinding.inflate(getLayoutInflater(),container,false);
+
+        binding = FragmentLoginBinding.inflate(getLayoutInflater(), container, false);
         return binding.getRoot();
     }
 
@@ -33,16 +33,13 @@ public class FirstOnboardingScreenFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        binding.firstOnboardingImage.setImageResource(R.drawable.top_view_meals_tasty_yummy_different_pastries_dishes_brown_surface);
-
-        binding.nextBtn.setOnClickListener(new View.OnClickListener() {
+        binding.loginImg.setImageResource(R.drawable.login_logo);
+        binding.joinNowBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Navigation.findNavController(binding.getRoot()).navigate(R.id.action_fragment_first_onboarding_screen_to_fragment_second_onboarding_screen);
-                Log.d("TAG", "onClick: navigated");
+                Navigation.findNavController(binding.getRoot()).navigate(R.id.action_fragment_login_to_registerFragment);
             }
         });
-
 
     }
 
@@ -54,11 +51,5 @@ public class FirstOnboardingScreenFragment extends Fragment {
 
             toolbar.hide();
         }
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-
     }
 }

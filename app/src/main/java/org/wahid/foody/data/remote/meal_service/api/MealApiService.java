@@ -1,8 +1,8 @@
-package org.wahid.foody.domain.remote.meal_service.api;
+package org.wahid.foody.data.remote.meal_service.api;
 
-import org.wahid.foody.domain.remote.meal_service.dto.CategoryFilterRemoteResponse;
-import org.wahid.foody.domain.remote.meal_service.dto.MealDto;
-import org.wahid.foody.domain.remote.meal_service.dto.MealResponse;
+import org.wahid.foody.data.remote.meal_service.dto.CategoryFilterRemoteResponse;
+import org.wahid.foody.data.remote.meal_service.dto.MealDto;
+import org.wahid.foody.data.remote.meal_service.dto.MealResponse;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
