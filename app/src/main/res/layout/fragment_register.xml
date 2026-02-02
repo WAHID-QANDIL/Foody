@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
-    tools:context=".presentation.auth.RegisterFragment">
+    tools:context=".presentation.auth.register.RegisterFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
