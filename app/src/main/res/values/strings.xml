@@ -38,4 +38,5 @@
     <string name="create_account">Create Account</string>
     <string name="enter_your_full_name">Enter Your Full Name</string>
     <string name="new_to_foody">New to Foody?</string>
+    <string name="ok">OK</string>
 </resources>
