@@ -4,14 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.auth.LoginFragment"
+    tools:context=".presentation.auth.login.LoginFragment"
     android:background="@color/color_primary"
     >
+
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:background="@color/color_primary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         >
+
+
         <LinearLayout
             android:id="@+id/headers_section"
             android:layout_width="match_parent"
@@ -281,10 +285,13 @@
         </LinearLayout>
 
 
-
-
-
-
+        <ProgressBar
+            android:id="@+id/login_progress_circular"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical|center_horizontal"
+            android:visibility="gone"
+            />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
