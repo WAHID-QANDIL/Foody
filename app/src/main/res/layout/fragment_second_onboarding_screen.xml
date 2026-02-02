@@ -4,28 +4,30 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.SecondOnboardingScreenFragment"
+    tools:context=".presentation.on_boarding.second_onboarding_screen.SecondOnboardingScreenFragment"
     android:orientation="vertical"
     android:paddingBottom="24dp"
-    android:background="@color/background"
+    android:background="@color/color_primary"
     >
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         >
         <TextView
             android:id="@+id/skip_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
-            android:textColor="@color/white"
+            android:textColor="@color/textOnPrimary"
+            android:letterSpacing="0.06"
+            android:textStyle="bold"
+            android:fontFamily="@font/agbalumo"
             android:gravity="end"
             android:text="@string/skip"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:background="@drawable/rounded_corner_shape"
-            android:backgroundTint="@color/primary"
             android:clickable="true"
             />
 
@@ -53,7 +55,9 @@
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/second_onboarding_image"
-            app:layout_constraintVertical_bias="0.737">
+            app:layout_constraintVertical_bias="0.737"
+            android:layout_marginTop="@dimen/medium_padding"
+            >
 
             <TextView
                 android:id="@+id/header_title_tv"
@@ -61,7 +65,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/agbalumo"
                 android:gravity="center"
-                android:textColor="@color/white"
+                android:textColor="@color/textOnPrimary"
                 android:text="@string/cook_everywhere"
                 android:textSize="24sp" />
 
@@ -74,7 +78,7 @@
                 android:gravity="center"
                 android:lines="3"
                 android:text="@string/save_recipes_for_offline_use_and_cook_even_without_an_internet_connection"
-                android:textColor="@color/white" />
+                android:textColor="@color/textOnPrimary" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/get_started_btn"
@@ -83,11 +87,11 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/rounded_corner_shape"
                 android:text="@string/get_started"
-                android:backgroundTint="@color/secondary"
+                android:backgroundTint="@color/surface"
                 android:layout_marginHorizontal="32dp"
                 android:paddingVertical="20dp"
                 android:textSize="16sp"
-                android:textColor="@color/white"
+                android:textColor="@color/textPrimary"
                 />
         </LinearLayout>
 

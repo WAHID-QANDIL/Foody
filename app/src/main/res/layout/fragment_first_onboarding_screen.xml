@@ -4,27 +4,29 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.FirstOnboardingScreenFragment"
+    tools:context=".presentation.on_boarding.first_onboarding_screen.FirstOnboardingScreenFragment"
     android:orientation="vertical"
-    android:background="@color/background"
+    android:background="@color/color_primary"
     android:paddingBottom="?attr/actionBarSize"
     >
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
         <TextView
             android:id="@+id/skip_tv"
+            android:fontFamily="@font/agbalumo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:textColor="@color/white"
+            android:layout_margin="@dimen/medium_padding"
+            android:textColor="@color/textOnPrimary"
+            android:textStyle="bold"
+            android:letterSpacing="0.06"
             android:gravity="end"
             android:text="@string/skip"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:background="@drawable/rounded_corner_shape"
-            android:backgroundTint="@color/primary"
             android:clickable="true"
             />
 
@@ -32,7 +34,7 @@
             android:id="@+id/first_onboarding_image"
             android:layout_width="match_parent"
             app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.ExtraLarge"
-            android:layout_height="409dp"
+            android:layout_height="400dp"
             android:layout_marginTop="64dp"
             android:contentDescription="@string/image"
             android:scaleType="centerCrop"
@@ -52,7 +54,9 @@
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/first_onboarding_image"
-            app:layout_constraintVertical_bias="0.737">
+            app:layout_constraintVertical_bias="0.737"
+            android:layout_marginTop="@dimen/medium_padding"
+            >
 
             <TextView
                 android:id="@+id/header_title_tv"
@@ -60,15 +64,16 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/agbalumo"
                 android:gravity="center"
-                android:textColor="@color/white"
+                android:textColor="@color/textOnPrimary"
                 android:text="@string/plan_your_week"
-                android:textSize="24sp" />
+                android:textSize="24sp"
+                />
 
             <TextView
                 android:id="@+id/description_tv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/white"
+                android:textColor="@color/textOnPrimary"
                 android:layout_marginVertical="16dp"
                 android:fontFamily="@font/agbalumo"
                 android:gravity="center"
@@ -81,11 +86,11 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/rounded_corner_shape"
                 android:text="@string/next"
-                android:backgroundTint="@color/primary"
                 android:layout_marginHorizontal="32dp"
                 android:paddingVertical="20dp"
                 android:textSize="16sp"
-                android:textColor="@color/white"
+                android:backgroundTint="@color/surface"
+                android:textColor="@color/textPrimary"
                 />
         </LinearLayout>
 

@@ -1,4 +1,4 @@
-package org.wahid.foody.view;
+package org.wahid.foody.presentation.auth;
 
 import android.app.ActionBar;
 import android.os.Bundle;
@@ -13,20 +13,19 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import org.wahid.foody.R;
-import org.wahid.foody.databinding.FragmentRegisterBinding;
+import org.wahid.foody.databinding.FragmentLoginBinding;
 
 import java.util.Objects;
 
-public class RegisterFragment extends Fragment {
+public class LoginFragment extends Fragment {
 
-    private FragmentRegisterBinding binding;
+    private FragmentLoginBinding binding;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        binding = FragmentRegisterBinding.inflate(getLayoutInflater(),container,false);
-
+        binding = FragmentLoginBinding.inflate(getLayoutInflater(), container, false);
         return binding.getRoot();
     }
 
@@ -34,26 +33,23 @@ public class RegisterFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        binding.registerBackToLoginBtn.setOnClickListener(listener);
-        binding.registerBackBtn.setOnClickListener(listener);
-        binding.registerImg.setImageResource(R.drawable.register_image);
-    }
+        binding.loginImg.setImageResource(R.drawable.login_logo);
+        binding.joinNowBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(binding.getRoot()).navigate(R.id.action_fragment_login_to_registerFragment);
+            }
+        });
 
+    }
 
     @Override
     public void onResume() {
         super.onResume();
         ActionBar toolbar = Objects.requireNonNull(requireActivity()).getActionBar();
         if (toolbar!= null){
+
             toolbar.hide();
         }
     }
-
-    View.OnClickListener listener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            Navigation.findNavController(binding.getRoot()).navigateUp();
-        }
-    };
 }
-

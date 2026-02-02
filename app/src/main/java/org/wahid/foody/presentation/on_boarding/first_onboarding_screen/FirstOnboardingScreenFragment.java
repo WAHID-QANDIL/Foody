@@ -1,4 +1,4 @@
-package org.wahid.foody.view;
+package org.wahid.foody.presentation.on_boarding.first_onboarding_screen;
 
 import android.app.ActionBar;
 import android.os.Bundle;
@@ -8,25 +8,26 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import org.wahid.foody.R;
-import org.wahid.foody.databinding.FragmentSecondOnboardingScreenBinding;
+import org.wahid.foody.databinding.FragmentFirstOnboardingScreenBinding;
 
 import java.util.Objects;
 
+public class FirstOnboardingScreenFragment extends Fragment implements FirstOnBoardingScreenView {
 
-public class SecondOnboardingScreenFragment extends Fragment {
 
-
-    FragmentSecondOnboardingScreenBinding binding;
+    private FragmentFirstOnboardingScreenBinding binding;
+    private FirstOnBoardingScreenPresenter presenter;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-        binding = FragmentSecondOnboardingScreenBinding.inflate(getLayoutInflater(),container,false);
+        binding = FragmentFirstOnboardingScreenBinding.inflate(getLayoutInflater(),container,false);
+        presenter = new FirstOnBoardingScreenPresenterImpl(binding.getRoot());
         return binding.getRoot();
     }
 
@@ -34,14 +35,9 @@ public class SecondOnboardingScreenFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        binding.secondOnboardingImage.setImageResource(R.drawable.fried_chicken_with_vegetables_herbs_aluminum_skillet);
-
-        binding.getStartedBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.findNavController(binding.getRoot()).navigate(R.id.action_fragment_second_onboarding_screen_to_fragment_login);
-            }
-        });
+        binding.firstOnboardingImage.setImageResource(R.drawable.top_view_meals_tasty_yummy_different_pastries_dishes_brown_surface);
+        binding.nextBtn.setOnClickListener((v)->{navigateNextClicked();});
+        binding.skipTv.setOnClickListener((v)->{skipOnboardingClicked();});
     }
 
     @Override
@@ -57,5 +53,16 @@ public class SecondOnboardingScreenFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+
+    }
+
+    @Override
+    public void navigateNextClicked() {
+        presenter.onNext();
+    }
+
+    @Override
+    public void skipOnboardingClicked() {
+        presenter.onSkip();
     }
 }
