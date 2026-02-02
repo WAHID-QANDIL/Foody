@@ -24,7 +24,7 @@
     <color name="colorSecondary">#2A9D8F</color>
     <color name="colorSecondaryDark">#1F7F74</color>
     <color name="colorSecondaryLight">#DFF3F1</color>
-
+    <color name="secondary">#FFe02a0f</color>
     <!-- Tertiary / Accent (Spice highlight) -->
     <color name="colorAccent">#F4A261</color>
     <color name="accent_yellow">#FFD9B327</color>
