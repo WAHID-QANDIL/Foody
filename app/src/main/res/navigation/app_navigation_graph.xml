@@ -38,7 +38,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragment_login"
-        android:name="org.wahid.foody.presentation.auth.LoginFragment"
+        android:name="org.wahid.foody.presentation.auth.login.LoginFragment"
         tools:layout="@layout/fragment_login"
         android:label="login"
         >
@@ -49,7 +49,7 @@
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
-        android:name="org.wahid.foody.presentation.auth.RegisterFragment"
+        android:name="org.wahid.foody.presentation.auth.register.RegisterFragment"
         android:label="fragment_register"
         tools:layout="@layout/fragment_register" >
         <action
