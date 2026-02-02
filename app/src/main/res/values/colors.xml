@@ -12,7 +12,9 @@
     <color name="light_blue_A400">#FF00B0FF</color>
     <color name="black_overlay">#66000000</color>
     <color name="input_bg">#1B3A63</color>
-
+    <color name="primary">#FFdb5a19</color>
+    <color name="dark_yellow">#FFd5801f</color>
+    <color name="yellow">#FFd9b327</color>
 
     <!-- ================= BRAND COLORS ================= -->
 
