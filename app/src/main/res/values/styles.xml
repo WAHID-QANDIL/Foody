@@ -31,7 +31,7 @@
         parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
 
         <!-- Background color -->
-        <item name="boxBackgroundColor">@color/colorPrimaryLight</item>
+        <item name="boxBackgroundColor">@color/white</item>
 
         <!-- Corner radius -->
         <item name="boxCornerRadiusTopStart">@dimen/medium_padding</item>

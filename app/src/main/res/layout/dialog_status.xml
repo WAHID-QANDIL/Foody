@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.circularreveal.cardview.CircularRevealCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="300dp"
@@ -55,16 +56,13 @@
         <!-- Action Button -->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnAction"
-            style="@style/ThemeOverlay.Material3.Button.TextButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="@dimen/large_padding"
             android:layout_gravity="center"
             app:backgroundTint="@color/colorAccent"
-            android:foregroundTint="@color/colorPrimaryLight"
             android:text="@string/login"
-            app:cornerRadius="@dimen/medium_padding"
             android:textColor="@color/textPrimary"/>
     </LinearLayout>
 
-</FrameLayout>
+</com.google.android.material.circularreveal.cardview.CircularRevealCardView>
