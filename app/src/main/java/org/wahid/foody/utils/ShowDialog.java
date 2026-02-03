@@ -38,7 +38,6 @@ public abstract class ShowDialog {
 
         Button btn = dialog.findViewById(R.id.btnAction);
         btn.setText(buttonText);
-        btn.setBackgroundTintList(ColorStateList.valueOf(buttonColor));
         btn.setOnClickListener(v -> dialog.dismiss());
         dialog.show();
     }

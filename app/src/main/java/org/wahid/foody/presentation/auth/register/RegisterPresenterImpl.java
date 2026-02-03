@@ -2,18 +2,16 @@ package org.wahid.foody.presentation.auth.register;
 
 import androidx.navigation.Navigation;
 
-import org.wahid.foody.R;
 import org.wahid.foody.data.remote.user_auth.AuthRepositoryImpl;
+import org.wahid.foody.data.remote.user_auth.AuthenticationServiceType;
 import org.wahid.foody.data.remote.user_auth.UserCredentials;
-import org.wahid.foody.data.remote.user_auth.firebase.FirebaseUserAuthenticator;
 import org.wahid.foody.data.remote.user_auth.firebase.OnAuthenticatedCallBack;
-import org.wahid.foody.presentation.auth.AuthRepository;
-import org.wahid.foody.presentation.auth.login.LoginFragment;
+import org.wahid.foody.data.remote.user_auth.firebase.email_password_auth_service.EmailPasswordCredentials;
 
 public class RegisterPresenterImpl implements RegisterPresenter {
 
     private RegisterView view;
-    private final AuthRepository authRepository = new AuthRepositoryImpl();
+
 
     public RegisterPresenterImpl(RegisterView view) {
         this.view = view;
@@ -22,10 +20,12 @@ public class RegisterPresenterImpl implements RegisterPresenter {
 
     @Override
     public void onRegisterButtonClicked(String email, String password) {
+        AuthRepositoryImpl authRepository = new AuthRepositoryImpl(AuthenticationServiceType.EMAIL_PASSWORD);
         if (!email.isEmpty() && !password.isEmpty()){
-            authRepository.register(email, password, new OnAuthenticatedCallBack() {
+            EmailPasswordCredentials credentials = new EmailPasswordCredentials(email, password);
+            authRepository.register(credentials, new OnAuthenticatedCallBack() {
                 @Override
-                public void onSuccess(UserCredentials credentials) {
+                public void onSuccess(UserCredentials userCredentials) {
                     view.showLoggedInSuccessfullyDialog(view);
                     //TODO need to add navigate back to login with these credentials to login, and then navigate home.
                 }
@@ -44,6 +44,11 @@ public class RegisterPresenterImpl implements RegisterPresenter {
     @Override
     public void onBackToLogin() {
         Navigation.findNavController(((RegisterFragment)view).requireView()).navigateUp();
+    }
+
+    @Override
+    public void registerWithGoogleClicked() {
+
     }
 
 }

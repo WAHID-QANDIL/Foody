@@ -37,7 +37,6 @@ public class RegisterFragment extends Fragment implements RegisterView {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         binding.registerBackToLoginBtn.setOnClickListener(listener);
-        binding.registerBackBtn.setOnClickListener(listener);
         binding.registerImg.setImageResource(R.drawable.register_image);
         binding.registerBtn.setOnClickListener((v)->{
             String email = Objects.requireNonNull(binding.edRegisterEmail.getText()).toString();

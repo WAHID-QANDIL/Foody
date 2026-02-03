@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        int color = ContextCompat.getColor(this, R.color.color_primary);
+        int color = ContextCompat.getColor(this, R.color.colorPrimaryLight);
         EdgeToEdge.enable(this,
                 SystemBarStyle.light(
                         color,

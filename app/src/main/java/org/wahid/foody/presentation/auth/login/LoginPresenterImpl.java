@@ -4,26 +4,31 @@ import androidx.navigation.Navigation;
 
 import org.wahid.foody.R;
 import org.wahid.foody.data.remote.user_auth.AuthRepositoryImpl;
+import org.wahid.foody.data.remote.user_auth.AuthenticationServiceType;
 import org.wahid.foody.data.remote.user_auth.UserCredentials;
 import org.wahid.foody.data.remote.user_auth.firebase.OnAuthenticatedCallBack;
+import org.wahid.foody.data.remote.user_auth.firebase.email_password_auth_service.EmailPasswordCredentials;
+import org.wahid.foody.data.remote.user_auth.firebase.facebook_auth_service.FacebookCredentials;
+import org.wahid.foody.data.remote.user_auth.firebase.google_auth_service.GoogleCredentials;
+import org.wahid.foody.presentation.auth.AuthCredentials;
 import org.wahid.foody.presentation.auth.AuthRepository;
 
 public class LoginPresenterImpl implements LoginPresenter{
 
     private LoginView view;
-    private AuthRepository authRepository;
 
     public LoginPresenterImpl(LoginView view) {
         this.view = view;
-        authRepository = new AuthRepositoryImpl();
     }
     @Override
-    public void onLogin(String username, String password) {
+    public void onLoginClicked(String username, String password) {
+        AuthRepository<AuthCredentials> authRepository = new AuthRepositoryImpl(AuthenticationServiceType.EMAIL_PASSWORD);
 
         if (!username.isEmpty() && !password.isEmpty()){
-            authRepository.login(username, password, new OnAuthenticatedCallBack() {
+            EmailPasswordCredentials credentials = new EmailPasswordCredentials(username, password);
+            authRepository.login(credentials, new OnAuthenticatedCallBack() {
                 @Override
-                public void onSuccess(UserCredentials credentials) {
+                public void onSuccess(UserCredentials userCredentials) {
                     view.hideProgressIndicator();
                     view.showLoggedInSuccessfullyDialog(view);
                 }
@@ -37,6 +42,28 @@ public class LoginPresenterImpl implements LoginPresenter{
             view.showErrorDialog(view,"The email or password can't be empty");
         }
     }
+
+    @Override
+    public void onLoginWithGoogleClicked(GoogleCredentials credentials) {
+        AuthRepository<AuthCredentials> authRepository = new AuthRepositoryImpl(AuthenticationServiceType.GOOGLE);
+        authRepository.login(credentials, new OnAuthenticatedCallBack() {
+            @Override
+            public void onSuccess(UserCredentials credentials) {
+
+            }
+
+            @Override
+            public void onFail(Throwable throwable) {
+
+            }
+        });
+    }
+
+    @Override
+    public void onLoginWithFacebookClicked(FacebookCredentials credentials) {
+
+    }
+
 
     @Override
     public void onRegisterClicked() {
