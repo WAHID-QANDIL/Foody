@@ -42,7 +42,7 @@ public class LoginFragment extends Fragment implements LoginView{
         binding.loginBtn.setOnClickListener((v)->{
             String username = Objects.requireNonNull(binding.edLoginEmail.getText()).toString();
             String password = Objects.requireNonNull(binding.edLoginPassword.getText()).toString();
-            presenter.onLogin(username,password);
+            presenter.onLoginClicked(username,password);
         });
 
     }
