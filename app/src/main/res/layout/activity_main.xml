@@ -8,7 +8,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:theme="@style/Base.Theme.Foody"
-    tools:context=".view.MainActivity"
+    tools:context=".presentation.MainActivity"
     >
 
     <androidx.fragment.app.FragmentContainerView

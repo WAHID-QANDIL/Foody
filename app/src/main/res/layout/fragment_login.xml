@@ -4,12 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.LoginFragment"
+    tools:context=".presentation.auth.login.LoginFragment"
+    android:background="@color/colorPrimaryLight"
     >
+
+
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:background="@color/colorPrimaryLight"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         >
+
+
         <LinearLayout
             android:id="@+id/headers_section"
             android:layout_width="match_parent"
@@ -33,12 +39,12 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-
                 tools:src="@drawable/login_logo"/>
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/welcome_tv"
                 android:textStyle="bold"
+                android:textColor="@color/textPrimary"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="@dimen/extra_large_padding"
@@ -49,10 +55,11 @@
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/welcome_description_tv"
                 android:layout_width="match_parent"
-                android:textSize="@dimen/medium_text_size"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:gravity="center"
-                android:text="@string/let_s_get_spicy_log_in_to_your_meal_plan" />
+                android:text="@string/let_s_get_spicy_log_in_to_your_meal_plan"
+                android:textColor="@color/textDisabled"
+                android:textSize="@dimen/medium_text_size" />
         </LinearLayout>
 
         <LinearLayout
@@ -67,36 +74,63 @@
             app:layout_constraintTop_toBottomOf="@id/headers_section"
             >
 
-            <TextView
-                android:layout_marginTop="@dimen/medium_padding"
-                android:text="@string/email"
-                android:textColor="@color/secondary"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                />
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/ed_login_email"
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.App.TextInputLayout.Filled"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/enter_your_emaiil"
-                android:ems="10"
-                android:inputType="text" />
-            <TextView
-                android:text="@string/password"
-                android:textColor="@color/secondary"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                />
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/ed_login_password"
+                android:textColorHint="@color/textDisabled"
+                app:endIconMode="clear_text"
+                app:cursorColor="@color/colorAccent"
+                app:cursorErrorColor="@color/error"
+                android:outlineAmbientShadowColor="@color/colorAccent"
+                app:errorTextColor="@color/error"
+                android:layout_marginVertical="@dimen/medium_padding"
+                app:boxStrokeWidth="0dp"
+                >
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/ed_login_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType="text"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.App.TextInputLayout.Filled"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ems="10"
                 android:hint="@string/enter_your_password"
-                android:inputType="textPassword"
+                android:textColorHint="@color/textDisabled"
+                app:cursorColor="@color/colorAccent"
+                app:endIconMode="password_toggle"
+                app:boxStrokeWidth="0dp"
+                app:cursorErrorColor="@color/error"
+                android:outlineAmbientShadowColor="@color/colorAccent"
+                >
 
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/ed_login_password"
+                    android:layout_width="match_parent"
+                    android:textColor="@color/colorAccent"
+                    android:textColorHint="@color/textDisabled"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType="textPassword"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/forget_pass_btn"
+                android:clickable="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="start|center_vertical"
+                android:text="@string/forget_password"
+                android:textColor="@color/accent_yellow"
+                android:layout_marginVertical="@dimen/small_padding"
                 />
+
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/login_btn"
@@ -107,6 +141,17 @@
                 android:layout_gravity="center"
                 app:backgroundTint="@color/primary"
                 android:background="@drawable/rounded_corner_shape"
+                android:textColor="@color/white"
+                />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/join_as_gust_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/join_as_gust"
+                android:layout_gravity="center"
+                app:backgroundTint="@android:color/transparent"
+                android:background="@drawable/rounded_corner_shape"
+                android:textColor="@color/colorAccent"
                 />
 
         </LinearLayout>
@@ -126,8 +171,9 @@
 
             <com.google.android.material.divider.MaterialDivider
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="2dp"
                 android:layout_weight="1"
+                app:dividerColor="@color/white"
                 android:layout_gravity="center_vertical"
                 android:layout_marginHorizontal="2dp"
                 />
@@ -138,11 +184,13 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/or_continue_with"
+                android:textColor="@color/textPrimary"
                 android:gravity="center|center_vertical"
                 />
             <com.google.android.material.divider.MaterialDivider
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="2dp"
+                app:dividerColor="@color/white"
                 android:layout_weight="1"
                 android:layout_gravity="center_vertical"
                 android:layout_marginHorizontal="2dp"
@@ -161,18 +209,21 @@
             app:layout_constraintHorizontal_bias="0.142"
             app:layout_constraintStart_toStartOf="@+id/divider"
             app:layout_constraintTop_toBottomOf="@+id/divider"
-            app:layout_constraintVertical_bias="0.5">
+            app:layout_constraintVertical_bias="0.5"
+            android:layout_marginTop="@dimen/medium_padding"
+            >
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/google_login_btn"
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
                 android:layout_width="0dp"
+                app:strokeWidth="2dp"
+                app:strokeColor="@color/colorAccent"
                 android:layout_height="80dp"
                 android:layout_weight="1"
-                android:backgroundTint="@color/background"
+                android:backgroundTint="@color/white"
                 android:gravity="center"
                 android:text="@string/google"
-                android:textColor="@color/white"
                 android:paddingStart="24dp"
                 android:drawablePadding="8dp"
                 android:layout_marginHorizontal="@dimen/medium_padding"
@@ -181,7 +232,8 @@
                 android:paddingBottom="@dimen/medium_padding"
                 app:cornerRadius="@dimen/medium_padding"
                 app:icon="@drawable/google"
-                app:iconTint="@color/white"
+                android:textColor="@color/colorAccent"
+                app:iconTint="@color/colorAccent"
 
                 />
 
@@ -190,21 +242,24 @@
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
                 android:layout_width="0dp"
                 android:layout_height="80dp"
+                app:strokeWidth="2dp"
+                app:strokeColor="@color/colorAccent"
                 android:layout_marginHorizontal="@dimen/medium_padding"
                 android:layout_weight="1"
-                android:backgroundTint="@color/background"
+                android:backgroundTint="@color/white"
                 android:drawablePadding="8dp"
-                android:drawableTint="@color/white"
                 android:gravity="center"
                 android:paddingStart="24dp"
                 android:paddingTop="@dimen/medium_padding"
                 android:paddingEnd="24dp"
                 android:paddingBottom="@dimen/medium_padding"
                 android:text="@string/facebook"
-                android:textColor="@color/white"
                 app:cornerRadius="@dimen/medium_padding"
                 app:icon="@drawable/facebook_logo"
-                app:iconTint="@color/white" />
+                android:drawableTint="@color/white"
+                android:textColor="@color/colorAccent"
+                app:iconTint="@color/colorAccent"
+                />
         </LinearLayout>
 
         <LinearLayout
@@ -214,6 +269,7 @@
             android:orientation="horizontal"
             android:weightSum="2"
             android:gravity="center_horizontal"
+            android:layout_marginVertical="@dimen/medium_padding"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/social_btn_section"
             app:layout_constraintStart_toStartOf="@+id/social_btn_section"
@@ -225,7 +281,10 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="end|center_vertical"
-                android:text="@string/new_to_foody" />
+                android:text="@string/new_to_foody"
+                android:textColor="@color/textPrimary"
+                android:layout_marginHorizontal="@dimen/small_padding"
+                />
 
             <TextView
                 android:id="@+id/join_now_btn"
@@ -235,15 +294,19 @@
                 android:layout_weight="1"
                 android:gravity="start|center_vertical"
                 android:text="@string/join_now"
-                android:textColor="@color/primary" />
+                android:textColor="@color/accent_yellow"
+                />
 
         </LinearLayout>
 
 
-
-
-
-
+        <ProgressBar
+            android:id="@+id/login_progress_circular"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical|center_horizontal"
+            android:visibility="gone"
+            />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

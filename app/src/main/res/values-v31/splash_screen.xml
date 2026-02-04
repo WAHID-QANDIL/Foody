@@ -6,7 +6,7 @@
         <item name="android:windowSplashScreenBackground">@color/primary</item>
         <item name="android:windowSplashScreenAnimatedIcon">@drawable/splash_screen_anim_icon</item>
         <item name="android:windowSplashScreenAnimationDuration">4000</item>
-        <item name="android:windowSplashScreenIconBackgroundColor">@color/primary</item>
+        <item name="android:windowSplashScreenIconBackgroundColor">@color/colorAccent</item>
         <item name="splashScreenIconSize">160dp</item>
         <item name="postSplashScreenTheme">@style/Base.Theme.Foody</item>
         <item name="android:windowSplashScreenBehavior" tools:targetApi="33">icon_preferred</item>
