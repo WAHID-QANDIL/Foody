@@ -171,26 +171,38 @@
                 app:strokeColor="@color/colorAccent"
                 app:strokeWidth="2dp" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/facebook_register_btn"
-                style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
+            <FrameLayout
                 android:layout_width="0dp"
-                android:layout_height="80dp"
-                android:layout_marginHorizontal="@dimen/small_padding"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:drawablePadding="8dp"
-                android:paddingStart="24dp"
-                android:paddingTop="@dimen/medium_padding"
-                android:paddingEnd="24dp"
-                android:paddingBottom="@dimen/medium_padding"
-                android:text="@string/facebook"
-                android:textColor="@color/colorAccent"
-                app:backgroundTint="@color/white"
-                app:cornerRadius="@dimen/medium_padding"
-                app:icon="@drawable/facebook_logo"
-                app:iconTint="@color/colorAccent"
-                app:strokeColor="@color/colorAccent"
-                app:strokeWidth="2dp" />
+                android:layout_marginHorizontal="@dimen/small_padding"
+                >
+                <!-- The actual Facebook Button (Hidden) -->
+                <com.facebook.login.widget.LoginButton
+                    android:id="@+id/fb_login_hidden"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="gone"
+                    />
+
+                <!-- Your Custom Styled Material Button -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/facebook_register_btn"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:text="@string/facebook"
+                    android:textColor="@color/colorAccent"
+                    app:backgroundTint="@color/white"
+                    app:cornerRadius="@dimen/medium_padding"
+                    app:icon="@drawable/facebook_logo"
+                    app:iconTint="@color/colorAccent"
+                    app:strokeColor="@color/colorAccent"
+                    app:strokeWidth="2dp" />
+            </FrameLayout>
+
+
+
         </LinearLayout>
 
         <TextView

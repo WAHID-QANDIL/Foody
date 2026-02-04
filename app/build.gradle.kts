@@ -66,4 +66,6 @@ dependencies {
     implementation(libs.firebase.ui.auth)
     implementation(libs.facebook.login)
     implementation(libs.browser)
+    implementation(libs.rxandroid)
+    implementation(libs.rxjava)
 }

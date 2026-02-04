@@ -3,7 +3,6 @@ package org.wahid.foody.utils;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.widget.Button;
@@ -41,5 +40,4 @@ public abstract class ShowDialog {
         btn.setOnClickListener(v -> dialog.dismiss());
         dialog.show();
     }
-
 }

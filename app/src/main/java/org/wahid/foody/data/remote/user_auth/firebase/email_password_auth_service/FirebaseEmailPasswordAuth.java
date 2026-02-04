@@ -5,13 +5,14 @@ import com.google.firebase.auth.FirebaseUser;
 
 import org.wahid.foody.data.remote.user_auth.AuthenticationService;
 import org.wahid.foody.data.remote.user_auth.UserCredentials;
+import org.wahid.foody.data.remote.user_auth.firebase.FirebaseClient;
 import org.wahid.foody.data.remote.user_auth.firebase.OnAuthenticatedCallBack;
 
 import java.util.Objects;
 
 public class FirebaseEmailPasswordAuth implements AuthenticationService<EmailPasswordCredentials> {
 
-    private static final FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+    private static final FirebaseAuth firebaseAuth = FirebaseClient.getInstance();
 
     private void loginWithEmailPassword(String email, String password, OnAuthenticatedCallBack callBack) {
         firebaseAuth
