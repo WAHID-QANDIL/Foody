@@ -6,6 +6,7 @@ import androidx.credentials.GetCredentialRequest;
 
 import androidx.credentials.CredentialManager;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -98,26 +99,28 @@ public class RegisterFragment extends Fragment implements RegisterView {
     }
 
     @Override
-    public void showErrorDialog(RegisterView view, String errorMessage) {
+    public void showErrorDialog(Activity view, String errorMessage, Runnable onOk) {
         ShowDialog.show(
-                ((RegisterFragment)view).requireContext(),
+                view,
                 R.drawable.ic_error,
                 "Failed",
                 errorMessage,
                 R.color.divider,
-                "Ok"
+                "Ok",
+                onOk
         );
     }
 
     @Override
-    public void showSuccessDialog(RegisterView view, String message) {
+    public void showSuccessDialog(Activity view, String message, Runnable onOk) {
         ShowDialog.show(
-                ((RegisterFragment)view).requireContext(),
+                view,
                 R.drawable.ic_success,
                 "Success",
                 message,
                 R.color.divider,
-                "Ok"
+                "Ok",
+                onOk
         );
     }
 
@@ -144,6 +147,7 @@ public class RegisterFragment extends Fragment implements RegisterView {
                     }
                 }
         );
+        hideProgressIndicator();
 
 
     }

@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Home Dashboard Screen
+    Recreates the provided UI design using ConstraintLayout
+    Focused on minimal nesting, performance, and clarity
+-->
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:background="@color/colorPrimaryLight"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:orientation="vertical"
+    android:weightSum="1"
+    >
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight=".01"
+        android:padding="16dp"
+        >
+        <!-- =======================
+             HEADER SECTION
+             ======================= -->
+        <!-- User Avatar -->
+        <ImageView
+            android:id="@+id/img_avatar"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:src="@drawable/ic_avatar_placeholder"
+            android:contentDescription="User profile picture"
+            android:scaleType="centerCrop"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Greeting -->
+
+        <!-- User Name -->
+
+        <TextView
+            android:id="@+id/txt_greeting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:text="GOOD EVENING,"
+            android:textAllCaps="true"
+            android:textColor="@color/text_secondary"
+            android:textSize="12sp"
+            app:layout_constraintStart_toEndOf="@id/img_avatar"
+
+            app:layout_constraintTop_toTopOf="@id/img_avatar" />
+
+        <TextView
+            android:id="@+id/txt_username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Alex Thompson"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/text_primary"
+            app:layout_constraintStart_toStartOf="@id/txt_greeting"
+            app:layout_constraintTop_toBottomOf="@id/txt_greeting" />
+
+        <!-- Notification Icon -->
+        <ImageView
+            android:id="@+id/img_notification"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:padding="10dp"
+            android:background="@drawable/bg_circle_light"
+            android:src="@drawable/ic_notification"
+            android:contentDescription="Notifications"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/img_avatar" />
+
+        <!-- =======================
+             MEAL OF THE DAY HEADER
+             ======================= -->
+
+        <TextView
+            android:id="@+id/txt_meal_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Meal of the Day"
+            android:textSize="@dimen/large_padding"
+            android:layout_marginVertical="@dimen/medium_padding"
+            android:textStyle="bold"
+            android:textColor="@color/text_primary"
+            app:layout_constraintTop_toBottomOf="@id/img_avatar"
+            app:layout_constraintStart_toStartOf="parent"
+             />
+
+        <!-- Curated Badge -->
+        <TextView
+            android:id="@+id/txt_curated"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="CURATED"
+            android:textSize="10sp"
+            android:textAllCaps="true"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="4dp"
+            android:textColor="@color/colorAccent"
+            android:background="@drawable/bg_badge_orange"
+            app:layout_constraintBaseline_toBaselineOf="@id/txt_meal_title"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <!-- =======================
+             MEAL CARD
+             ======================= -->
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <include
+        android:id="@+id/random_meal_card"
+        layout="@layout/meal_custom_card_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight=".01"
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="2">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="start"
+            android:textColor="@color/textPrimary"
+            android:text="Popular this week"
+            android:textStyle="bold"
+            android:layout_marginTop="@dimen/medium_padding"
+            android:layout_marginHorizontal="@dimen/medium_padding"
+            android:textSize="@dimen/medium_text_size"
+            />
+        <TextView
+            android:id="@+id/tv_see_all"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginHorizontal="@dimen/medium_padding"
+            android:textColor="@color/colorPrimaryDark"
+            android:text="SEE ALL"
+            android:gravity="end"
+            android:textStyle="bold"
+            android:clickable="true"
+            android:layout_marginTop="@dimen/medium_padding"
+            android:textSize="@dimen/medium_text_size"
+            />
+
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/popular_meal_recyclerview"
+        android:layout_marginTop="@dimen/medium_padding"
+        android:layout_weight=".9"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        >
+    </androidx.recyclerview.widget.RecyclerView>
+
+
+</LinearLayout>

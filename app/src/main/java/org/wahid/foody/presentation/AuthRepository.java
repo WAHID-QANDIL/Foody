@@ -1,4 +1,4 @@
-package org.wahid.foody.presentation.auth;
+package org.wahid.foody.presentation;
 
 import org.wahid.foody.data.remote.user_auth.firebase.OnAuthenticatedCallBack;
 

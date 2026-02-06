@@ -8,4 +8,5 @@ interface LoginPresenter {
     void onLoginWithGoogleClicked(GoogleCredentials credentials);
     void onLoginWithFacebookClicked(FacebookCredentials credentials);
     void onRegisterClicked();
+    void onLoggedIn();
 }

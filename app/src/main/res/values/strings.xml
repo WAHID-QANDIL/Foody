@@ -43,4 +43,5 @@
     <string name="forget_password">Forget Password ?</string>
     <string name="facebook_app_id">785199587939715</string>
     <string name="facebook_client_token">6d6eeaa71006c1abb00967f9ff042494</string>
+    <string name="popular_meal_image">Popular Meal Image</string>
 </resources>
