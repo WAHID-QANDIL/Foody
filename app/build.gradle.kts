@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.google.gms.services)
+    alias(libs.plugins.safe.args)
 }
 
 android {
@@ -68,4 +69,5 @@ dependencies {
     implementation(libs.browser)
     implementation(libs.rxandroid)
     implementation(libs.rxjava)
+    implementation(libs.adapter.rxjava3)
 }

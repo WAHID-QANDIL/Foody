@@ -1,4 +1,5 @@
 [versions]
+adapterRxjava3                  = "3.0.0"
 agp                             = "8.13.2"
 browser                         = "1.9.0"
 coreSplashscreen                = "1.2.0"
@@ -27,8 +28,11 @@ retrofit                        = "3.0.0"
 googleGmsServicesVersion        = "4.4.4"
 rxandroid                       = "3.0.2"
 rxjava                          = "3.1.12"
+safeArgs                        = "2.9.7"
+
 
 [libraries]
+adapter-rxjava3                 = { module = "com.squareup.retrofit2:adapter-rxjava3", version.ref = "adapterRxjava3" }
 browser                         = { module = "androidx.browser:browser", version.ref = "browser" }
 core-splashscreen               = { module = "androidx.core:core-splashscreen", version.ref = "coreSplashscreen" }
 credentials-play-services-auth  = { module = "androidx.credentials:credentials-play-services-auth", version.ref = "credentialsPlayServicesAuth" }
@@ -60,5 +64,6 @@ rxandroid                       = { module = "io.reactivex.rxjava3:rxandroid", v
 rxjava                          = { module = "io.reactivex.rxjava3:rxjava", version.ref = "rxjava" }
 
 [plugins]
-android-application = { id = "com.android.application", version.ref = "agp" }
-google-gms-services = {id = "com.google.gms.google-services", version.ref = "googleGmsServicesVersion"}
+android-application             = { id = "com.android.application", version.ref = "agp" }
+google-gms-services             = {id = "com.google.gms.google-services", version.ref = "googleGmsServicesVersion"}
+safe-args                       = {id = "androidx.navigation.safeargs", version.ref = "safeArgs"}
