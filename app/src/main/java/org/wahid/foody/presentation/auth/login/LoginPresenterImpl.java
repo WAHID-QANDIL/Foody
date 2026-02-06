@@ -1,5 +1,7 @@
 package org.wahid.foody.presentation.auth.login;
 
+import androidx.navigation.NavOptions;
+import androidx.navigation.NavOptionsBuilder;
 import androidx.navigation.Navigation;
 
 import org.wahid.foody.R;
@@ -11,7 +13,7 @@ import org.wahid.foody.data.remote.user_auth.firebase.email_password_auth_servic
 import org.wahid.foody.data.remote.user_auth.firebase.facebook_auth_service.FacebookCredentials;
 import org.wahid.foody.data.remote.user_auth.firebase.google_auth_service.GoogleCredentials;
 import org.wahid.foody.presentation.auth.AuthCredentials;
-import org.wahid.foody.presentation.auth.AuthRepository;
+import org.wahid.foody.presentation.AuthRepository;
 
 public class LoginPresenterImpl implements LoginPresenter{
 
@@ -30,16 +32,31 @@ public class LoginPresenterImpl implements LoginPresenter{
                 @Override
                 public void onSuccess(UserCredentials userCredentials) {
                     view.hideProgressIndicator();
-                    view.showLoggedInSuccessfullyDialog(view);
+                    view.showSuccessDialog(((LoginFragment) view).requireActivity(), "Logged In", new Runnable() {
+                        @Override
+                        public void run() {
+                            onLoggedIn();
+                        }
+                    });
                 }
                 @Override
                 public void onFail(Throwable throwable) {
                     view.hideProgressIndicator();
-                    view.showErrorDialog(view,throwable.getMessage());
+                    view.showErrorDialog(((LoginFragment) view).requireActivity(), throwable.getMessage(), new Runnable() {
+                        @Override
+                        public void run() {
+                            //Nothing until now
+                        }
+                    });
                 }
             });
         }else {
-            view.showErrorDialog(view,"The email or password can't be empty");
+            view.showErrorDialog(((LoginFragment) view).requireActivity(), "The email or password can't be empty", new Runnable() {
+                @Override
+                public void run() {
+                    //Nothing until now
+                }
+            });
         }
     }
 
@@ -68,6 +85,11 @@ public class LoginPresenterImpl implements LoginPresenter{
     @Override
     public void onRegisterClicked() {
         Navigation.findNavController(((LoginFragment)view).requireView()).navigate(R.id.action_fragment_login_to_registerFragment);
+    }
+
+    @Override
+    public void onLoggedIn() {
+        Navigation.findNavController(((LoginFragment)view).requireView()).navigate(R.id.action_fragment_login_to_homeFragment);
     }
 
 }

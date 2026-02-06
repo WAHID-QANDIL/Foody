@@ -4,11 +4,13 @@ import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 
 import android.app.ActionBar;
+import android.app.Activity;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -67,26 +69,28 @@ public class LoginFragment extends Fragment implements LoginView{
     }
 
     @Override
-    public void showErrorDialog(LoginView view, String errorMessage) {
-      ShowDialog.show(
-                ((LoginFragment)view).requireContext(),
+    public void showErrorDialog(Activity view, String errorMessage,Runnable onOk) {
+        ShowDialog.show(
+                view,
                 R.drawable.ic_error,
-                "Login Failed",
+                "Failed",
                 errorMessage,
                 R.color.divider,
-                "Ok"
+                "Ok",
+                onOk
         );
     }
 
     @Override
-    public void showLoggedInSuccessfullyDialog(LoginView view) {
+    public void showSuccessDialog(Activity view, String message, Runnable onOk) {
         ShowDialog.show(
-                ((LoginFragment)view).requireContext(),
+                view,
                 R.drawable.ic_success,
-                "Login Success",
-                "Logged In",
+                "Success",
+                message,
                 R.color.divider,
-                "Ok"
+                "Ok",
+                onOk
         );
 
     }
