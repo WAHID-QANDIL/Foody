@@ -2,7 +2,7 @@ package org.wahid.foody.data.remote.user_auth;
 
 import org.wahid.foody.data.remote.user_auth.firebase.OnAuthenticatedCallBack;
 import org.wahid.foody.presentation.auth.AuthCredentials;
-import org.wahid.foody.presentation.auth.AuthRepository;
+import org.wahid.foody.presentation.AuthRepository;
 
 public class AuthRepositoryImpl implements AuthRepository<AuthCredentials> {
 
