@@ -1,5 +1,6 @@
 package org.wahid.foody.presentation.home;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.os.Bundle;
 
@@ -79,6 +80,14 @@ public class HomeFragment extends Fragment implements HomeView {
         });
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        ActionBar toolbar = Objects.requireNonNull(requireActivity()).getActionBar();
+        if (toolbar!= null){
+            toolbar.hide();
+        }
+    }
 
     @Override
     public void onStart() {
