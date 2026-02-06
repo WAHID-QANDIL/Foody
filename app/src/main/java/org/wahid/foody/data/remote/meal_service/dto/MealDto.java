@@ -2,6 +2,9 @@ package org.wahid.foody.data.remote.meal_service.dto;
 
 import com.google.gson.annotations.SerializedName;
 
+import org.wahid.foody.presentation.model.MealDomainModel;
+
+import java.util.Arrays;
 import java.util.List;
 
 public record MealDto(
@@ -22,4 +25,18 @@ public record MealDto(
         @SerializedName("strSource")
         String sourceUrl,
         List<Ingredient> ingredients
-) { }
+) {
+
+    public MealDomainModel toDomainModel(){
+        return new MealDomainModel(mealId, mealName, category, area, mealImageUrl,mealVideoUrl,sourceUrl,splitInstructions(),ingredients);
+    }
+
+
+    private List<String> splitInstructions(){
+        return Arrays.asList(instructions.split("\\."));
+    }
+
+
+
+
+}

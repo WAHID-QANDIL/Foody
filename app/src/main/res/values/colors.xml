@@ -16,6 +16,14 @@
     <color name="dark_yellow">#FFd5801f</color>
     <color name="yellow">#FFd9b327</color>
 
+
+
+
+
+    <color name="background_light">#FFF9F6</color>
+    <color name="text_primary">#1C1C1C</color>
+    <color name="text_secondary">#8E8E8E</color>
+
     <!-- ================= BRAND COLORS ================= -->
 
     <!-- Primary (Main brand / CTA) -->

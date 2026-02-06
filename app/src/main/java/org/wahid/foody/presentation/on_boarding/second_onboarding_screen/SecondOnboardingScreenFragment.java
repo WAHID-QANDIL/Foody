@@ -6,7 +6,6 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,7 +37,8 @@ public class SecondOnboardingScreenFragment extends Fragment implements SecondOn
         super.onViewCreated(view, savedInstanceState);
         binding.secondOnboardingImage.setImageResource(R.drawable.fried_chicken_with_vegetables_herbs_aluminum_skillet);
         binding.getStartedBtn.setOnClickListener((v -> {navigateToLogin();}));
-        binding.skipTv.setOnClickListener((v -> {skipOnboardingClicked();}));
+        binding.skipTv.setOnClickListener((v -> {
+            skipOnboarding();}));
     }
 
     @Override
@@ -62,7 +62,7 @@ public class SecondOnboardingScreenFragment extends Fragment implements SecondOn
     }
 
     @Override
-    public void skipOnboardingClicked() {
+    public void skipOnboarding() {
         presenter.onSkip();
     }
 }

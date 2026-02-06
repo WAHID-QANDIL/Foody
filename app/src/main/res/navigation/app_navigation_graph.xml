@@ -19,7 +19,11 @@
             app:destination="@id/fragment_second_onboarding_screen" />
         <action
             android:id="@+id/action_fragment_first_onboarding_screen_to_fragment_login"
-            app:destination="@id/fragment_login" />
+            app:destination="@id/fragment_login"
+            app:popUpToInclusive="true"
+            app:popUpTo="@id/fragment_first_onboarding_screen"
+
+            />
     </fragment>
 
     <fragment
@@ -38,7 +42,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragment_login"
-        android:name="org.wahid.foody.presentation.auth.LoginFragment"
+        android:name="org.wahid.foody.presentation.auth.login.LoginFragment"
         tools:layout="@layout/fragment_login"
         android:label="login"
         >
@@ -46,14 +50,49 @@
         <action
             android:id="@+id/action_fragment_login_to_registerFragment"
             app:destination="@id/registerFragment" />
+        <action
+            android:id="@+id/action_fragment_login_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:popUpToInclusive="true"
+            app:popUpTo="@id/fragment_first_onboarding_screen"
+            >
+            <argument android:name="user" app:nullable="false" app:argType="org.wahid.foody.presentation.navigation.FirebaseUserNavArgument"/>
+        </action>
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
-        android:name="org.wahid.foody.presentation.auth.RegisterFragment"
+        android:name="org.wahid.foody.presentation.auth.register.RegisterFragment"
         android:label="fragment_register"
         tools:layout="@layout/fragment_register" >
         <action
             android:id="@+id/action_registerFragment_to_fragment_login"
             app:destination="@id/fragment_login" />
+        <action
+            android:id="@+id/action_registerFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:popUpToInclusive="true"
+            app:popUpTo="@id/fragment_first_onboarding_screen"
+            >
+            <argument android:name="user" app:nullable="false" app:argType="org.wahid.foody.presentation.navigation.FirebaseUserNavArgument"/>
+        </action>
     </fragment>
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="org.wahid.foody.presentation.home.HomeFragment"
+        android:label="HomeFragment"
+        tools:layout="@layout/fragment_home"
+        >
+        <action
+            android:id="@+id/action_homeFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment">
+            <argument android:name="mealId" app:argType="string" app:nullable="false"/>
+        </action>
+    </fragment>
+    <fragment
+        android:id="@+id/detailsFragment"
+        android:name="org.wahid.foody.presentation.details.DetailsFragment"
+        android:label="fragment_details"
+        tools:layout="@layout/fragment_details" />
+    <argument android:name="mealId" app:argType="string" app:nullable="false"/>
+
 </navigation>

@@ -27,7 +27,7 @@
     <string name="cook_everywhere">Cook Everywhere</string>
     <string name="google">Google</string>
     <string name="facebook">Facebook</string>
-    <string name="or_continue_with">OR CONTINUE WITH</string>
+    <string name="or_continue_with">Or contunie with</string>
     <string name="join_now">Join now</string>
     <string name="register">Register</string>
     <string name="by_signing_up_you_agree_to_our_terms_of_service_and_privacy_policy">By signing up, you agree to our Terms of Service and Privacy Policy.</string>
@@ -38,4 +38,10 @@
     <string name="create_account">Create Account</string>
     <string name="enter_your_full_name">Enter Your Full Name</string>
     <string name="new_to_foody">New to Foody?</string>
+    <string name="ok">OK</string>
+    <string name="join_as_gust">Join as gust</string>
+    <string name="forget_password">Forget Password ?</string>
+    <string name="facebook_app_id">785199587939715</string>
+    <string name="facebook_client_token">6d6eeaa71006c1abb00967f9ff042494</string>
+    <string name="popular_meal_image">Popular Meal Image</string>
 </resources>

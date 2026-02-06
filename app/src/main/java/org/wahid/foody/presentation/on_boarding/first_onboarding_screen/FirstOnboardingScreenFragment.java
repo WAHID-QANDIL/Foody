@@ -6,9 +6,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,8 +34,10 @@ public class FirstOnboardingScreenFragment extends Fragment implements FirstOnBo
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         binding.firstOnboardingImage.setImageResource(R.drawable.top_view_meals_tasty_yummy_different_pastries_dishes_brown_surface);
-        binding.nextBtn.setOnClickListener((v)->{navigateNextClicked();});
-        binding.skipTv.setOnClickListener((v)->{skipOnboardingClicked();});
+        binding.nextBtn.setOnClickListener((v)->{
+            navigateNext();});
+        binding.skipTv.setOnClickListener((v)->{
+            skipOnboarding();});
     }
 
     @Override
@@ -57,12 +57,12 @@ public class FirstOnboardingScreenFragment extends Fragment implements FirstOnBo
     }
 
     @Override
-    public void navigateNextClicked() {
+    public void navigateNext() {
         presenter.onNext();
     }
 
     @Override
-    public void skipOnboardingClicked() {
+    public void skipOnboarding() {
         presenter.onSkip();
     }
 }
