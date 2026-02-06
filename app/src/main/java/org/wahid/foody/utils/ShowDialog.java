@@ -21,7 +21,8 @@ public abstract class ShowDialog {
             String titleText,
             String messageText,
             int buttonColor,
-            String buttonText
+            String buttonText,
+            Runnable onOk
     ) {
         if (!(context instanceof Activity)) {
             throw new IllegalArgumentException("Dialog requires Activity context");
@@ -37,7 +38,10 @@ public abstract class ShowDialog {
 
         Button btn = dialog.findViewById(R.id.btnAction);
         btn.setText(buttonText);
-        btn.setOnClickListener(v -> dialog.dismiss());
+        btn.setOnClickListener(v -> {
+            dialog.dismiss();
+            onOk.run();
+        });
         dialog.show();
     }
 }
