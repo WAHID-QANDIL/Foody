@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingVertical="8dp"
+    android:background="@drawable/rounded_corner_shape"
+    android:backgroundTint="@color/colorPrimaryLight"
+    android:layout_margin="@dimen/small_padding"
+    android:padding="@dimen/medium_padding"
+    android:layout_marginVertical="@dimen/small_padding"
+    >
+
+
+    <TextView
+        android:id="@+id/tv_ingredient_order_number"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.2"
+        android:text="1"
+        android:textColor="@color/text_primary"/>
+    <TextView
+        android:id="@+id/tv_ingredient_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Fresh Salmon Fillet"
+        android:textColor="@color/text_primary"/>
+
+    <TextView
+        android:id="@+id/tv_ingredient_measure"
+        android:layout_width="wrap_content"
+        android:gravity="end"
+        android:layout_weight="0.4"
+        android:layout_height="wrap_content"
+        android:text="300g"
+        android:textColor="@color/text_secondary"/>
+</LinearLayout>
