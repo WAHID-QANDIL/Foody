@@ -7,7 +7,7 @@ import org.wahid.foody.presentation.MealRepository;
 import io.reactivex.rxjava3.core.Single;
 
 public class MealRepositoryImpl implements MealRepository {
-    private RemoteMealDatasource datasource = new RemoteMealDatasource();
+    private RemoteMealDatasource datasource;
 
     public MealRepositoryImpl(RemoteMealDatasource datasource) {
         this.datasource = datasource;

@@ -1,18 +1,18 @@
 package org.wahid.foody.presentation.home;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
-import androidx.navigation.Navigation;
 
+import androidx.annotation.RequiresApi;
+import androidx.navigation.Navigation;
 import org.wahid.foody.R;
 import org.wahid.foody.data.remote.meal_service.dto.MealDto;
 import org.wahid.foody.data.remote.meal_service.dto.MealResponse;
 import org.wahid.foody.presentation.MealRepository;
 import org.wahid.foody.presentation.model.MealDomainModel;
-
 import java.util.List;
 import java.util.Random;
-
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.annotations.NonNull;
 import io.reactivex.rxjava3.core.SingleObserver;
@@ -62,6 +62,7 @@ public class HomePresenterImpl implements HomePresenter{
             public void onSubscribe(@NonNull Disposable d) {
 
             }
+            @RequiresApi(api = Build.VERSION_CODES.VANILLA_ICE_CREAM)
             @Override
             public void onSuccess(@NonNull MealResponse mealResponse) {
                 view.bindRandomMealIntoCard(mealResponse.getMeals().getFirst().toDomainModel());
@@ -80,6 +81,7 @@ public class HomePresenterImpl implements HomePresenter{
     }
 
     private static final String TAG = "HomePresenterImpl";
+    @RequiresApi(api = Build.VERSION_CODES.VANILLA_ICE_CREAM)
     @Override
     public void fetchPopularMeals() {
         Character queryChar = (char) new Random().nextInt(97, 122);

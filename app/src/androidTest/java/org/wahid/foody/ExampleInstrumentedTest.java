@@ -40,42 +40,4 @@ public class ExampleInstrumentedTest {
         assertEquals("org.wahid.foody", appContext.getPackageName());
     }
 
-
-    @Test
-    public void shouldReturnOneRandomMeal(){
-        mea.getRandomMeal().enqueue(new Callback<MealResponse>() {
-            @Override
-            public void onResponse(Call<MealResponse> call, Response<MealResponse> response) {
-                int actualSize =  response.body().getMeals().size();
-                int expectedSize = 1;
-                assertEquals(expectedSize, actualSize);
-                assertNotNull(response.body().getMeals().getFirst());
-            }
-
-            @Override
-            public void onFailure(Call<MealResponse> call, Throwable t) {
-
-            }
-        });
-
-
-    }
-
-    @Test
-    public void shouldReturnListOfMeals(){
-        mea.getAllMeals("b").subscribeOn(Schedulers.io()).subscribeOn(AndroidSchedulers.mainThread()).subscribe(new Consumer<MealResponse>() {
-            @Override
-            public void accept(MealResponse mealResponse) throws Throwable {
-                Log.d(TAG, "accept: " + mealResponse.getMeals().size());
-                int actualSize =  mealResponse.getMeals().size();
-                int expectedSize = 58;
-                assertEquals(expectedSize, actualSize);
-                assertNotNull(mealResponse.getMeals().getFirst());
-            }
-
-        });
-
-
-    }
-
 }

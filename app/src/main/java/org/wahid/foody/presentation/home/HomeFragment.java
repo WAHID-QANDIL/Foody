@@ -2,10 +2,12 @@ package org.wahid.foody.presentation.home;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
@@ -43,7 +45,7 @@ public class HomeFragment extends Fragment implements HomeView {
     }
 
     private FragmentHomeBinding binding;
-    private HomePresenter presenter = new HomePresenterImpl(this,new MealRepositoryImpl(new RemoteMealDatasource()));
+    private HomePresenter presenter;
     private PopularMealsRecyclerViewAdapter adapter;
     private List<RecyclerViewCardItem> items = new ArrayList<>();
 
@@ -52,6 +54,7 @@ public class HomeFragment extends Fragment implements HomeView {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         adapter = new PopularMealsRecyclerViewAdapter();
+        presenter = new HomePresenterImpl(this,new MealRepositoryImpl(new RemoteMealDatasource()));
     }
 
     @Override
@@ -147,6 +150,7 @@ public class HomeFragment extends Fragment implements HomeView {
         });
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
     @Override
     public void bindPopularMealsIntoRecyclerView(List<MealDomainModel> models) {
         List<RecyclerViewCardItem> list = models.stream().map(it -> new RecyclerViewCardItem(it.mealId(), it.mealName(), it.area(), it.mealImageUrl())).toList();
