@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+
+    <item android:id="@+id/action_home"
+        android:title="@string/home"
+        android:icon="@drawable/outline_home_24"
+        android:iconTint="@color/primary"
+        />
+
+    <item android:id="@+id/action_settings"
+        android:title="@string/plan"
+        android:icon="@drawable/ic_calander"
+        android:iconTint="@color/primary"
+        />
+
+    <item android:id="@+id/action_favorite"
+        android:title="@string/favorite"
+        android:icon="@drawable/outline_favorite_24"
+        android:iconTint="@color/primary" />
+
+    <item android:id="@+id/action_category"
+        android:title="@string/categories"
+        android:icon="@drawable/outline_category_search_24"
+        android:iconTint="@color/primary"
+        />
+
+</menu>

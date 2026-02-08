@@ -44,4 +44,13 @@
     <string name="facebook_app_id">785199587939715</string>
     <string name="facebook_client_token">6d6eeaa71006c1abb00967f9ff042494</string>
     <string name="popular_meal_image">Popular Meal Image</string>
+    <string name="search_categories">Search categories</string>
+    <string name="user_profile_picture">User profile picture</string>
+    <string name="notifications">Notifications</string>
+    <string name="meal_of_the_day">Meal of the Day</string>
+    <string name="home">Home</string>
+    <string name="plan">PLan</string>
+    <string name="favorite">Favorite</string>
+    <string name="categories">Categories</string>
+    <string name="amazing_chief">Amazing chief</string>
 </resources>
