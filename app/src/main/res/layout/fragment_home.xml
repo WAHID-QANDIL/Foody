@@ -30,7 +30,7 @@
             android:layout_width="44dp"
             android:layout_height="44dp"
             android:src="@drawable/ic_avatar_placeholder"
-            android:contentDescription="User profile picture"
+            android:contentDescription="@string/user_profile_picture"
             android:scaleType="centerCrop"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -44,12 +44,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
-            android:text="GOOD EVENING,"
+            android:text="@string/welcome_back"
             android:textAllCaps="true"
             android:textColor="@color/text_secondary"
             android:textSize="12sp"
             app:layout_constraintStart_toEndOf="@id/img_avatar"
-
             app:layout_constraintTop_toTopOf="@id/img_avatar" />
 
         <TextView
@@ -71,7 +70,7 @@
             android:padding="10dp"
             android:background="@drawable/bg_circle_light"
             android:src="@drawable/ic_notification"
-            android:contentDescription="Notifications"
+            android:contentDescription="@string/notifications"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/img_avatar" />
 
@@ -83,8 +82,8 @@
             android:id="@+id/txt_meal_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Meal of the Day"
-            android:textSize="@dimen/large_padding"
+            android:text="@string/meal_of_the_day"
+            android:textSize="@dimen/large_text_size"
             android:layout_marginVertical="@dimen/medium_padding"
             android:textStyle="bold"
             android:textColor="@color/text_primary"
@@ -98,7 +97,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="CURATED"
-            android:textSize="10sp"
+            android:textSize="@dimen/small_text_size"
             android:textAllCaps="true"
             android:paddingHorizontal="10dp"
             android:paddingVertical="4dp"
@@ -118,7 +117,7 @@
         layout="@layout/meal_custom_card_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight=".01"
+        android:layout_weight=".001"
         />
     <LinearLayout
         android:layout_width="match_parent"
@@ -163,6 +162,14 @@
         android:orientation="horizontal"
         >
     </androidx.recyclerview.widget.RecyclerView>
+
+    <ProgressBar
+        android:id="@+id/progress_circular"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_vertical|center_horizontal"
+        android:visibility="gone"
+        />
 
 
 </LinearLayout>
