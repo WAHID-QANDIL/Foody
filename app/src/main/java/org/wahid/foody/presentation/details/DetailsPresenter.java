@@ -8,5 +8,4 @@ public interface DetailsPresenter {
     void onAddToFavClicked();
     void onAddToWeeklyPlay();
     void onViewCreated(Bundle bundle);
-
 }

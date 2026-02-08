@@ -84,12 +84,21 @@ public class DetailsFragment extends Fragment implements DetailsView {
     public void bindReceivedMealIntoComponents(MealDomainModel mealDomainModel) {
         binding.tvMealTitle.setText(mealDomainModel.mealName());
         ImageLoader.load(binding.imgMealHero, mealDomainModel.mealImageUrl());
-        List<IngredientRecyclerViewModel> mealIngredients = mealDomainModel.ingredients().stream().map(Ingredient::toRecyclerViewItem).toList();
+        List<IngredientRecyclerViewModel> mealIngredients = mealDomainModel
+                .ingredients()
+                .stream()
+                .map(Ingredient::toRecyclerViewItem)
+                .toList();
         List<String> mealInstructions = mealDomainModel.instructions();
+
+
         binding.rvIngredient.setLayoutManager(new LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false));
         binding.rvInstructions.setLayoutManager(new LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false));
+
         ingredientsRecyclerViewAdapter.updateAndNotifyListItems(mealIngredients);
         instructionsRecyclerViewAdapter.updateAndNotifyListItems(mealInstructions);
+
+
         binding.rvIngredient.setAdapter(ingredientsRecyclerViewAdapter);
         binding.rvInstructions.setAdapter(instructionsRecyclerViewAdapter);
         binding.tvIngredientCount.setText(mealIngredients.size()+" Ingredients");
@@ -98,16 +107,7 @@ public class DetailsFragment extends Fragment implements DetailsView {
 
     @Override
     public void prepareMediaVideoPlayer(MealDomainModel model) {
-        Log.d(TAG, "prepareMediaVideoPlayer: " + model.mealVideoUrl());
-        youTubePlayerView.addYouTubePlayerListener(new AbstractYouTubePlayerListener() {
-            @Override
-            public void onReady(@NonNull YouTubePlayer youTubePlayer) {
-                String videoId = model.mealVideoUrl().substring(model.mealVideoUrl().indexOf("=")+1);
-                Log.d(TAG, "onReady: " + videoId);
-                youTubePlayer.loadVideo(videoId, 0);
-                binding.tvVideoDescription.setText("Watch: How to make the perfect " + model.mealName());
-            }
-        });
+
     }
 
 

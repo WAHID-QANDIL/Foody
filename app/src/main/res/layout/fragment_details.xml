@@ -111,9 +111,11 @@
                  ======================= -->
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:paddingHorizontal="16dp">
+                android:paddingHorizontal="16dp"
+                android:background="@drawable/top_rounded_corners_shape"
+                >
 
                 <!-- Meal Title and Details -->
                 <TextView
@@ -251,7 +253,7 @@
                 <!-- Placeholder for a video player (e.g., a CardView with an ImageView and Play button) -->
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
-                    android:layout_height="200dp"
+                    android:layout_height="300dp"
                     android:layout_marginBottom="24dp"
                     app:cardCornerRadius="16dp">
 
@@ -282,9 +284,6 @@
             </LinearLayout>
 
             <!-- Padding at the bottom so the last items are visible above the fixed button -->
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="80dp"/>
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
