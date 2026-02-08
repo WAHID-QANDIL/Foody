@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".presentation.details.DetailsFragment"
+    android:backgroundTint="@color/colorPrimaryLight"
     android:background="@color/white"
 
     >
@@ -245,13 +246,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
-                    android:text="Video Tutorial"
+                    android:text="@string/video_tutorial"
                     android:textColor="@color/text_primary"
                     android:textSize="20sp"
                     android:textStyle="bold"/>
 
                 <!-- Placeholder for a video player (e.g., a CardView with an ImageView and Play button) -->
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/video_card_view"
                     android:layout_width="match_parent"
                     android:layout_height="300dp"
                     android:layout_marginBottom="24dp"
@@ -275,6 +277,7 @@
                     android:layout_gravity="bottom|center_horizontal"
                     android:background="@drawable/rounded_corner_shape"
                     android:backgroundTint="@color/textDisabled"
+                    android:layout_marginBottom="@dimen/medium_padding"
                     android:gravity="center"
                     android:padding="8dp"
                     android:text="Watch: How to make the perfect Salmon Bowl"

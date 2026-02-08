@@ -8,5 +8,5 @@ import org.wahid.foody.presentation.model.MealDomainModel;
 public interface DetailsView extends BaseView {
     void showSharOptionDialog(Intent intent);
     void bindReceivedMealIntoComponents(MealDomainModel mealDomainModel);
-    void prepareMediaVideoPlayer(MealDomainModel model);
+    void prepareMediaVideoPlayer(String videoId);
 }

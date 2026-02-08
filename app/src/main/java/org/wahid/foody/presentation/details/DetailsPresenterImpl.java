@@ -22,6 +22,7 @@ public class DetailsPresenterImpl implements DetailsPresenter {
     private static final String TAG = "DetailsPresenterImpl";
     private MealRepository repository;
     private DetailsView view;
+    private MealDomainModel currentMeal;
 
     public DetailsPresenterImpl(DetailsView view,MealRepository repository) {
         this.repository = repository;
@@ -52,7 +53,7 @@ public class DetailsPresenterImpl implements DetailsPresenter {
     }
 
     @Override
-    public void onViewCreated(Bundle bundle) {
+    public void onFragmentViewCreated(Bundle bundle) {
         String mealId = bundle.getString(HomePresenterImpl.MEAL_ID);
         repository.getMealDetailsById(mealId).observeOn(AndroidSchedulers.mainThread()).subscribe(new SingleObserver<MealResponse>() {
             @Override
@@ -64,8 +65,9 @@ public class DetailsPresenterImpl implements DetailsPresenter {
             public void onSuccess(@io.reactivex.rxjava3.annotations.NonNull MealResponse mealResponse) {
                 MealDomainModel mealDomainModel = mealResponse.getMeals().getFirst().toDomainModel();
                 view.bindReceivedMealIntoComponents(mealDomainModel);
-                view.prepareMediaVideoPlayer(mealDomainModel);
-
+                currentMeal = mealDomainModel;
+                String videoId = currentMeal.mealVideoUrl().substring(currentMeal.mealVideoUrl().indexOf("=") + 1);
+                view.prepareMediaVideoPlayer(videoId);
                 Log.d(TAG, "onSuccess: mealResponse" + mealResponse);
                 Log.d(TAG, "onSuccess: mealDomainModel" + mealDomainModel);
             }

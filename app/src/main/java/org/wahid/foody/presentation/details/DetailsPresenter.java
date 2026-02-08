@@ -7,5 +7,5 @@ public interface DetailsPresenter {
     void onShareClicked(String source);
     void onAddToFavClicked();
     void onAddToWeeklyPlay();
-    void onViewCreated(Bundle bundle);
+    void onFragmentViewCreated(Bundle bundle);
 }

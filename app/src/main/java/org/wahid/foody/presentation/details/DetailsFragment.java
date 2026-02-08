@@ -19,6 +19,7 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
 
+import org.wahid.foody.R;
 import org.wahid.foody.data.MealRepositoryImpl;
 import org.wahid.foody.data.remote.meal_service.RemoteMealDatasource;
 import org.wahid.foody.data.remote.meal_service.dto.Ingredient;
@@ -29,7 +30,10 @@ import org.wahid.foody.presentation.details.instructions_recycler_view_adapter.I
 import org.wahid.foody.presentation.home.HomePresenterImpl;
 import org.wahid.foody.presentation.model.MealDomainModel;
 import org.wahid.foody.utils.ImageLoader;
+
+import java.text.MessageFormat;
 import java.util.List;
+
 public class DetailsFragment extends Fragment implements DetailsView {
 
     private static final String TAG = "DetailsFragment";
@@ -38,6 +42,8 @@ public class DetailsFragment extends Fragment implements DetailsView {
     private InstructionsRecyclerViewAdapter instructionsRecyclerViewAdapter;
     private DetailsPresenter presenter;
     private YouTubePlayerView youTubePlayerView;
+    private YouTubePlayer youTubePlayer;
+    private AbstractYouTubePlayerListener abstractYouTubePlayerListener;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -69,14 +75,13 @@ public class DetailsFragment extends Fragment implements DetailsView {
         Bundle arguments = getArguments();
         assert arguments != null;
         String mealId = arguments.getString(HomePresenterImpl.MEAL_ID);
-        Log.d(TAG, "onViewCreated: "+ mealId);
-        presenter.onViewCreated(arguments);
+        Log.d(TAG, "onViewCreated: " + mealId);
+        presenter.onFragmentViewCreated(arguments);
         youTubePlayerView = binding.videoView;
         getLifecycle().addObserver(youTubePlayerView);
         binding.btnBack.setOnClickListener(v -> presenter.onBackClicked());
         binding.btnAddToFav.setOnClickListener(v -> presenter.onAddToFavClicked());
     }
-
 
 
     @RequiresApi(api = Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
@@ -91,23 +96,37 @@ public class DetailsFragment extends Fragment implements DetailsView {
                 .toList();
         List<String> mealInstructions = mealDomainModel.instructions();
 
-
-        binding.rvIngredient.setLayoutManager(new LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false));
-        binding.rvInstructions.setLayoutManager(new LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false));
+        binding.rvIngredient.setLayoutManager(new LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false));
+        binding.rvInstructions.setLayoutManager(new LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false));
 
         ingredientsRecyclerViewAdapter.updateAndNotifyListItems(mealIngredients);
         instructionsRecyclerViewAdapter.updateAndNotifyListItems(mealInstructions);
 
-
         binding.rvIngredient.setAdapter(ingredientsRecyclerViewAdapter);
         binding.rvInstructions.setAdapter(instructionsRecyclerViewAdapter);
-        binding.tvIngredientCount.setText(mealIngredients.size()+" Ingredients");
+        binding.tvIngredientCount.setText(mealIngredients.size() + " Ingredients");
         binding.btnShare.setOnClickListener(v -> presenter.onShareClicked(mealDomainModel.sourceUrl()));
+        binding.tvVideoDescription.setText(MessageFormat.format("{0}{1}", getString(R.string.watch_how_to_make_perfect), mealDomainModel.mealName()));
     }
 
     @Override
-    public void prepareMediaVideoPlayer(MealDomainModel model) {
+    public void prepareMediaVideoPlayer(String videoId) {
+        youTubePlayerView.addYouTubePlayerListener(new AbstractYouTubePlayerListener() {
+            @Override
+            public void onReady(@NonNull YouTubePlayer player) {
+                Log.d(TAG, "onReady: " + videoId);
+                youTubePlayer = player;
+                // Use cueVideo instead of loadVideo to load the video but not autoplay
+                youTubePlayer.cueVideo(videoId, 0);
+            }
+        });
 
+        // Add click listener to play video when clicked
+        youTubePlayerView.setOnClickListener(v -> {
+            if (youTubePlayer != null) {
+                youTubePlayer.play();
+            }
+        });
     }
 
 
