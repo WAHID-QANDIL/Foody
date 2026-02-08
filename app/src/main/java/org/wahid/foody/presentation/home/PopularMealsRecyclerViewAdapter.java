@@ -66,17 +66,14 @@ public class PopularMealsRecyclerViewAdapter extends RecyclerView.Adapter<Popula
     public void onBindViewHolder(@NonNull MealViewHolder holder, int position) {
         RecyclerViewCardItem item = listItems.get(position);
 
-        holder.viewRecipeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onItemClicked.invoke(item.mealId());
-            }
-        });
+
+
         Glide.with(holder.imageView.getContext())
                 .load(item.imageUrl())
                 .into(holder.imageView);
         holder.title.setText(item.mealTitle());
-
+        holder.viewRecipeButton.setOnClickListener(v -> onItemClicked.invoke(item.mealId()));
+        holder.imageView.setOnClickListener(v -> onItemClicked.invoke(item.mealId()));
     }
 
     @Override

@@ -53,4 +53,6 @@
     <string name="favorite">Favorite</string>
     <string name="categories">Categories</string>
     <string name="amazing_chief">Amazing chief</string>
+    <string name="watch_how_to_make_perfect">"Watch: How to make perfect "</string>
+    <string name="video_tutorial">Video Tutorial</string>
 </resources>
