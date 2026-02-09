@@ -30,6 +30,7 @@ googleGmsServicesVersion        = "4.4.4"
 rxandroid                       = "3.0.2"
 rxjava                          = "3.1.12"
 safeArgs                        = "2.9.7"
+room                            = "2.8.4"
 
 
 [libraries]
@@ -64,8 +65,11 @@ converter-gson                  = { module = "com.squareup.retrofit2:converter-g
 retrofit                        = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 rxandroid                       = { module = "io.reactivex.rxjava3:rxandroid", version.ref = "rxandroid" }
 rxjava                          = { module = "io.reactivex.rxjava3:rxjava", version.ref = "rxjava" }
+room-annotation-processor       = { group ="androidx.room", name ="room-compiler", version.ref = "room"}
+room-database                   = { group ="androidx.room", name ="room-rxjava3", version.ref = "room"}
+room-runtime                    = { group ="androidx.room", name ="room-runtime", version.ref = "room"}
 
 [plugins]
 android-application             = { id = "com.android.application", version.ref = "agp" }
-google-gms-services             = {id = "com.google.gms.google-services", version.ref = "googleGmsServicesVersion"}
-safe-args                       = {id = "androidx.navigation.safeargs", version.ref = "safeArgs"}
+google-gms-services             = { id = "com.google.gms.google-services", version.ref = "googleGmsServicesVersion"}
+safe-args                       = { id = "androidx.navigation.safeargs", version.ref = "safeArgs"}

@@ -1,9 +1,10 @@
 package org.wahid.foody.data.remote.meal_service.api;
 
+import org.wahid.foody.data.remote.meal_service.dto.CategoryRemoteResponse;
+import org.wahid.foody.data.remote.meal_service.dto.IngredientRemoteResponse;
 import org.wahid.foody.data.remote.meal_service.dto.MealResponse;
 
 import io.reactivex.rxjava3.core.Single;
-import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 
@@ -37,6 +38,8 @@ public interface MealApiService {
     Single<MealResponse>getMealDetailsById(@Query("i") String id);
 
     @GET("list.php")
-    Single<MealResponse>getAllIngredients(@Query("i") String list);
+    Single<IngredientRemoteResponse>getAllIngredients(@Query("i") String list);
 
+    @GET("categories.php")
+    Single<CategoryRemoteResponse> getAllCategories();
 }

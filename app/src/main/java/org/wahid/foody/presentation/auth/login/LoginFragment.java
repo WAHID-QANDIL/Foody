@@ -4,7 +4,6 @@ import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -23,6 +22,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -31,6 +31,7 @@ import com.facebook.login.widget.LoginButton;
 
 import org.wahid.foody.R;
 import org.wahid.foody.databinding.FragmentLoginBinding;
+import org.wahid.foody.presentation.MainActivity;
 import org.wahid.foody.utils.ShowDialog;
 
 import java.util.Objects;
@@ -41,6 +42,7 @@ public class LoginFragment extends Fragment implements LoginView {
     private LoginPresenter presenter;
     private CredentialManager credentialManager;
     private CallbackManager mCallbackManager;
+    private LoginButton loginButton;
     private static final String TAG = "LoginFragment";
 
     @Override
@@ -56,7 +58,7 @@ public class LoginFragment extends Fragment implements LoginView {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mCallbackManager = CallbackManager.Factory.create();
+        mCallbackManager = ((MainActivity) requireActivity()).getCallbackManager();
         binding.loginImg.setImageResource(R.drawable.login_logo);
         binding.joinNowBtn.setOnClickListener(v -> presenter.onRegisterClicked());
         binding.loginBtn.setOnClickListener((v) -> {
@@ -78,18 +80,49 @@ public class LoginFragment extends Fragment implements LoginView {
         binding.facebookLoginBtn.setOnClickListener(v -> {
             presenter.onLoginWithFacebookClicked();
         });
-        initializeFacebookLoginButton();
+        loginButton = binding.fbLoginHidden;
+
+        loginButton.setFragment(this);
+        loginButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                // Handle successful login
+                AccessToken accessToken = loginResult.getAccessToken();
+                Log.d("FB", "login success: " + accessToken.getToken());
+                presenter.onLoginWithFacebookResult(loginResult.getAccessToken());
+                // continue with your registration logic (fetch user profile, etc.)
+            }
+
+            @Override
+            public void onCancel() {
+                Log.d(TAG, "facebook:onCancel");
+                presenter.onError(new Throwable("Login has canceled"));
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+                Log.d(TAG, "facebook:onError", error);
+                presenter.onError(error);
+            }
+        });
+//        initializeFacebookLoginButton();
 
 
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (mCallbackManager != null) {
-            mCallbackManager.onActivityResult(requestCode, resultCode, data);
-        }
+    public void onDestroyView() {
+        super.onDestroyView();
+        loginButton = null;
     }
+
+//    @Override
+//    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//        if (mCallbackManager != null) {
+//            mCallbackManager.onActivityResult(requestCode, resultCode, data);
+//        }
+//    }
 
     @Override
     public void onResume() {
@@ -166,29 +199,29 @@ public class LoginFragment extends Fragment implements LoginView {
         binding.fbLoginHidden.performClick();
     }
 
-    private void initializeFacebookLoginButton() {
-        LoginButton loginButton = binding.fbLoginHidden;
-        loginButton.setPermissions("email", "public_profile");
-        loginButton.setFragment(this);
-        loginButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
-            @Override
-            public void onSuccess(LoginResult loginResult) {
-                Log.d(TAG, "facebook:onSuccess:" + loginResult);
-                presenter.onLoginWithFacebookResult(loginResult.getAccessToken());
-            }
-
-            @Override
-            public void onCancel() {
-                Log.d(TAG, "facebook:onCancel");
-                presenter.onError(new Throwable("Login has canceled"));
-            }
-
-            @Override
-            public void onError(FacebookException error) {
-                Log.d(TAG, "facebook:onError", error);
-                presenter.onError(error);
-            }
-        });
-    }
+//    private void initializeFacebookLoginButton() {
+//        LoginButton loginButton = binding.fbLoginHidden;
+//        loginButton.setPermissions("email", "public_profile");
+//        loginButton.setFragment(this);
+//        loginButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
+//            @Override
+//            public void onSuccess(LoginResult loginResult) {
+//                Log.d(TAG, "facebook:onSuccess:" + loginResult);
+//                presenter.onLoginWithFacebookResult(loginResult.getAccessToken());
+//            }
+//
+//            @Override
+//            public void onCancel() {
+//                Log.d(TAG, "facebook:onCancel");
+//                presenter.onError(new Throwable("Login has canceled"));
+//            }
+//
+//            @Override
+//            public void onError(FacebookException error) {
+//                Log.d(TAG, "facebook:onError", error);
+//                presenter.onError(error);
+//            }
+//        });
+//    }
 
 }

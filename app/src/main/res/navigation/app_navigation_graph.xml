@@ -87,6 +87,9 @@
             app:destination="@id/detailsFragment">
             <argument android:name="mealId" app:argType="string" app:nullable="false"/>
         </action>
+        <action
+            android:id="@+id/action_homeFragment_to_searchFragment"
+            app:destination="@id/searchFragment" />
     </fragment>
     <fragment
         android:id="@+id/detailsFragment"
@@ -98,5 +101,15 @@
             app:destination="@id/homeFragment" />
     </fragment>
     <argument android:name="mealId" app:argType="string" app:nullable="false"/>
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="org.wahid.foody.presentation.search.SearchFragment"
+        android:label="SearchFragment"
+        tools:layout="@layout/fragment_search"
+        >
+        <action
+            android:id="@+id/action_searchFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
+    </fragment>
 
 </navigation>

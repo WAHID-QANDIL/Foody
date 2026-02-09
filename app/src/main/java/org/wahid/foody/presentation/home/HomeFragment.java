@@ -21,21 +21,16 @@ import com.google.android.material.carousel.MultiBrowseCarouselStrategy;
 import com.google.firebase.auth.FirebaseUser;
 
 import org.wahid.foody.R;
-import org.wahid.foody.data.MealRepositoryImpl;
-import org.wahid.foody.data.remote.meal_service.RemoteMealDatasource;
 import org.wahid.foody.data.remote.user_auth.firebase.FirebaseClient;
 import org.wahid.foody.databinding.FragmentHomeBinding;
 import org.wahid.foody.presentation.model.MealDomainModel;
-import org.wahid.foody.presentation.navigation.FirebaseUserNavArgument;
-import org.wahid.foody.utils.ImageLoader;
+import org.wahid.foody.utils.ApplicationDependencyRepository;
 import org.wahid.foody.utils.ShowDialog;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import kotlin.Unit;
-import kotlin.jvm.functions.Function1;
 
 public class HomeFragment extends Fragment implements HomeView {
     private static final String TAG = "HomeFragment";
@@ -56,7 +51,7 @@ public class HomeFragment extends Fragment implements HomeView {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         adapter = new PopularMealsRecyclerViewAdapter();
-        presenter = new HomePresenterImpl(this, new MealRepositoryImpl(new RemoteMealDatasource()));
+        presenter = new HomePresenterImpl(this, ApplicationDependencyRepository.repository);
     }
 
     @Override
@@ -80,6 +75,7 @@ public class HomeFragment extends Fragment implements HomeView {
             presenter.onPopularMealsItemClicked(s);
             return null;
         });
+        binding.tvSeeAll.setOnClickListener(v -> presenter.onShowAllClicked());
     }
 
     @Override

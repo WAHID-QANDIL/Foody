@@ -20,8 +20,6 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.Abs
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
 
 import org.wahid.foody.R;
-import org.wahid.foody.data.MealRepositoryImpl;
-import org.wahid.foody.data.remote.meal_service.RemoteMealDatasource;
 import org.wahid.foody.data.remote.meal_service.dto.Ingredient;
 import org.wahid.foody.databinding.FragmentDetailsBinding;
 import org.wahid.foody.presentation.details.ingredient_recycler_view_adapter.IngredientRecyclerViewModel;
@@ -29,6 +27,7 @@ import org.wahid.foody.presentation.details.ingredient_recycler_view_adapter.Ing
 import org.wahid.foody.presentation.details.instructions_recycler_view_adapter.InstructionsRecyclerViewAdapter;
 import org.wahid.foody.presentation.home.HomePresenterImpl;
 import org.wahid.foody.presentation.model.MealDomainModel;
+import org.wahid.foody.utils.ApplicationDependencyRepository;
 import org.wahid.foody.utils.ImageLoader;
 
 import java.text.MessageFormat;
@@ -43,14 +42,13 @@ public class DetailsFragment extends Fragment implements DetailsView {
     private DetailsPresenter presenter;
     private YouTubePlayerView youTubePlayerView;
     private YouTubePlayer youTubePlayer;
-    private AbstractYouTubePlayerListener abstractYouTubePlayerListener;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ingredientsRecyclerViewAdapter = new IngredientsRecyclerViewAdapter();
         instructionsRecyclerViewAdapter = new InstructionsRecyclerViewAdapter();
-        presenter = new DetailsPresenterImpl(this, new MealRepositoryImpl(new RemoteMealDatasource()));
+        presenter = new DetailsPresenterImpl(this, ApplicationDependencyRepository.repository);
 
     }
 
