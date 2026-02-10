@@ -7,6 +7,7 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import org.wahid.foody.R;
@@ -17,6 +18,13 @@ public class InstructionsRecyclerViewAdapter extends RecyclerView.Adapter<Instru
 
     private List<String> instructions;
 
+    public List<String> getInstructions() {
+        return instructions;
+    }
+
+    private InstructionsRecyclerViewAdapter getAdapter(){
+        return this;
+    }
     public void updateAndNotifyListItems(List<String> updatedInstructions) {
         this.instructions = updatedInstructions;
         notifyDataSetChanged();
@@ -42,7 +50,7 @@ public class InstructionsRecyclerViewAdapter extends RecyclerView.Adapter<Instru
         return instructions.size();
     }
 
-    class InstructionViewHolder extends RecyclerView.ViewHolder{
+    public static class InstructionViewHolder extends RecyclerView.ViewHolder{
         TextView stepNumber;
         TextView stepDetails;
         CheckBox checkBox;
