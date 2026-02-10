@@ -115,6 +115,7 @@ public class RegisterFragment extends Fragment implements RegisterView {
         super.onDestroyView();
         // If you use view binding, clear it here. Also avoid keeping old refs to view objects.
         loginButton = null;
+        binding = null;
     }
 
 //    @Override

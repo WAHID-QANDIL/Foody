@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="200dp"
-    android:layout_height="200dp"
-    android:layout_margin="@dimen/small_padding"
-    android:background="@drawable/rounded_corner_shape"
-    android:backgroundTint="@color/divider"
-    >
+<com.google.android.material.carousel.MaskableFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="250dp"
+    android:layout_height="250dp"
+    android:layout_margin="8dp"
+    app:shapeAppearance="?attr/shapeCornerSizeExtraExtraLarge">
+
 
     <View
         android:id="@+id/viewIconBg"
@@ -13,28 +13,39 @@
         android:layout_height="match_parent"
         android:background="@drawable/bg_circle_soft_tint" />
 
-    <ImageView
-        android:id="@+id/ivIcon"
+    <LinearLayout
+        android:id="@+id/card_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="@dimen/small_padding"
-        android:layout_gravity="center"
-        android:scaleType="centerCrop"
-        android:src="@drawable/ic_share" />
+        android:orientation="vertical"
+        android:weightSum="5">
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/tv_category_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|center"
-        android:paddingTop="@dimen/small_padding"
-        android:background="@drawable/gradient_overlay"
-        android:text="Beef"
-        android:textColor="@color/white"
-        android:textSize="@dimen/medium_text_size"
-        android:gravity="center"
+        <TextView
+            android:id="@+id/tv_category_name"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:alpha="0.7"
+            android:background="@drawable/top_rounded_corners_shape"
+            android:backgroundTint="@color/colorPrimaryLight"
+            android:gravity="center"
+            android:text="Beef"
+            android:textColor="@color/primary"
+            android:textSize="@dimen/medium_text_size"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/ivIcon"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            android:layout_weight="4"
+            android:padding="@dimen/small_padding"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_share" />
 
 
-        />
+    </LinearLayout>
 
-</FrameLayout>
+
+</com.google.android.material.carousel.MaskableFrameLayout>

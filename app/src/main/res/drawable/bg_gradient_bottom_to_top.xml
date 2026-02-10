@@ -5,5 +5,5 @@
         android:angle="90"
         android:endColor="@color/fui_transparent"
         android:centerColor="@color/fui_transparent"
-        android:startColor="@color/black" />
+        android:startColor="@color/textDisabled" />
 </shape>

@@ -1,12 +1,18 @@
 package org.wahid.foody.presentation.search;
 
+import android.os.Bundle;
 import android.util.Log;
 
+import androidx.navigation.Navigation;
+
+import org.wahid.foody.R;
 import org.wahid.foody.presentation.MealRepository;
 import org.wahid.foody.presentation.model.AreaDomainModel;
 import org.wahid.foody.presentation.model.CategoryDomainModel;
 import org.wahid.foody.presentation.search.category_list_adapter.CategoryRecyclerViewListItem;
 import org.wahid.foody.presentation.search.countries_list_adapter.CountryListItem;
+import org.wahid.foody.utils.Constants;
+import org.wahid.foody.utils.SearchType;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -35,9 +41,7 @@ public class SearchPresenterImpl implements SearchPresenter {
          mealRepository.getAllCategories().observeOn(AndroidSchedulers.mainThread()).subscribe(new SingleObserver<List<CategoryDomainModel>>() {
             @Override
             public void onSubscribe(@NonNull Disposable d) {
-
             }
-
             @Override
             public void onSuccess(@NonNull List<CategoryDomainModel> categoryDomainModels) {
                mCategoryDomainModelList = categoryDomainModels;
@@ -80,22 +84,23 @@ public class SearchPresenterImpl implements SearchPresenter {
     }
 
     @Override
-    public void onChipSelected(int chipType) {
-
+    public void onCategoryItemClicked(String name) {
+        Bundle bundle = new Bundle();
+        bundle.putString(Constants.SEARCH_QUERY_BUNDLE_KEY,name);
+        bundle.putString(Constants.SEARCH_TYPE_BUNDLE_KEY, SearchType.BY_CATEGORY.name());
+        Navigation.findNavController(((SearchFragment)view).requireView()).navigate(R.id.action_searchFragment_to_searchDetailsFragment,bundle,null,null);
     }
 
     @Override
-    public void onCategoryItemClicked() {
-
+    public void onCountryItemClicked(String name) {
+        Bundle bundle = new Bundle();
+        bundle.putString(Constants.SEARCH_QUERY_BUNDLE_KEY,name);
+        bundle.putString(Constants.SEARCH_TYPE_BUNDLE_KEY, SearchType.BY_COUNTRY.name());
+        Navigation.findNavController(((SearchFragment)view).requireView()).navigate(R.id.action_searchFragment_to_searchDetailsFragment,bundle,null,null);
     }
 
     @Override
-    public void onCountryItemClicked() {
-
-    }
-
-    @Override
-    public void onSearchTextChange(String query) {
-
+    public void onBackClicked() {
+        Navigation.findNavController(((SearchFragment)view).requireView()).navigateUp();
     }
 }

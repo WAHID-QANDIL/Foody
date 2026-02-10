@@ -5,11 +5,12 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.google.android.material.carousel.CarouselLayoutManager;
 
 import org.wahid.foody.databinding.FragmentSearchBinding;
 import org.wahid.foody.presentation.search.category_list_adapter.CategoriesRecyclerViewListAdapter;
@@ -31,8 +32,9 @@ public class SearchFragment extends Fragment implements SearchView {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        categoriesRecyclerViewListAdapter = new CategoriesRecyclerViewListAdapter();
-        countriesRecyclerViewAdapter = new CountriesRecyclerViewAdapter();
+        categoriesRecyclerViewListAdapter = new CategoriesRecyclerViewListAdapter(name -> presenter.onCategoryItemClicked(name));
+        countriesRecyclerViewAdapter = new CountriesRecyclerViewAdapter(name -> presenter.onCountryItemClicked(name));
+
         binding = FragmentSearchBinding.inflate(getLayoutInflater());
         presenter = new SearchPresenterImpl(this, ApplicationDependencyRepository.repository);
         return binding.getRoot();
@@ -41,11 +43,13 @@ public class SearchFragment extends Fragment implements SearchView {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false);
+        CarouselLayoutManager linearLayoutManager = new CarouselLayoutManager();
+        CarouselLayoutManager linearLayoutManager2 = new CarouselLayoutManager();
         binding.rvCategories.setLayoutManager(linearLayoutManager);
         binding.rvCategories.setAdapter(categoriesRecyclerViewListAdapter);
-        binding.rvCountries.setLayoutManager( new LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false));
+        binding.rvCountries.setLayoutManager(linearLayoutManager2);
         binding.rvCountries.setAdapter(countriesRecyclerViewAdapter);
+        binding.btnBack.setOnClickListener(v -> presenter.onBackClicked());
     }
 
     @Override
