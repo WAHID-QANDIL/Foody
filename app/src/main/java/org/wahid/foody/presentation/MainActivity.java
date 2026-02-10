@@ -4,12 +4,12 @@ import android.animation.AnimatorListenerAdapter;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.FrameLayout;
 
 import androidx.activity.EdgeToEdge;
 import androidx.activity.SystemBarStyle;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.splashscreen.SplashScreen;
@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
             Insets systemBars = windowInsets.getInsets(WindowInsetsCompat.Type.statusBars());
             int statusBarHeight = systemBars.top;
 
-            FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) navHost.getLayoutParams();
+            ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) navHost.getLayoutParams();
             params.topMargin = statusBarHeight;
             navHost.setLayoutParams(params);
             Insets navBarInsets = windowInsets.getInsets(WindowInsetsCompat.Type.navigationBars());
@@ -96,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(bottomNavigationView,navController);
         navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
             int id = destination.getId();
-            if (id == R.id.homeFragment /*|| id == R.id.detailsFragment*/) {
+            if (id == R.id.homeFragment || id == R.id.searchFragment) {
                 showBottomNav(bottomNavigationView);
             } else {
                 hideBottomNav(bottomNavigationView);
