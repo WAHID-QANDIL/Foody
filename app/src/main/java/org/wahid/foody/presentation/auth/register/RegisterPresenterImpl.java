@@ -37,6 +37,8 @@ import org.wahid.foody.data.remote.user_auth.UserCredentials;
 import org.wahid.foody.data.remote.user_auth.firebase.FirebaseClient;
 import org.wahid.foody.data.remote.user_auth.firebase.OnAuthenticatedCallBack;
 import org.wahid.foody.data.remote.user_auth.firebase.email_password_auth_service.EmailPasswordCredentials;
+import org.wahid.foody.data.remote.user_auth.firebase.facebook_auth_service.FacebookCredentials;
+import org.wahid.foody.data.remote.user_auth.firebase.google_auth_service.GoogleCredentials;
 import org.wahid.foody.presentation.auth.login.LoginFragment;
 import org.wahid.foody.presentation.navigation.FirebaseUserNavArgument;
 
@@ -50,7 +52,7 @@ public class RegisterPresenterImpl implements RegisterPresenter {
     private static final String TAG = "RegisterPresenterImpl";
     private RegisterView view;
 
-
+    private AuthRepositoryImpl authRepository ;
     public RegisterPresenterImpl(RegisterView view) {
         this.view = view;
     }
@@ -59,30 +61,35 @@ public class RegisterPresenterImpl implements RegisterPresenter {
     @Override
     public void onRegisterButtonClicked(String email, String password) {
         view.showProgressIndicator();
-        AuthRepositoryImpl authRepository = new AuthRepositoryImpl(AuthenticationServiceType.EMAIL_PASSWORD);
+        authRepository = new AuthRepositoryImpl(AuthenticationServiceType.EMAIL_PASSWORD);
         if (!email.isEmpty() && !password.isEmpty()){
             EmailPasswordCredentials credentials = new EmailPasswordCredentials(email, password);
+            Log.d(TAG, "onRegisterButtonClicked: email: "+email);
+            Log.d(TAG, "onRegisterButtonClicked: password: "+password);
+
             authRepository.register(credentials, new OnAuthenticatedCallBack() {
                 @Override
                 public void onSuccess(UserCredentials userCredentials) {
-                    view.showSuccessDialog(((RegisterFragment) view).requireActivity(), "Congrats User: " + userCredentials.username() + " has registered successfully.", new Runnable() {
+                    view.hideProgressIndicator();
+                    view.showSuccessDialog(((RegisterFragment) view).requireActivity(), "Logged In", new Runnable() {
                         @Override
                         public void run() {
-                            Navigation.findNavController(((RegisterFragment)view).requireView()).navigate(R.id.action_registerFragment_to_homeFragment);
+                            NavOptions navOptions = new NavOptions.Builder().setPopUpTo(R.id.registerFragment, true).build();
+                            Navigation.findNavController(((RegisterFragment) view).requireView()).navigate(R.id.action_registerFragment_to_homeFragment, null,navOptions,null);
                         }
                     });
-                    //TODO need to add navigate back to login with these credentials to login, and then navigate home.
                 }
 
                 @Override
                 public void onFail(Throwable throwable) {
-                    view.showErrorDialog(((RegisterFragment) view).requireActivity(), throwable.getMessage(), new Runnable() {
+                    view.hideProgressIndicator();
+                    view.showErrorDialog(((RegisterFragment) view).requireActivity(), "Credentials are not correct, pls enter valid email and password", new Runnable() {
                         @Override
                         public void run() {
-
+                            //Nothing until now
+                            Log.d(TAG, "run: cre" );
                         }
                     });
-
                 }
             });
             view.hideProgressIndicator();
@@ -126,11 +133,36 @@ public class RegisterPresenterImpl implements RegisterPresenter {
 
     @Override
     public void onRegisterWithFacebookResult(AccessToken token) {
-        handleFacebookAccessToken(token);
+
+        authRepository = new AuthRepositoryImpl(AuthenticationServiceType.FACEBOOK);
+
+        authRepository.register(new FacebookCredentials(token.getToken()), new OnAuthenticatedCallBack() {
+            @Override
+            public void onSuccess(UserCredentials credentials) {
+                view.showSuccessDialog(((RegisterFragment) view).requireActivity(), "LoggedIn", new Runnable() {
+                    @Override
+                    public void run() {
+                        NavOptions navOptions = new NavOptions.Builder().setPopUpTo(R.id.registerFragment, true).build();
+                        Navigation.findNavController(((RegisterFragment) view).requireView()).navigate(R.id.action_registerFragment_to_homeFragment, null,navOptions,null);
+                    }
+                });
+            }
+
+            @Override
+            public void onFail(Throwable throwable) {
+                view.showErrorDialog(((RegisterFragment) view).requireActivity(), throwable.getMessage(), new Runnable() {
+                    @Override
+                    public void run() {
+                        //TODO nothing to do in this case of failer
+                    }
+                });
+            }
+        });
     }
 
     @Override
     public void onRegisterWithGoogleResult(GetCredentialResponse response) {
+        authRepository = new AuthRepositoryImpl(AuthenticationServiceType.GOOGLE);
         Credential responseCredential = response.getCredential();
 
         if (responseCredential instanceof CustomCredential customCredential
@@ -140,88 +172,36 @@ public class RegisterPresenterImpl implements RegisterPresenter {
             GoogleIdTokenCredential googleIdTokenCredential = GoogleIdTokenCredential.createFrom(credentialData);
 
             // Sign in to Firebase with using the token
-            firebaseAuthWithGoogle(googleIdTokenCredential.getIdToken());
+            authRepository.register(new GoogleCredentials(googleIdTokenCredential.getIdToken()), new OnAuthenticatedCallBack() {
+                @Override
+                public void onSuccess(UserCredentials credentials) {
+                    view.showSuccessDialog(((RegisterFragment) view).requireActivity(), "LoggedIn", new Runnable() {
+                        @Override
+                        public void run() {
+                            NavOptions navOptions = new NavOptions.Builder().setPopUpTo(R.id.registerFragment, true).build();
+                            Navigation.findNavController(((RegisterFragment) view).requireView()).navigate(R.id.action_registerFragment_to_homeFragment, null,navOptions,null);
+                        }
+                    });
+
+
+                }
+
+                @Override
+                public void onFail(Throwable throwable) {
+                    view.showErrorDialog(((RegisterFragment) view).requireActivity(), throwable.getMessage(), new Runnable() {
+                        @Override
+                        public void run() {
+                            //TODO nothing to do in this case of failer
+                        }
+                    });
+                }
+            });
+
         } else {
             Log.w(TAG, "Credential is not of type Google ID!");
+            onError(new Throwable("Credential is not of type Google ID!"));
         }
 
-
-    }
-
-
-    private void firebaseAuthWithGoogle(String idToken) {
-        AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
-        FirebaseAuth firebaseAuth = FirebaseClient.getInstance();
-        firebaseAuth.signInWithCredential(credential)
-                .addOnCompleteListener(((RegisterFragment)view).requireActivity(), task -> {
-                    if (task.isSuccessful()) {
-                        // Sign in success, update UI with the signed-in user's information
-                        Log.d(TAG, "signInWithCredential:success");
-                        FirebaseUser user = firebaseAuth.getCurrentUser();
-                        view.showSuccessDialog(((RegisterFragment) view).requireActivity(), "Congrats User: " + user.getDisplayName() + " has registered successfully.", new Runnable() {
-                            @Override
-                            public void run() {
-
-
-                                NavOptions navOptions = new NavOptions.Builder().setPopUpTo(R.id.fragment_login, true).build();
-                                Bundle bundle = new Bundle();
-                                Log.d(TAG, "run: " + user);
-                                FirebaseUserNavArgument firebaseUserNavArgument = new FirebaseUserNavArgument();
-                                firebaseUserNavArgument.setEmail(user.getEmail());
-                                firebaseUserNavArgument.setUsername(user.getDisplayName());
-                                firebaseUserNavArgument.setImageUrl(
-                                        user.getPhotoUrl() != null
-                                                ? user.getPhotoUrl().toString()
-                                                : null
-                                );
-                                bundle.putParcelable("user", firebaseUserNavArgument );
-                                navigateToHomeScreen(bundle,navOptions);
-                            }
-                        });
-                        Log.d(TAG, "firebaseAuthWithGoogle: " + user);
-
-                    } else {
-                        // If sign in fails, display a message to the user.
-                        Log.w(TAG, "signInWithCredential:failure", task.getException());
-                        onError(Objects.requireNonNull(task.getException()));
-                    }
-                });
-    }
-
-
-    private void handleFacebookAccessToken(AccessToken token) {
-        Log.d(TAG, "handleFacebookAccessToken:" + token);
-        FirebaseAuth firebaseAuth = FirebaseClient.getInstance();
-        AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
-        firebaseAuth.signInWithCredential(credential)
-                .addOnCompleteListener(((RegisterFragment)view).requireActivity(), new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d(TAG, "signInWithCredential:success");
-                            FirebaseUser user = firebaseAuth.getCurrentUser();
-                            Log.d(TAG, "signInWithCredential:success" + Objects.requireNonNull(user).getDisplayName());
-                            view.showSuccessDialog(((RegisterFragment) view).requireActivity(), "Congrats User: " + user.getDisplayName() + " has registered successfully.", new Runnable() {
-                                @Override
-                                public void run() {
-
-
-                                }
-                            });
-
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Log.w(TAG, "signInWithCredential:failure", task.getException());
-                            view.showErrorDialog(((RegisterFragment) view).requireActivity(), Objects.requireNonNull(task.getException()).getMessage(), new Runnable() {
-                                @Override
-                                public void run() {
-
-                                }
-                            });
-                        }
-                    }
-                });
     }
 
     @Override
@@ -232,10 +212,6 @@ public class RegisterPresenterImpl implements RegisterPresenter {
 
                 }
             });
-    }
-
-    private void navigateToHomeScreen(Bundle bundle, NavOptions options){
-        Navigation.findNavController(((RegisterFragment)view).requireView()).navigate(R.id.action_registerFragment_to_homeFragment,bundle,options);
     }
 
 }

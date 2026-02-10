@@ -1,8 +1,17 @@
 package org.wahid.foody.data.remote.user_auth;
 
-public record UserCredentials(
-        String username,
-        String userEmail,
-        android.net.Uri photo_url,
-        String userId
-) { }
+public class UserCredentials<T>{
+    private T credentials;
+
+    public UserCredentials(T credentials) {
+        this.credentials = credentials;
+    }
+
+    public T getCredentials() {
+        return credentials;
+    }
+
+    public void setCredentials(T credentials) {
+        this.credentials = credentials;
+    }
+}

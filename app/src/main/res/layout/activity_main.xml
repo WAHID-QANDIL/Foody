@@ -1,26 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <androidx.constraintlayout.widget.ConstraintLayout
-    android:id="@+id/main"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:theme="@style/Base.Theme.Foody"
     tools:context=".presentation.MainActivity"
+    android:backgroundTint="@color/colorPrimaryLight"
     >
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/nav_host_fragment_containert"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:name="androidx.navigation.fragment.NavHostFragment"
-        app:navGraph="@navigation/app_navigation_graph"
         app:defaultNavHost="true"
-        android:layout_marginTop="24dp"
-        android:layout_marginBottom="12dp"
+        app:navGraph="@navigation/app_navigation_graph"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/bottom_navigation_bar" />
 
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation_bar"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:menu="@menu/navigation_items"
+        style="@style/Widget.Material3.BottomNavigationView.ActiveIndicator"
+        app:itemActiveIndicatorStyle="@style/App.CustomIndicator"
+        app:itemIconSize="24dp"
+        app:labelVisibilityMode="labeled"
+        app:itemPaddingTop="12dp"
+        app:itemPaddingBottom="12dp"
         />
-</androidx.constraintlayout.widget.ConstraintLayout>
 
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,13 +1,13 @@
 package org.wahid.foody.presentation.auth.register;
 
 import android.app.ActionBar;
+
 import androidx.credentials.CredentialManagerCallback;
 import androidx.credentials.GetCredentialRequest;
 
 import androidx.credentials.CredentialManager;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -22,6 +22,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -30,6 +31,7 @@ import com.facebook.login.widget.LoginButton;
 
 import org.wahid.foody.R;
 import org.wahid.foody.databinding.FragmentRegisterBinding;
+import org.wahid.foody.presentation.MainActivity;
 import org.wahid.foody.utils.ShowDialog;
 
 import java.util.Objects;
@@ -40,43 +42,93 @@ public class RegisterFragment extends Fragment implements RegisterView {
     private CredentialManager credentialManager;
     private FragmentRegisterBinding binding;
     private RegisterPresenter presenter;
+    private LoginButton loginButton;
     private CallbackManager mCallbackManager;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        binding = FragmentRegisterBinding.inflate(getLayoutInflater(),container,false);
+        binding = FragmentRegisterBinding.inflate(getLayoutInflater(), container, false);
         presenter = new RegisterPresenterImpl(this);
         return binding.getRoot();
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-            super.onActivityResult(requestCode, resultCode, data);
-            mCallbackManager.onActivityResult(requestCode, resultCode, data);
-    }
+
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mCallbackManager = CallbackManager.Factory.create();
-        registerFacebookLoginCallback();
+        mCallbackManager = ((MainActivity) requireActivity()).getCallbackManager();
         binding.registerBackToLoginBtn.setOnClickListener(listener);
         binding.registerImg.setImageResource(R.drawable.register_image);
-        binding.registerBtn.setOnClickListener((v)->{
+        binding.registerBtn.setOnClickListener((v) -> {
             String email = Objects.requireNonNull(binding.edRegisterEmail.getText()).toString();
-            String password = binding.edRegisterEmail.getText().toString();
-            presenter.onRegisterButtonClicked(email,password);
+            String password = Objects.requireNonNull(binding.edRegisterPassword.getText()).toString();
+            if (!email.isEmpty()) {
+                if (password.length() >= 6) {
+                    presenter.onRegisterButtonClicked(email, password);
+                } else {
+                    presenter.onError(new Throwable("Password should contains of 6 characters or more"));
+                }
+            } else {
+                presenter.onError(new Throwable("Email can't be empty"));
+            }
+
         });
-        binding.googleRegisterBtn.setOnClickListener(v -> {presenter.onRegisterWithGoogleClicked();});
-        binding.facebookRegisterBtn.setOnClickListener(v -> {presenter.onRegisterWithFacebookClicked();});
+        binding.googleRegisterBtn.setOnClickListener(v -> {
+            presenter.onRegisterWithGoogleClicked();
+        });
+        binding.facebookRegisterBtn.setOnClickListener(v -> {
+            presenter.onRegisterWithFacebookClicked();
+        });
+        loginButton = binding.fbRegisterHidden;
+        loginButton.setFragment(this);
+        loginButton.setPermissions("email", "public_profile");
+        loginButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                // Handle successful login
+                AccessToken accessToken = loginResult.getAccessToken();
+                Log.d("FB", "login success: " + accessToken.getToken());
+                presenter.onRegisterWithFacebookResult(loginResult.getAccessToken());
+                // continue with your registration logic (fetch user profile, etc.)
+            }
+
+            @Override
+            public void onCancel() {
+                Log.d(TAG, "facebook:onCancel");
+                presenter.onError(new Throwable("Login has canceled"));
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+                Log.d(TAG, "facebook:onError", error);
+                presenter.onError(error);
+            }
+        });
+
+
+//        initializeFacebookLoginButton();
+
+    }
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        // If you use view binding, clear it here. Also avoid keeping old refs to view objects.
+        loginButton = null;
+        binding = null;
     }
 
+//    @Override
+//    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//        mCallbackManager.onActivityResult(requestCode, resultCode, data);
+//    }
 
     @Override
     public void onResume() {
         super.onResume();
         ActionBar toolbar = Objects.requireNonNull(requireActivity()).getActionBar();
-        if (toolbar!= null){
+        if (toolbar != null) {
             toolbar.hide();
         }
     }
@@ -127,60 +179,65 @@ public class RegisterFragment extends Fragment implements RegisterView {
 
     @Override
     public void showGoogleRegisterDialog(GetCredentialRequest request) {
-        Log.d(TAG, "showGoogleRegisterDialog: request " +request);
-        credentialManager = CredentialManager.create(binding.getRoot().getContext());
-        credentialManager.getCredentialAsync(
-                binding.getRoot().getContext(),
-                request,
-                new CancellationSignal(),
-                requireActivity().getMainExecutor(),
-                new CredentialManagerCallback<GetCredentialResponse, GetCredentialException>() {
-                    @Override
-                    public void onResult(GetCredentialResponse getCredentialResponse) {
-                        presenter.onRegisterWithGoogleResult(getCredentialResponse);
+        Log.d(TAG, "showGoogleRegisterDialog: request " + request);
+        try {
+            Activity activity = requireActivity();
+            credentialManager = CredentialManager.create(activity);
+            credentialManager.getCredentialAsync(
+                    activity,
+                    request,
+                    new CancellationSignal(),
+                    activity.getMainExecutor(),
+                    new CredentialManagerCallback<GetCredentialResponse, GetCredentialException>() {
+                        @Override
+                        public void onResult(GetCredentialResponse getCredentialResponse) {
+                            presenter.onRegisterWithGoogleResult(getCredentialResponse);
+                        }
+
+                        @Override
+                        public void onError(@NonNull GetCredentialException e) {
+                            Log.e(TAG, "CredentialManager getCredentialAsync error", e);
+                            presenter.onError(e);
+                        }
                     }
-
-                    @Override
-                    public void onError(@NonNull GetCredentialException e) {
-                        presenter.onError(e);
-                        Log.e(TAG, "Couldn't retrieve user's credentials: " + e.fillInStackTrace());
-                    }
-                }
-        );
-        hideProgressIndicator();
-
-
+            );
+        } catch (Exception e) {
+            Log.e(TAG, "Failed to start credential flow", e);
+            presenter.onError(e);
+        } finally {
+            hideProgressIndicator();
+        }
     }
 
     @Override
     public void showFacebookRegisterDialog() {
-        binding.fbLoginHidden.performClick();
+        binding.fbRegisterHidden.performClick();
     }
-
-    private void registerFacebookLoginCallback(){
-        LoginButton loginButton = binding.fbLoginHidden;
-        loginButton.setPermissions("email", "public_profile");
-        loginButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
-            @Override
-            public void onSuccess(LoginResult loginResult) {
-                Log.d(TAG, "facebook:onSuccess:" + loginResult);
-                presenter.onRegisterWithFacebookResult(loginResult.getAccessToken());
-            }
-
-            @Override
-            public void onCancel() {
-                Log.d(TAG, "facebook:onCancel");
-                presenter.onError(new Throwable("Login has canceled"));
-            }
-
-            @Override
-            public void onError(FacebookException error) {
-                Log.d(TAG, "facebook:onError", error);
-                presenter.onError(error);
-            }
-        });
-    }
-
+//
+//    private void initializeFacebookLoginButton(){
+//        LoginButton loginButton = binding.fbRegisterHidden;
+//        loginButton.setPermissions("email", "public_profile");
+//        loginButton.setFragment(this);
+//        loginButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
+//            @Override
+//            public void onSuccess(LoginResult loginResult) {
+//                Log.d(TAG, "facebook:onSuccess:" + loginResult);
+//                presenter.onRegisterWithFacebookResult(loginResult.getAccessToken());
+//            }
+//
+//            @Override
+//            public void onCancel() {
+//                Log.d(TAG, "facebook:onCancel");
+//                presenter.onError(new Throwable("Login has been canceled"));
+//            }
+//
+//            @Override
+//            public void onError(FacebookException error) {
+//                Log.d(TAG, "facebook:onError", error);
+//                presenter.onError(error);
+//            }
+//        });
+//    }
 
 
 }

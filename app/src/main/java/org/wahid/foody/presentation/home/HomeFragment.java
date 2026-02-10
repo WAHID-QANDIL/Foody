@@ -18,26 +18,23 @@ import android.view.ViewGroup;
 import com.bumptech.glide.Glide;
 import com.google.android.material.carousel.CarouselLayoutManager;
 import com.google.android.material.carousel.MultiBrowseCarouselStrategy;
+import com.google.firebase.auth.FirebaseUser;
 
 import org.wahid.foody.R;
-import org.wahid.foody.data.MealRepositoryImpl;
-import org.wahid.foody.data.remote.meal_service.RemoteMealDatasource;
+import org.wahid.foody.data.remote.user_auth.firebase.FirebaseClient;
 import org.wahid.foody.databinding.FragmentHomeBinding;
 import org.wahid.foody.presentation.model.MealDomainModel;
-import org.wahid.foody.presentation.navigation.FirebaseUserNavArgument;
-import org.wahid.foody.utils.ImageLoader;
+import org.wahid.foody.utils.ApplicationDependencyRepository;
 import org.wahid.foody.utils.ShowDialog;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import kotlin.Unit;
-import kotlin.jvm.functions.Function1;
 
 public class HomeFragment extends Fragment implements HomeView {
     private static final String TAG = "HomeFragment";
-    private FirebaseUserNavArgument currentuser;
+    private FirebaseUser currentuser;
 
 
     public HomeFragment() {
@@ -47,14 +44,14 @@ public class HomeFragment extends Fragment implements HomeView {
     private FragmentHomeBinding binding;
     private HomePresenter presenter;
     private PopularMealsRecyclerViewAdapter adapter;
-    private List<RecyclerViewCardItem> items = new ArrayList<>();
+    private List<MealsRecyclerViewCardItem> items = new ArrayList<>();
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         adapter = new PopularMealsRecyclerViewAdapter();
-        presenter = new HomePresenterImpl(this,new MealRepositoryImpl(new RemoteMealDatasource()));
+        presenter = new HomePresenterImpl(this, ApplicationDependencyRepository.repository);
     }
 
     @Override
@@ -71,23 +68,21 @@ public class HomeFragment extends Fragment implements HomeView {
         CarouselLayoutManager layoutManager = new CarouselLayoutManager(new MultiBrowseCarouselStrategy());
         presenter.fetchRandomMeal();
         presenter.fetchPopularMeals();
-        Log.d(TAG, "onViewCreated: called" );
+        Log.d(TAG, "onViewCreated: called");
         binding.popularMealRecyclerview.setLayoutManager(layoutManager);
         binding.popularMealRecyclerview.setAdapter(adapter);
-        adapter.setOnItemClicked(new Function1<String, Unit>() {
-            @Override
-            public Unit invoke(String s) {
-                presenter.onPopularMealsItemClicked(s);
-                return null;
-            }
+        adapter.setOnItemClicked(s -> {
+            presenter.onPopularMealsItemClicked(s);
+            return null;
         });
+        binding.tvSeeAll.setOnClickListener(v -> presenter.onShowAllClicked());
     }
 
     @Override
     public void onResume() {
         super.onResume();
         ActionBar toolbar = Objects.requireNonNull(requireActivity()).getActionBar();
-        if (toolbar!= null){
+        if (toolbar != null) {
             toolbar.hide();
         }
     }
@@ -97,9 +92,14 @@ public class HomeFragment extends Fragment implements HomeView {
         super.onStart();
         Bundle arguments = getArguments();
 //        assert arguments != null;
-        currentuser = (FirebaseUserNavArgument) Objects.requireNonNull(arguments).get("user");
-        ImageLoader.load(binding.imgAvatar, Objects.requireNonNull(currentuser).getImageUrl());
-        binding.txtUsername.setText(currentuser.getUsername());
+        currentuser = FirebaseClient.getInstance().getCurrentUser();
+        Glide.with(binding.imgAvatar).load(
+                Objects.requireNonNullElse(Objects.requireNonNull(currentuser).getPhotoUrl(), ""
+        )).placeholder(R.drawable.place_holder_avatar).into(binding.imgAvatar) ;
+        String name = currentuser.getDisplayName();
+
+        if (name != null)binding.txtUsername.setText(name);
+        else binding.txtUsername.setText(R.string.amazing_chief);
     }
 
     @Override
@@ -142,18 +142,14 @@ public class HomeFragment extends Fragment implements HomeView {
     public void bindRandomMealIntoCard(MealDomainModel meal) {
         Glide.with(binding.getRoot()).load(meal.mealImageUrl()).into(binding.randomMealCard.imgMeal);
         binding.randomMealCard.txtMealName.setText(meal.mealName());
-        binding.randomMealCard.cardMeal.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                presenter.onRandomMealClicked(meal.mealId());
-            }
-        });
+        binding.randomMealCard.cardMeal.setOnClickListener(v -> presenter.onRandomMealClicked(meal.mealId()));
+        binding.randomMealCard.btnViewRecipe.setOnClickListener(v -> presenter.onRandomMealClicked(meal.mealId()));
     }
 
     @RequiresApi(api = Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
     @Override
     public void bindPopularMealsIntoRecyclerView(List<MealDomainModel> models) {
-        List<RecyclerViewCardItem> list = models.stream().map(it -> new RecyclerViewCardItem(it.mealId(), it.mealName(), it.area(), it.mealImageUrl())).toList();
+        List<MealsRecyclerViewCardItem> list = models.stream().map(it -> new MealsRecyclerViewCardItem(it.mealId(), it.mealName(), it.area(), it.mealImageUrl())).toList();
         Log.d(TAG, "bindPopularMealsIntoRecyclerView: " + list);
         adapter.updateListItems(list);
     }

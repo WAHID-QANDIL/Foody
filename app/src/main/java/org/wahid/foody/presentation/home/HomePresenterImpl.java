@@ -7,10 +7,9 @@ import android.util.Log;
 import androidx.annotation.RequiresApi;
 import androidx.navigation.Navigation;
 import org.wahid.foody.R;
-import org.wahid.foody.data.remote.meal_service.dto.MealDto;
-import org.wahid.foody.data.remote.meal_service.dto.MealResponse;
 import org.wahid.foody.presentation.MealRepository;
 import org.wahid.foody.presentation.model.MealDomainModel;
+
 import java.util.List;
 import java.util.Random;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
@@ -52,20 +51,20 @@ public class HomePresenterImpl implements HomePresenter{
 
     @Override
     public void onShowAllClicked() {
-
+        Navigation.findNavController(((HomeFragment)view).requireView()).navigate(R.id.action_homeFragment_to_searchFragment);
     }
 
     @Override
     public void fetchRandomMeal() {
-        repository.getRandomMeal().observeOn(AndroidSchedulers.mainThread()).subscribe(new SingleObserver<MealResponse>() {
+        repository.getRandomMeal().observeOn(AndroidSchedulers.mainThread()).subscribe(new SingleObserver<MealDomainModel>() {
             @Override
             public void onSubscribe(@NonNull Disposable d) {
 
             }
             @RequiresApi(api = Build.VERSION_CODES.VANILLA_ICE_CREAM)
             @Override
-            public void onSuccess(@NonNull MealResponse mealResponse) {
-                view.bindRandomMealIntoCard(mealResponse.getMeals().getFirst().toDomainModel());
+            public void onSuccess(@NonNull MealDomainModel mealResponse) {
+                view.bindRandomMealIntoCard(mealResponse);
             }
 
             @Override
@@ -86,19 +85,15 @@ public class HomePresenterImpl implements HomePresenter{
     public void fetchPopularMeals() {
         Character queryChar = (char) new Random().nextInt(97, 122);
 
-
-        repository.getAllMeals(queryChar.toString()).observeOn(AndroidSchedulers.mainThread()).subscribe(new SingleObserver<MealResponse>() {
+        repository.getAllMeals(queryChar.toString()).observeOn(AndroidSchedulers.mainThread()).subscribe(new SingleObserver<List<MealDomainModel>>() {
             @Override
             public void onSubscribe(@NonNull Disposable d) {
                 Log.d(TAG, "onSubscribe: fetchPopularMeals");
             }
 
             @Override
-            public void onSuccess(@NonNull MealResponse mealResponse) {
-
-                List<MealDomainModel> list = mealResponse.getMeals().stream().map(MealDto::toDomainModel).toList();
-                Log.d(TAG, "onSuccess: "+ list);
-                view.bindPopularMealsIntoRecyclerView(list);
+            public void onSuccess(@NonNull List<MealDomainModel> models) {
+                view.bindPopularMealsIntoRecyclerView(models);
             }
 
             @Override

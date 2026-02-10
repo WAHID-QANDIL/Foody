@@ -15,12 +15,11 @@ public class FirebaseEmailPasswordAuth implements AuthenticationService<EmailPas
     private static final FirebaseAuth firebaseAuth = FirebaseClient.getInstance();
 
     private void loginWithEmailPassword(String email, String password, OnAuthenticatedCallBack callBack) {
-        firebaseAuth
-                .signInWithEmailAndPassword(email, password)
+        firebaseAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         FirebaseUser user = firebaseAuth.getCurrentUser();
-                        callBack.onSuccess(extractCredentials(user));
+                        callBack.onSuccess(new UserCredentials<FirebaseUser>(user));
                     }
                 }).addOnFailureListener(callBack::onFail);
     }
@@ -29,18 +28,11 @@ public class FirebaseEmailPasswordAuth implements AuthenticationService<EmailPas
         firebaseAuth.createUserWithEmailAndPassword(username, password).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
-                callBack.onSuccess(extractCredentials(user));
+                callBack.onSuccess(new UserCredentials<FirebaseUser>(user));
             }
         }).addOnFailureListener(callBack::onFail);
     }
 
-    private UserCredentials extractCredentials(FirebaseUser user) {
-        return new UserCredentials(
-                user != null ? user.getDisplayName() : "UnKnown",
-                user != null ? user.getEmail() : "UnKnown",
-                Objects.requireNonNull(user).getPhotoUrl(),
-                user.getUid());
-    }
 
     @Override
     public void login(EmailPasswordCredentials credentials, OnAuthenticatedCallBack callBack) {

@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".presentation.details.DetailsFragment"
+    android:backgroundTint="@color/colorPrimaryLight"
     android:background="@color/white"
 
     >
@@ -111,9 +112,11 @@
                  ======================= -->
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:paddingHorizontal="16dp">
+                android:paddingHorizontal="16dp"
+                android:background="@drawable/top_rounded_corners_shape"
+                >
 
                 <!-- Meal Title and Details -->
                 <TextView
@@ -243,15 +246,16 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
-                    android:text="Video Tutorial"
+                    android:text="@string/video_tutorial"
                     android:textColor="@color/text_primary"
                     android:textSize="20sp"
                     android:textStyle="bold"/>
 
                 <!-- Placeholder for a video player (e.g., a CardView with an ImageView and Play button) -->
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/video_card_view"
                     android:layout_width="match_parent"
-                    android:layout_height="200dp"
+                    android:layout_height="300dp"
                     android:layout_marginBottom="24dp"
                     app:cardCornerRadius="16dp">
 
@@ -273,6 +277,7 @@
                     android:layout_gravity="bottom|center_horizontal"
                     android:background="@drawable/rounded_corner_shape"
                     android:backgroundTint="@color/textDisabled"
+                    android:layout_marginBottom="@dimen/medium_padding"
                     android:gravity="center"
                     android:padding="8dp"
                     android:text="Watch: How to make the perfect Salmon Bowl"
@@ -282,9 +287,6 @@
             </LinearLayout>
 
             <!-- Padding at the bottom so the last items are visible above the fixed button -->
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="80dp"/>
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

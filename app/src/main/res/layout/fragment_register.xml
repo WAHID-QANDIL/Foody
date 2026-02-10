@@ -54,8 +54,6 @@
             android:textColor="@color/textDisabled"
             android:textSize="@dimen/medium_text_size" />
 
-
-
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.App.TextInputLayout.Filled"
             android:layout_width="match_parent"
@@ -73,20 +71,20 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/ed_register_email"
                 android:layout_width="match_parent"
-                android:textColorHint="@color/textDisabled"
-                android:textSize="@dimen/medium_text_size"
                 android:layout_height="wrap_content"
-                android:textColor="@color/colorAccent"
-                android:inputType="textEmailAddress" />
+                android:ems="10"
+                android:inputType="text"/>
         </com.google.android.material.textfield.TextInputLayout>
+
+
 
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.App.TextInputLayout.Filled"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/enter_your_emaiil"
+            android:hint="@string/enter_your_password"
             android:textColorHint="@color/textDisabled"
-            app:endIconMode="clear_text"
+            app:endIconMode="password_toggle"
             app:cursorColor="@color/colorAccent"
             app:cursorErrorColor="@color/error"
             android:outlineAmbientShadowColor="@color/colorAccent"
@@ -96,11 +94,12 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/ed_register_password"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColorHint="@color/textDisabled"
                 android:textColor="@color/colorAccent"
-                android:textSize="@dimen/medium_text_size"
-                android:inputType="textPassword" />
+                android:textColorHint="@color/textDisabled"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPassword"
+                />
         </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -179,7 +178,7 @@
                 >
                 <!-- The actual Facebook Button (Hidden) -->
                 <com.facebook.login.widget.LoginButton
-                    android:id="@+id/fb_login_hidden"
+                    android:id="@+id/fb_register_hidden"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:visibility="gone"
@@ -214,6 +213,14 @@
             android:textColor="@color/textDisabled"
             android:textSize="12sp"
             android:clickable="true" />
+
+        <ProgressBar
+            android:id="@+id/progress_circular"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical|center_horizontal"
+            android:visibility="gone"
+            />
 
     </LinearLayout>
 

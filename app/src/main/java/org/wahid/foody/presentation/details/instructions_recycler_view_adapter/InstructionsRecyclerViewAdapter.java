@@ -17,6 +17,10 @@ public class InstructionsRecyclerViewAdapter extends RecyclerView.Adapter<Instru
 
     private List<String> instructions;
 
+    public List<String> getInstructions() {
+        return instructions;
+    }
+
     public void updateAndNotifyListItems(List<String> updatedInstructions) {
         this.instructions = updatedInstructions;
         notifyDataSetChanged();
@@ -42,7 +46,7 @@ public class InstructionsRecyclerViewAdapter extends RecyclerView.Adapter<Instru
         return instructions.size();
     }
 
-    class InstructionViewHolder extends RecyclerView.ViewHolder{
+    public static class InstructionViewHolder extends RecyclerView.ViewHolder{
         TextView stepNumber;
         TextView stepDetails;
         CheckBox checkBox;

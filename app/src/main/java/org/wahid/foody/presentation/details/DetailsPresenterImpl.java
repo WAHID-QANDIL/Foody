@@ -7,8 +7,6 @@ import android.util.Log;
 
 import androidx.annotation.RequiresApi;
 import androidx.navigation.Navigation;
-
-import org.wahid.foody.data.remote.meal_service.dto.MealResponse;
 import org.wahid.foody.presentation.MealRepository;
 import org.wahid.foody.presentation.home.HomePresenterImpl;
 import org.wahid.foody.presentation.model.MealDomainModel;
@@ -22,8 +20,9 @@ public class DetailsPresenterImpl implements DetailsPresenter {
     private static final String TAG = "DetailsPresenterImpl";
     private MealRepository repository;
     private DetailsView view;
+    private org.wahid.foody.presentation.model.MealDomainModel currentMeal;
 
-    public DetailsPresenterImpl(DetailsView view,MealRepository repository) {
+    public DetailsPresenterImpl(DetailsView view, MealRepository repository) {
         this.repository = repository;
         this.view = view;
     }
@@ -52,22 +51,22 @@ public class DetailsPresenterImpl implements DetailsPresenter {
     }
 
     @Override
-    public void onViewCreated(Bundle bundle) {
+    public void onFragmentViewCreated(Bundle bundle) {
         String mealId = bundle.getString(HomePresenterImpl.MEAL_ID);
-        repository.getMealDetailsById(mealId).observeOn(AndroidSchedulers.mainThread()).subscribe(new SingleObserver<MealResponse>() {
+        repository.getMealDetailsById(mealId).observeOn(AndroidSchedulers.mainThread()).subscribe(new SingleObserver<MealDomainModel>() {
             @Override
             public void onSubscribe(@io.reactivex.rxjava3.annotations.NonNull Disposable d) {
 
             }
             @RequiresApi(api = Build.VERSION_CODES.VANILLA_ICE_CREAM)
             @Override
-            public void onSuccess(@io.reactivex.rxjava3.annotations.NonNull MealResponse mealResponse) {
-                MealDomainModel mealDomainModel = mealResponse.getMeals().getFirst().toDomainModel();
-                view.bindReceivedMealIntoComponents(mealDomainModel);
-                view.prepareMediaVideoPlayer(mealDomainModel);
-
+            public void onSuccess(@io.reactivex.rxjava3.annotations.NonNull MealDomainModel mealResponse) {
+                view.bindReceivedMealIntoComponents(mealResponse);
+                currentMeal = mealResponse;
+                String videoId = currentMeal.mealVideoUrl().substring(currentMeal.mealVideoUrl().indexOf("=") + 1);
+                view.prepareMediaVideoPlayer(videoId);
                 Log.d(TAG, "onSuccess: mealResponse" + mealResponse);
-                Log.d(TAG, "onSuccess: mealDomainModel" + mealDomainModel);
+                Log.d(TAG, "onSuccess: mealDomainModel" + mealResponse);
             }
             @Override
             public void onError(@io.reactivex.rxjava3.annotations.NonNull Throwable e) {
