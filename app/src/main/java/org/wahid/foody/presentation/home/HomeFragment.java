@@ -44,7 +44,7 @@ public class HomeFragment extends Fragment implements HomeView {
     private FragmentHomeBinding binding;
     private HomePresenter presenter;
     private PopularMealsRecyclerViewAdapter adapter;
-    private List<RecyclerViewCardItem> items = new ArrayList<>();
+    private List<MealsRecyclerViewCardItem> items = new ArrayList<>();
 
 
     @Override
@@ -149,7 +149,7 @@ public class HomeFragment extends Fragment implements HomeView {
     @RequiresApi(api = Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
     @Override
     public void bindPopularMealsIntoRecyclerView(List<MealDomainModel> models) {
-        List<RecyclerViewCardItem> list = models.stream().map(it -> new RecyclerViewCardItem(it.mealId(), it.mealName(), it.area(), it.mealImageUrl())).toList();
+        List<MealsRecyclerViewCardItem> list = models.stream().map(it -> new MealsRecyclerViewCardItem(it.mealId(), it.mealName(), it.area(), it.mealImageUrl())).toList();
         Log.d(TAG, "bindPopularMealsIntoRecyclerView: " + list);
         adapter.updateListItems(list);
     }

@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import org.wahid.foody.R;
+import org.wahid.foody.presentation.search.OnSearchScreenListItemClick;
 import org.wahid.foody.utils.ImageLoader;
 
 import java.util.Collections;
@@ -21,6 +22,12 @@ public class CountriesRecyclerViewAdapter extends RecyclerView.Adapter<Countries
 
     private List<CountryListItem> items = Collections.emptyList();
     private static final String TAG = "CountriesRecyclerViewAd";
+    private OnSearchScreenListItemClick clickListener;
+
+    public CountriesRecyclerViewAdapter(OnSearchScreenListItemClick clickListener) {
+        this.clickListener = clickListener;
+    }
+
 
     public void updateAndNotify(List<CountryListItem> newItems){
         items = newItems;
@@ -40,6 +47,8 @@ public class CountriesRecyclerViewAdapter extends RecyclerView.Adapter<Countries
     public void onBindViewHolder(@NonNull CountryViewHolder holder, int position) {
         CountryListItem countryListItem = items.get(position);
         holder.textView.setText(countryListItem.name());
+        holder.textView.setOnClickListener(v -> clickListener.onCLick(countryListItem.name()));
+        holder.imageView.setOnClickListener(v -> clickListener.onCLick(countryListItem.name()));
         ImageLoader.load(holder.imageView, countryListItem.flagImageUrl());
     }
 

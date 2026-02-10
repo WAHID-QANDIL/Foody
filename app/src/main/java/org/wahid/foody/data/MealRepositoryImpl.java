@@ -14,6 +14,7 @@ import org.wahid.foody.presentation.model.CategoryDomainModel;
 import org.wahid.foody.presentation.model.IngredientDomainModel;
 import org.wahid.foody.presentation.model.MealDomainModel;
 import org.wahid.foody.presentation.MealRepository;
+import org.wahid.foody.utils.ApplicationDependencyRepository;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -24,14 +25,13 @@ import io.reactivex.rxjava3.core.Single;
 
 public class MealRepositoryImpl implements MealRepository {
     private RemoteMealDatasource datasource;
-    private MealRoomDb mealRoomDb;
+    private MealRoomDb mealRoomDb = ApplicationDependencyRepository.mealRoomDb;
     private MealDao mealDao;
 
 
-    public MealRepositoryImpl(Application ctx, RemoteMealDatasource datasource) {
+    public MealRepositoryImpl(RemoteMealDatasource datasource) {
         this.datasource = datasource;
-        mealRoomDb = MealRoomDb.getInstance(ctx);
-        mealDao = mealRoomDb.getMealDao();
+//        mealDao = mealRoomDb.getMealDao();
     }
 
     @Override

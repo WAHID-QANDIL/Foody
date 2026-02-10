@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import org.wahid.foody.R;
+import org.wahid.foody.presentation.search.OnSearchScreenListItemClick;
 import org.wahid.foody.utils.ImageLoader;
 
 import java.util.Collections;
@@ -18,6 +19,11 @@ import java.util.List;
 public class CategoriesRecyclerViewListAdapter extends RecyclerView.Adapter<CategoriesRecyclerViewListAdapter.CategoryViewHolder> {
 
     private List<CategoryRecyclerViewListItem> items = Collections.emptyList();
+    private OnSearchScreenListItemClick clickListener;
+
+    public CategoriesRecyclerViewListAdapter(OnSearchScreenListItemClick clickListener) {
+        this.clickListener = clickListener;
+    }
 
     public void updateAndNotify(List<CategoryRecyclerViewListItem> newItems){
         items = newItems;
@@ -36,6 +42,8 @@ public class CategoriesRecyclerViewListAdapter extends RecyclerView.Adapter<Cate
         CategoryRecyclerViewListItem item = items.get(position);
 
         holder.textView.setText(item.name());
+        holder.textView.setOnClickListener(v -> clickListener.onCLick(item.name()));
+        holder.imageView.setOnClickListener(v -> clickListener.onCLick(item.name()));
         ImageLoader.load(holder.imageView,item.imageUrl());
 
     }

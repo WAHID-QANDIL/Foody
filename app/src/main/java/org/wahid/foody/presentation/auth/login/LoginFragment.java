@@ -114,6 +114,7 @@ public class LoginFragment extends Fragment implements LoginView {
     public void onDestroyView() {
         super.onDestroyView();
         loginButton = null;
+        binding = null;
     }
 
 //    @Override

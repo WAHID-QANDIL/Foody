@@ -8,7 +8,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -79,6 +81,29 @@ public class DetailsFragment extends Fragment implements DetailsView {
         getLifecycle().addObserver(youTubePlayerView);
         binding.btnBack.setOnClickListener(v -> presenter.onBackClicked());
         binding.btnAddToFav.setOnClickListener(v -> presenter.onAddToFavClicked());
+
+        ItemTouchHelper itemTouchHelper = getItemTouchHelper();
+        itemTouchHelper.attachToRecyclerView(binding.rvInstructions);
+
+    }
+
+    @NonNull
+    private ItemTouchHelper getItemTouchHelper() {
+        ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+
+            @Override
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+                return false;
+            }
+            @Override
+            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+                int position = viewHolder.getAbsoluteAdapterPosition();
+                instructionsRecyclerViewAdapter.getInstructions().remove(position);
+                instructionsRecyclerViewAdapter.notifyItemRemoved(position);
+            }
+        };
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
+        return itemTouchHelper;
     }
 
 
