@@ -49,7 +49,9 @@
 
         <action
             android:id="@+id/action_fragment_login_to_registerFragment"
-            app:destination="@id/registerFragment" />
+            app:destination="@id/registerFragment"
+            app:launchSingleTop="true"
+            />
         <action
             android:id="@+id/action_fragment_login_to_homeFragment"
             app:destination="@id/homeFragment"
@@ -66,7 +68,8 @@
         tools:layout="@layout/fragment_register" >
         <action
             android:id="@+id/action_registerFragment_to_fragment_login"
-            app:destination="@id/fragment_login" />
+            app:destination="@id/fragment_login"
+            app:launchSingleTop="true" />
         <action
             android:id="@+id/action_registerFragment_to_homeFragment"
             app:destination="@id/homeFragment"
@@ -89,7 +92,9 @@
         </action>
         <action
             android:id="@+id/action_homeFragment_to_searchFragment"
-            app:destination="@id/searchFragment" />
+            app:destination="@id/searchFragment"
+            app:launchSingleTop="true"
+            />
     </fragment>
     <fragment
         android:id="@+id/detailsFragment"
@@ -108,7 +113,18 @@
         tools:layout="@layout/fragment_search"
         >
         <action
-            android:id="@+id/action_searchFragment_to_detailsFragment"
+            android:id="@+id/action_searchFragment_to_searchDetailsFragment"
+            app:destination="@id/searchDetailsFragment"
+            app:launchSingleTop="true"
+            />
+    </fragment>
+    <fragment
+        android:id="@+id/searchDetailsFragment"
+        android:name="org.wahid.foody.presentation.search_details.SearchDetailsFragment"
+        android:label="fragment_search_details"
+        tools:layout="@layout/fragment_search_details" >
+        <action
+            android:id="@+id/action_searchDetailsFragment_to_detailsFragment"
             app:destination="@id/detailsFragment" />
     </fragment>
 
