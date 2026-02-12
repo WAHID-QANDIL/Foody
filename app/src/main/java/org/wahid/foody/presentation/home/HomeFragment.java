@@ -8,12 +8,16 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavOptions;
+import androidx.navigation.Navigation;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.PopupMenu;
 
 import com.bumptech.glide.Glide;
 import com.google.android.material.carousel.CarouselLayoutManager;
@@ -77,6 +81,42 @@ public class HomeFragment extends Fragment implements HomeView {
             return null;
         });
         binding.tvSeeAll.setOnClickListener(v -> presenter.onShowAllClicked());
+        binding.imgAvatar.setOnClickListener(this::showProfileMenu);
+    }
+
+    private void showProfileMenu(View anchor) {
+        PopupMenu popupMenu = new PopupMenu(requireContext(), anchor);
+        popupMenu.getMenuInflater().inflate(R.menu.profile_menu, popupMenu.getMenu());
+
+        popupMenu.setOnMenuItemClickListener(item -> {
+            if (item.getItemId() == R.id.action_logout) {
+                showLogoutConfirmationDialog();
+                return true;
+            }
+            return false;
+        });
+
+        popupMenu.show();
+    }
+
+    private void showLogoutConfirmationDialog() {
+        new AlertDialog.Builder(requireContext())
+                .setTitle(R.string.logout)
+                .setMessage(R.string.logout_confirmation_message)
+                .setPositiveButton(R.string.yes, (dialog, which) -> performLogout())
+                .setNegativeButton(R.string.no, (dialog, which) -> dialog.dismiss())
+                .show();
+    }
+
+    private void performLogout() {
+        FirebaseClient.signOut();
+
+        GuestSessionManager.getInstance().clearSession();
+        NavOptions navOptions = new NavOptions.Builder()
+                .setPopUpTo(R.id.app_navigation_graph, true)
+                .build();
+        Navigation.findNavController(requireView())
+                .navigate(R.id.fragment_login, null, navOptions);
     }
 
     @Override

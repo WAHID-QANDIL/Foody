@@ -2,19 +2,16 @@ package org.wahid.foody.presentation.on_boarding.first_onboarding_screen;
 
 import android.app.ActionBar;
 import android.os.Bundle;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import androidx.navigation.NavOptions;
 import androidx.navigation.Navigation;
-
 import org.wahid.foody.R;
+import org.wahid.foody.data.remote.user_auth.firebase.FirebaseClient;
 import org.wahid.foody.databinding.FragmentFirstOnboardingScreenBinding;
 import org.wahid.foody.utils.AppPreferences;
 
@@ -38,6 +35,14 @@ public class FirstOnboardingScreenFragment extends Fragment implements FirstOnBo
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        if (FirebaseClient.isUserLoggedIn()) {
+            NavOptions navOptions = new NavOptions.Builder()
+                    .setPopUpTo(R.id.fragment_first_onboarding_screen, true)
+                    .build();
+            Navigation.findNavController(view)
+                    .navigate(R.id.action_fragment_first_onboarding_screen_to_homeFragment, null, navOptions);
+            return;
+        }
         AppPreferences appPreferences = AppPreferences.getInstance(requireContext());
         if (!appPreferences.isFirstLaunch()) {
             NavOptions navOptions = new NavOptions.Builder()

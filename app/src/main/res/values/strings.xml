@@ -66,4 +66,8 @@
     <string name="remove_from_favorite">Remove From Favorite</string>
     <string name="remove">Remove</string>
     <string name="details">details</string>
+    <string name="logout">Logout</string>
+    <string name="logout_confirmation_message">Are you sure you want to logout?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
 </resources>

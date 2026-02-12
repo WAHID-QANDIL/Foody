@@ -24,6 +24,11 @@
             app:popUpTo="@id/fragment_first_onboarding_screen"
 
             />
+        <action
+            android:id="@+id/action_fragment_first_onboarding_screen_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:popUpToInclusive="true"
+            app:popUpTo="@id/fragment_first_onboarding_screen" />
     </fragment>
 
     <fragment
