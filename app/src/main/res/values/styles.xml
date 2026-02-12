@@ -52,6 +52,11 @@
 
     </style>
 
+    <style name="ShapeAppearance.App.LargeComponent" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/large_padding</item>
+    </style>
+
     <style name="App.CustomIndicator" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
         <item name="android:color">@color/colorAccent</item>
         <item name="marginHorizontal">12dp</item>

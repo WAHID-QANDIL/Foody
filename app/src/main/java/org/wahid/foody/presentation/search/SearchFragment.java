@@ -36,7 +36,7 @@ public class SearchFragment extends Fragment implements SearchView {
         countriesRecyclerViewAdapter = new CountriesRecyclerViewAdapter(name -> presenter.onCountryItemClicked(name));
 
         binding = FragmentSearchBinding.inflate(getLayoutInflater());
-        presenter = new SearchPresenterImpl(this, ApplicationDependencyRepository.repository);
+        presenter = new SearchPresenterImpl(this, ApplicationDependencyRepository.remoteRepository);
         return binding.getRoot();
     }
 

@@ -10,6 +10,7 @@ interface LoginPresenter {
     void onLoginWithFacebookClicked();
     void onLoginWithFacebookResult(AccessToken token);
     void onLoginWithGoogleResult(GetCredentialResponse response);
+    void onJoinAsGuestClicked();
     void onRegisterClicked();
     void onError(Throwable throwable);
 }

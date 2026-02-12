@@ -9,6 +9,7 @@ import androidx.navigation.Navigation;
 import org.wahid.foody.R;
 import org.wahid.foody.presentation.MealRepository;
 import org.wahid.foody.presentation.model.MealDomainModel;
+import org.wahid.foody.utils.AppPreferences;
 
 import java.util.List;
 import java.util.Random;
@@ -20,12 +21,14 @@ import io.reactivex.rxjava3.disposables.Disposable;
 public class HomePresenterImpl implements HomePresenter{
     private HomeView view;
     private MealRepository repository;
+    private AppPreferences appPreferences;
     public static String MEAL_ID = "mealId";
 
 
     public HomePresenterImpl(HomeView view, MealRepository repositoryImpl) {
         this.view = view;
         repository = repositoryImpl;
+        appPreferences = AppPreferences.getInstance(((HomeFragment) view).requireContext());
     }
 
     @Override
@@ -56,6 +59,31 @@ public class HomePresenterImpl implements HomePresenter{
 
     @Override
     public void fetchRandomMeal() {
+        String savedMealId = appPreferences.getMealOfTheDayId();
+
+        if (savedMealId != null) {
+            repository.getMealDetailsById(savedMealId).observeOn(AndroidSchedulers.mainThread()).subscribe(new SingleObserver<MealDomainModel>() {
+                @Override
+                public void onSubscribe(@NonNull Disposable d) {
+                }
+
+                @RequiresApi(api = Build.VERSION_CODES.VANILLA_ICE_CREAM)
+                @Override
+                public void onSuccess(@NonNull MealDomainModel mealResponse) {
+                    view.bindRandomMealIntoCard(mealResponse);
+                }
+
+                @Override
+                public void onError(@NonNull Throwable e) {
+                   fetchNewRandomMeal();
+                }
+            });
+        } else {
+            fetchNewRandomMeal();
+        }
+    }
+
+    private void fetchNewRandomMeal() {
         repository.getRandomMeal().observeOn(AndroidSchedulers.mainThread()).subscribe(new SingleObserver<MealDomainModel>() {
             @Override
             public void onSubscribe(@NonNull Disposable d) {
@@ -64,6 +92,7 @@ public class HomePresenterImpl implements HomePresenter{
             @RequiresApi(api = Build.VERSION_CODES.VANILLA_ICE_CREAM)
             @Override
             public void onSuccess(@NonNull MealDomainModel mealResponse) {
+                appPreferences.setMealOfTheDayId(mealResponse.mealId());
                 view.bindRandomMealIntoCard(mealResponse);
             }
 

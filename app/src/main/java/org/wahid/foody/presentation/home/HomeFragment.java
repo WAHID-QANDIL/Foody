@@ -8,12 +8,16 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavOptions;
+import androidx.navigation.Navigation;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.PopupMenu;
 
 import com.bumptech.glide.Glide;
 import com.google.android.material.carousel.CarouselLayoutManager;
@@ -22,6 +26,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 import org.wahid.foody.R;
 import org.wahid.foody.data.remote.user_auth.firebase.FirebaseClient;
+import org.wahid.foody.data.remote.user_auth.session.GuestSessionManager;
 import org.wahid.foody.databinding.FragmentHomeBinding;
 import org.wahid.foody.presentation.model.MealDomainModel;
 import org.wahid.foody.utils.ApplicationDependencyRepository;
@@ -51,7 +56,7 @@ public class HomeFragment extends Fragment implements HomeView {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         adapter = new PopularMealsRecyclerViewAdapter();
-        presenter = new HomePresenterImpl(this, ApplicationDependencyRepository.repository);
+        presenter = new HomePresenterImpl(this, ApplicationDependencyRepository.remoteRepository);
     }
 
     @Override
@@ -76,6 +81,55 @@ public class HomeFragment extends Fragment implements HomeView {
             return null;
         });
         binding.tvSeeAll.setOnClickListener(v -> presenter.onShowAllClicked());
+        binding.imgAvatar.setOnClickListener(this::showProfileMenu);
+        setupSwipeRefresh();
+    }
+    private void setupSwipeRefresh() {
+        binding.swipeRefreshLayout.setOnRefreshListener(this::refreshContent);
+    }
+    private void refreshContent() {
+        presenter.fetchRandomMeal();
+        presenter.fetchPopularMeals();
+    }
+    private void stopRefreshing() {
+        if (binding != null && binding.swipeRefreshLayout.isRefreshing()) {
+            binding.swipeRefreshLayout.setRefreshing(false);
+        }
+    }
+
+    private void showProfileMenu(View anchor) {
+        PopupMenu popupMenu = new PopupMenu(requireContext(), anchor);
+        popupMenu.getMenuInflater().inflate(R.menu.profile_menu, popupMenu.getMenu());
+
+        popupMenu.setOnMenuItemClickListener(item -> {
+            if (item.getItemId() == R.id.action_logout) {
+                showLogoutConfirmationDialog();
+                return true;
+            }
+            return false;
+        });
+
+        popupMenu.show();
+    }
+
+    private void showLogoutConfirmationDialog() {
+        new AlertDialog.Builder(requireContext())
+                .setTitle(R.string.logout)
+                .setMessage(R.string.logout_confirmation_message)
+                .setPositiveButton(R.string.yes, (dialog, which) -> performLogout())
+                .setNegativeButton(R.string.no, (dialog, which) -> dialog.dismiss())
+                .show();
+    }
+
+    private void performLogout() {
+        FirebaseClient.signOut();
+
+        GuestSessionManager.getInstance().clearSession();
+        NavOptions navOptions = new NavOptions.Builder()
+                .setPopUpTo(R.id.app_navigation_graph, true)
+                .build();
+        Navigation.findNavController(requireView())
+                .navigate(R.id.fragment_login, null, navOptions);
     }
 
     @Override
@@ -91,15 +145,23 @@ public class HomeFragment extends Fragment implements HomeView {
     public void onStart() {
         super.onStart();
         Bundle arguments = getArguments();
-//        assert arguments != null;
-        currentuser = FirebaseClient.getInstance().getCurrentUser();
-        Glide.with(binding.imgAvatar).load(
-                Objects.requireNonNullElse(Objects.requireNonNull(currentuser).getPhotoUrl(), ""
-        )).placeholder(R.drawable.place_holder_avatar).into(binding.imgAvatar) ;
-        String name = currentuser.getDisplayName();
-
-        if (name != null)binding.txtUsername.setText(name);
-        else binding.txtUsername.setText(R.string.amazing_chief);
+        if (GuestSessionManager.getInstance().isGuestMode()) {
+            binding.imgAvatar.setImageResource(R.drawable.place_holder_avatar);
+            binding.txtUsername.setText(R.string.guest_user);
+        } else {
+            currentuser = FirebaseClient.getInstance().getCurrentUser();
+            if (currentuser != null) {
+                Glide.with(binding.imgAvatar).load(
+                        Objects.requireNonNullElse(currentuser.getPhotoUrl(), "")
+                ).placeholder(R.drawable.place_holder_avatar).into(binding.imgAvatar);
+                String name = currentuser.getDisplayName();
+                if (name != null) binding.txtUsername.setText(name);
+                else binding.txtUsername.setText(R.string.amazing_chief);
+            } else {
+                binding.imgAvatar.setImageResource(R.drawable.place_holder_avatar);
+                binding.txtUsername.setText(R.string.amazing_chief);
+            }
+        }
     }
 
     @Override
@@ -144,6 +206,7 @@ public class HomeFragment extends Fragment implements HomeView {
         binding.randomMealCard.txtMealName.setText(meal.mealName());
         binding.randomMealCard.cardMeal.setOnClickListener(v -> presenter.onRandomMealClicked(meal.mealId()));
         binding.randomMealCard.btnViewRecipe.setOnClickListener(v -> presenter.onRandomMealClicked(meal.mealId()));
+        stopRefreshing();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.UPSIDE_DOWN_CAKE)

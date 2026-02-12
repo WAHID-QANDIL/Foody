@@ -10,76 +10,65 @@ import androidx.credentials.CustomCredential;
 import androidx.credentials.GetCredentialRequest;
 import androidx.credentials.GetCredentialResponse;
 import androidx.navigation.NavOptions;
-import androidx.navigation.NavOptionsBuilder;
 import androidx.navigation.Navigation;
 
 import com.facebook.AccessToken;
 import com.google.android.libraries.identity.googleid.GetSignInWithGoogleOption;
 import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential;
-import com.google.firebase.auth.AuthCredential;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 import org.wahid.foody.R;
 import org.wahid.foody.data.remote.user_auth.AuthRepositoryImpl;
 import org.wahid.foody.data.remote.user_auth.AuthenticationServiceType;
-import org.wahid.foody.data.remote.user_auth.UserCredentials;
-import org.wahid.foody.data.remote.user_auth.firebase.FirebaseClient;
-import org.wahid.foody.data.remote.user_auth.firebase.OnAuthenticatedCallBack;
 import org.wahid.foody.data.remote.user_auth.firebase.email_password_auth_service.EmailPasswordCredentials;
 import org.wahid.foody.data.remote.user_auth.firebase.facebook_auth_service.FacebookCredentials;
 import org.wahid.foody.data.remote.user_auth.firebase.google_auth_service.GoogleCredentials;
+import org.wahid.foody.data.remote.user_auth.guest.GuestCredentials;
+import org.wahid.foody.data.remote.user_auth.session.GuestSessionManager;
 import org.wahid.foody.presentation.auth.AuthCredentials;
 import org.wahid.foody.presentation.AuthRepository;
-import org.wahid.foody.presentation.navigation.FirebaseUserNavArgument;
 
-import java.util.Objects;
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.disposables.CompositeDisposable;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class LoginPresenterImpl implements LoginPresenter {
 
     private LoginView view;
     private static final String TAG = "LoginPresenterImpl";
     AuthRepository<AuthCredentials> authRepository;
+    private final CompositeDisposable disposables = new CompositeDisposable();
+
     public LoginPresenterImpl(LoginView view) {
         this.view = view;
     }
 
     @Override
     public void onLoginClicked(String username, String password) {
+        GuestSessionManager.getInstance().clearSession();
         authRepository = new AuthRepositoryImpl(AuthenticationServiceType.EMAIL_PASSWORD);
         if (!username.isEmpty() && !password.isEmpty()) {
             EmailPasswordCredentials credentials = new EmailPasswordCredentials(username, password);
-            authRepository.login(credentials, new OnAuthenticatedCallBack() {
-                @Override
-                public void onSuccess(UserCredentials userCredentials) {
-                    view.hideProgressIndicator();
-                    view.showSuccessDialog(((LoginFragment) view).requireActivity(), "Logged In", new Runnable() {
-                        @Override
-                        public void run() {
-                            NavOptions navOptions = new NavOptions.Builder().setPopUpTo(R.id.fragment_login, true).build();
-                            Navigation.findNavController(((LoginFragment) view).requireView()).navigate(R.id.action_fragment_login_to_homeFragment, null,navOptions,null);
-                        }
-                    });
-                }
-
-                @Override
-                public void onFail(Throwable throwable) {
-                    view.hideProgressIndicator();
-                    view.showErrorDialog(((LoginFragment) view).requireActivity(), "Credentials are not correct, pls enter valid email and password", new Runnable() {
-                        @Override
-                        public void run() {
-                            //Nothing until now
-                            Log.d(TAG, "run: cre" );
-                        }
-                    });
-                }
-            });
+            disposables.add(authRepository.login(credentials)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(
+                            userCredentials -> {
+                                view.hideProgressIndicator();
+                                view.showSuccessDialog(((LoginFragment) view).requireActivity(), "Logged In", () -> {
+                                    NavOptions navOptions = new NavOptions.Builder().setPopUpTo(R.id.fragment_login, true).build();
+                                    Navigation.findNavController(((LoginFragment) view).requireView()).navigate(R.id.action_fragment_login_to_homeFragment, null, navOptions, null);
+                                });
+                            },
+                            throwable -> {
+                                view.hideProgressIndicator();
+                                view.showErrorDialog(((LoginFragment) view).requireActivity(), "Credentials are not correct, pls enter valid email and password", () -> {
+                                    Log.d(TAG, "run: cre");
+                                });
+                            }
+                    ));
         } else {
-            view.showErrorDialog(((LoginFragment) view).requireActivity(), "The email or password can't be empty", new Runnable() {
-                @Override
-                public void run() {
-                    //Nothing until now
-                }
+            view.showErrorDialog(((LoginFragment) view).requireActivity(), "The email or password can't be empty", () -> {
+                //Nothing until now
             });
         }
     }
@@ -105,34 +94,31 @@ public class LoginPresenterImpl implements LoginPresenter {
 
     @Override
     public void onLoginWithFacebookResult(AccessToken token) {
+        GuestSessionManager.getInstance().clearSession();
 
         authRepository = new AuthRepositoryImpl(AuthenticationServiceType.FACEBOOK);
-        authRepository.login(new FacebookCredentials(token.getToken()), new OnAuthenticatedCallBack() {
-            public void onSuccess(UserCredentials credentials) {
-                view.showSuccessDialog(((LoginFragment) view).requireActivity(), "LoggedIn", new Runnable() {
-                    @Override
-                    public void run() {
-                        NavOptions navOptions = new NavOptions.Builder().setPopUpTo(R.id.fragment_login, true).build();
-                        Navigation.findNavController(((LoginFragment) view).requireView()).navigate(R.id.action_fragment_login_to_homeFragment, null,navOptions,null);
-                    }
-                });
-            }
-
-            @Override
-            public void onFail(Throwable throwable) {
-                view.showErrorDialog(((LoginFragment) view).requireActivity(), throwable.getMessage(), new Runnable() {
-                    @Override
-                    public void run() {
-                        //TODO nothing to do in this case of failer
-                    }
-                });
-            }
-        });
-
+        disposables.add(authRepository.login(new FacebookCredentials(token.getToken()))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        credentials -> {
+                            view.showSuccessDialog(((LoginFragment) view).requireActivity(), "LoggedIn", () -> {
+                                NavOptions navOptions = new NavOptions.Builder().setPopUpTo(R.id.fragment_login, true).build();
+                                Navigation.findNavController(((LoginFragment) view).requireView()).navigate(R.id.action_fragment_login_to_homeFragment, null, navOptions, null);
+                            });
+                        },
+                        throwable -> {
+                            view.showErrorDialog(((LoginFragment) view).requireActivity(), throwable.getMessage(), () -> {
+                                //TODO nothing to do in this case of failure
+                            });
+                        }
+                ));
     }
 
     @Override
     public void onLoginWithGoogleResult(GetCredentialResponse response) {
+        GuestSessionManager.getInstance().clearSession();
+
         Credential responseCredential = response.getCredential();
         authRepository = new AuthRepositoryImpl(AuthenticationServiceType.GOOGLE);
 
@@ -143,28 +129,22 @@ public class LoginPresenterImpl implements LoginPresenter {
             GoogleIdTokenCredential googleIdTokenCredential = GoogleIdTokenCredential.createFrom(credentialData);
 
             // Sign in to Firebase with using the token
-            authRepository.login(new GoogleCredentials(googleIdTokenCredential.getIdToken()), new OnAuthenticatedCallBack() {
-                @Override
-                public void onSuccess(UserCredentials credentials) {
-                    view.showSuccessDialog(((LoginFragment) view).requireActivity(), "LoggedIn", new Runnable() {
-                        @Override
-                        public void run() {
-                            NavOptions navOptions = new NavOptions.Builder().setPopUpTo(R.id.fragment_login, true).build();
-                            Navigation.findNavController(((LoginFragment) view).requireView()).navigate(R.id.action_fragment_login_to_homeFragment, null,navOptions,null);
-                        }
-                    });
-                }
-
-                @Override
-                public void onFail(Throwable throwable) {
-                    view.showErrorDialog(((LoginFragment) view).requireActivity(), throwable.getMessage(), new Runnable() {
-                        @Override
-                        public void run() {
-                            //TODO nothing to do in this case of failer
-                        }
-                    });
-                }
-            });
+            disposables.add(authRepository.login(new GoogleCredentials(googleIdTokenCredential.getIdToken()))
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(
+                            credentials -> {
+                                view.showSuccessDialog(((LoginFragment) view).requireActivity(), "LoggedIn", () -> {
+                                    NavOptions navOptions = new NavOptions.Builder().setPopUpTo(R.id.fragment_login, true).build();
+                                    Navigation.findNavController(((LoginFragment) view).requireView()).navigate(R.id.action_fragment_login_to_homeFragment, null, navOptions, null);
+                                });
+                            },
+                            throwable -> {
+                                view.showErrorDialog(((LoginFragment) view).requireActivity(), throwable.getMessage(), () -> {
+                                    //TODO nothing to do in this case of failure
+                                });
+                            }
+                    ));
         } else {
             Log.w(TAG, "Credential is not of type Google ID!");
             onError(new Throwable("Credential is not of type Google ID!"));
@@ -172,8 +152,28 @@ public class LoginPresenterImpl implements LoginPresenter {
 
     }
 
-    private void navigateToHomeScreen(Bundle bundle, NavOptions options) {
-        Navigation.findNavController(((LoginFragment) view).requireView()).navigate(R.id.action_fragment_login_to_homeFragment, bundle, options);
+    @Override
+    public void onJoinAsGuestClicked() {
+
+        GuestSessionManager.getInstance().clearSession();
+
+        authRepository = new AuthRepositoryImpl(AuthenticationServiceType.GUEST);
+        disposables.add(authRepository.login(new GuestCredentials())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        credentials -> {
+                            view.showSuccessDialog(((LoginFragment) view).requireActivity(), "Joined as Guest", () -> {
+                                NavOptions navOptions = new NavOptions.Builder().setPopUpTo(R.id.fragment_login, true).build();
+                                Navigation.findNavController(((LoginFragment) view).requireView()).navigate(R.id.action_fragment_login_to_homeFragment, null, navOptions, null);
+                            });
+                        },
+                        throwable -> {
+                            view.showErrorDialog(((LoginFragment) view).requireActivity(), "Failed to join as guest: " + throwable.getMessage(), () -> {
+                                // Nothing to do
+                            });
+                        }
+                ));
     }
 
     @Override

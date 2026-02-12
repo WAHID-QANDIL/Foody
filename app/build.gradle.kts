@@ -74,4 +74,5 @@ dependencies {
     annotationProcessor(libs.room.annotation.processor)
     implementation(libs.room.database)
     implementation(libs.room.runtime)
+    implementation(libs.firebase.firestore)
 }

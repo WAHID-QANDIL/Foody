@@ -1,12 +1,15 @@
 package org.wahid.foody.presentation.details;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.icu.util.Calendar;
 import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -16,7 +19,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
+import com.google.android.material.button.MaterialButtonToggleGroup;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
@@ -50,7 +55,10 @@ public class DetailsFragment extends Fragment implements DetailsView {
         super.onCreate(savedInstanceState);
         ingredientsRecyclerViewAdapter = new IngredientsRecyclerViewAdapter();
         instructionsRecyclerViewAdapter = new InstructionsRecyclerViewAdapter();
-        presenter = new DetailsPresenterImpl(this, ApplicationDependencyRepository.repository);
+        presenter = new DetailsPresenterImpl(this,
+                ApplicationDependencyRepository.remoteRepository,
+                ApplicationDependencyRepository.localRepository,
+                ApplicationDependencyRepository.firestoreRepository);
 
     }
 
@@ -81,6 +89,7 @@ public class DetailsFragment extends Fragment implements DetailsView {
         getLifecycle().addObserver(youTubePlayerView);
         binding.btnBack.setOnClickListener(v -> presenter.onBackClicked());
         binding.btnAddToFav.setOnClickListener(v -> presenter.onAddToFavClicked());
+        binding.btnAddToPlan.setOnClickListener(v -> presenter.onAddToWeeklyPlay());
 
         ItemTouchHelper itemTouchHelper = getItemTouchHelper();
         itemTouchHelper.attachToRecyclerView(binding.rvInstructions);
@@ -152,19 +161,94 @@ public class DetailsFragment extends Fragment implements DetailsView {
         });
     }
 
+    @Override
+    public void showDatePickerDialog() {
+        showDatePickerFromFragment();
+    }
+
 
     @Override
     public void showProgressIndicator() {
-
+        if (binding != null) {
+            binding.progressOverlay.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
     public void hideProgressIndicator() {
-
+        if (binding != null) {
+            binding.progressOverlay.setVisibility(View.GONE);
+        }
     }
 
     @Override
     public void showSharOptionDialog(Intent intent) {
         startActivity(intent);
     }
+
+
+    private void showDatePickerFromFragment() {
+        Calendar now = Calendar.getInstance();
+        DatePickerDialog dp = new DatePickerDialog(requireContext(), (view, y, m, d) -> {
+            long millis;
+            Calendar c = Calendar.getInstance();
+            c.set(y, m, d, 0, 0, 0);
+            c.set(Calendar.MILLISECOND, 0);
+            millis = c.getTimeInMillis();
+            // now call an AlertDialog using requireContext()
+            showMealDialogFromFragment(millis);
+        }, now.get(Calendar.YEAR), now.get(Calendar.MONTH), now.get(Calendar.DAY_OF_MONTH));
+        dp.show();
+    }
+
+    private void showMealDialogFromFragment(long selectedDateMillis) {
+
+        LayoutInflater inflater = LayoutInflater.from(requireContext());
+        View dialogView = inflater.inflate(R.layout.dialog_meal_toggle, null);
+
+        MaterialButtonToggleGroup toggleGroup =
+                dialogView.findViewById(R.id.mealToggleGroup);
+
+        // Optional: default selection
+        toggleGroup.check(R.id.btnBreakfast);
+
+        AlertDialog dialog = new AlertDialog.Builder(requireContext())
+                .setTitle("Choose meal type")
+                .setView(dialogView)
+                .setPositiveButton("Confirm", null)
+                .setNegativeButton("Cancel", (d, which) -> d.dismiss())
+                .create();
+
+        dialog.setOnShowListener(d -> {
+            Button confirm = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
+            confirm.setOnClickListener(v -> {
+
+                int checkedId = toggleGroup.getCheckedButtonId();
+                String selectedMeal;
+
+                if (checkedId == R.id.btnBreakfast) {
+                    selectedMeal = "Breakfast";
+                } else if (checkedId == R.id.btnLunch) {
+                    selectedMeal = "Lunch";
+                } else if (checkedId == R.id.btnDinner) {
+                    selectedMeal = "Dinner";
+                } else {
+                    // Should never happen because selectionRequired=true
+                    return;
+                }
+
+                Log.d(TAG, "Date: " + selectedDateMillis +
+                        " Meal: " + selectedMeal);
+
+                presenter.onConfirmAddPlanMeal(String.valueOf(selectedDateMillis),selectedMeal);
+                dialog.dismiss();
+            });
+        });
+
+        dialog.show();
+    }
+
+
+
+
 }

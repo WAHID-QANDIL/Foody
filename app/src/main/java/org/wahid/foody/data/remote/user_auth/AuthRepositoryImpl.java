@@ -1,8 +1,9 @@
 package org.wahid.foody.data.remote.user_auth;
 
-import org.wahid.foody.data.remote.user_auth.firebase.OnAuthenticatedCallBack;
 import org.wahid.foody.presentation.auth.AuthCredentials;
 import org.wahid.foody.presentation.AuthRepository;
+
+import io.reactivex.rxjava3.core.Single;
 
 public class AuthRepositoryImpl implements AuthRepository<AuthCredentials> {
 
@@ -17,12 +18,12 @@ public class AuthRepositoryImpl implements AuthRepository<AuthCredentials> {
     }
 
     @Override
-    public void login(AuthCredentials credentials, OnAuthenticatedCallBack callBack) {
-        authenticationService.login(credentials, callBack);
+    public Single<UserCredentials<?>> login(AuthCredentials credentials) {
+        return authenticationService.login(credentials);
     }
 
     @Override
-    public void register(AuthCredentials credentials, OnAuthenticatedCallBack callBack) {
-        authenticationService.register(credentials, callBack);
+    public Single<UserCredentials<?>> register(AuthCredentials credentials) {
+        return authenticationService.register(credentials);
     }
 }

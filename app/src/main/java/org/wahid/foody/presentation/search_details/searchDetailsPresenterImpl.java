@@ -45,7 +45,7 @@ public class searchDetailsPresenterImpl implements SearchDetailsPresenter {
 
     public searchDetailsPresenterImpl(SearchDetailsView view) {
         this.view = view;
-        repository = ApplicationDependencyRepository.repository;
+        repository = ApplicationDependencyRepository.remoteRepository;
         filterQuery = new SearchFilterQuery(null, null, null);
         loadFilterOptions();
     }

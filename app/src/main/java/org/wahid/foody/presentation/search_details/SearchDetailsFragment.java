@@ -84,6 +84,7 @@ public class SearchDetailsFragment extends Fragment implements SearchDetailsView
                 presenter.onSearchQueryChange(s.toString());
             }
         });
+        binding.btnBack.setOnClickListener(v -> presenter.onBackClicked());
 
         adapter.setOnItemClicked(s -> {
             presenter.onSearchResultItemClicked(s);

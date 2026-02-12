@@ -4,11 +4,18 @@
     Recreates the provided UI design using ConstraintLayout
     Focused on minimal nesting, performance, and clarity
 -->
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<org.wahid.foody.presentation.components.XStyleSwipeRefreshLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/swipe_refresh_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/colorPrimaryLight">
+
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="@color/colorPrimaryLight">
 <LinearLayout
         android:layout_width="match_parent"
@@ -178,3 +185,4 @@
 
     </LinearLayout>
 </ScrollView>
+</org.wahid.foody.presentation.components.XStyleSwipeRefreshLayout>

@@ -1,9 +1,11 @@
 package org.wahid.foody.presentation;
 
-import org.wahid.foody.data.remote.user_auth.firebase.OnAuthenticatedCallBack;
+import org.wahid.foody.data.remote.user_auth.UserCredentials;
+
+import io.reactivex.rxjava3.core.Single;
 
 public interface AuthRepository<C>{
 
-    void login(C credentials, OnAuthenticatedCallBack callBack);
-    void register(C credentials, OnAuthenticatedCallBack callBack);
+    Single<UserCredentials<?>> login(C credentials);
+    Single<UserCredentials<?>> register(C credentials);
 }

@@ -44,6 +44,7 @@ facebook-login                  = { module = "com.facebook.android:facebook-logi
 firebase-auth                   = { module = "com.google.firebase:firebase-auth" }
 firebase-analytics              = { module ="com.google.firebase:firebase-analytics" }
 firebase-bom                    = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom" }
+firebase-firestore              = { module = "com.google.firebase:firebase-firestore" }
 firebase-ui-auth                = { module = "com.firebaseui:firebase-ui-auth", version.ref = "firebaseUiAuth" }
 glide                           = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
 googleid                        = { module = "com.google.android.libraries.identity.googleid:googleid", version.ref = "googleid" }

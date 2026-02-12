@@ -16,11 +16,11 @@ import kotlin.jvm.Volatile;
 @TypeConverters(value = Converters.class)
 public abstract class MealRoomDb extends RoomDatabase {
 
-    abstract public MealDao getMealDao();
+    public abstract MealDao getMealDao();
     @Volatile
     private static MealRoomDb INSTANCE = null;
 
-    public static synchronized MealRoomDb  getInstance(Application ctx){
+    public static MealRoomDb  getInstance(Application ctx){
 
         if (INSTANCE == null){
             INSTANCE = Room.databaseBuilder(ctx, MealRoomDb.class, "mealDb").build();

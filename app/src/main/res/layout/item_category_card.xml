@@ -26,7 +26,7 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:alpha="0.7"
-            android:background="@drawable/top_rounded_corners_shape"
+            android:background="@drawable/random_meal_card_gradent"
             android:backgroundTint="@color/colorPrimaryLight"
             android:gravity="center"
             android:text="Beef"
