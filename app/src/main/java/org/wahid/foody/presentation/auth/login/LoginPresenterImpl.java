@@ -22,6 +22,8 @@ import org.wahid.foody.data.remote.user_auth.AuthenticationServiceType;
 import org.wahid.foody.data.remote.user_auth.firebase.email_password_auth_service.EmailPasswordCredentials;
 import org.wahid.foody.data.remote.user_auth.firebase.facebook_auth_service.FacebookCredentials;
 import org.wahid.foody.data.remote.user_auth.firebase.google_auth_service.GoogleCredentials;
+import org.wahid.foody.data.remote.user_auth.guest.GuestCredentials;
+import org.wahid.foody.data.remote.user_auth.session.GuestSessionManager;
 import org.wahid.foody.presentation.auth.AuthCredentials;
 import org.wahid.foody.presentation.AuthRepository;
 
@@ -42,6 +44,7 @@ public class LoginPresenterImpl implements LoginPresenter {
 
     @Override
     public void onLoginClicked(String username, String password) {
+        GuestSessionManager.getInstance().clearSession();
         authRepository = new AuthRepositoryImpl(AuthenticationServiceType.EMAIL_PASSWORD);
         if (!username.isEmpty() && !password.isEmpty()) {
             EmailPasswordCredentials credentials = new EmailPasswordCredentials(username, password);
@@ -91,6 +94,7 @@ public class LoginPresenterImpl implements LoginPresenter {
 
     @Override
     public void onLoginWithFacebookResult(AccessToken token) {
+        GuestSessionManager.getInstance().clearSession();
 
         authRepository = new AuthRepositoryImpl(AuthenticationServiceType.FACEBOOK);
         disposables.add(authRepository.login(new FacebookCredentials(token.getToken()))
@@ -113,6 +117,8 @@ public class LoginPresenterImpl implements LoginPresenter {
 
     @Override
     public void onLoginWithGoogleResult(GetCredentialResponse response) {
+        GuestSessionManager.getInstance().clearSession();
+
         Credential responseCredential = response.getCredential();
         authRepository = new AuthRepositoryImpl(AuthenticationServiceType.GOOGLE);
 
@@ -144,6 +150,30 @@ public class LoginPresenterImpl implements LoginPresenter {
             onError(new Throwable("Credential is not of type Google ID!"));
         }
 
+    }
+
+    @Override
+    public void onJoinAsGuestClicked() {
+
+        GuestSessionManager.getInstance().clearSession();
+
+        authRepository = new AuthRepositoryImpl(AuthenticationServiceType.GUEST);
+        disposables.add(authRepository.login(new GuestCredentials())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        credentials -> {
+                            view.showSuccessDialog(((LoginFragment) view).requireActivity(), "Joined as Guest", () -> {
+                                NavOptions navOptions = new NavOptions.Builder().setPopUpTo(R.id.fragment_login, true).build();
+                                Navigation.findNavController(((LoginFragment) view).requireView()).navigate(R.id.action_fragment_login_to_homeFragment, null, navOptions, null);
+                            });
+                        },
+                        throwable -> {
+                            view.showErrorDialog(((LoginFragment) view).requireActivity(), "Failed to join as guest: " + throwable.getMessage(), () -> {
+                                // Nothing to do
+                            });
+                        }
+                ));
     }
 
     @Override

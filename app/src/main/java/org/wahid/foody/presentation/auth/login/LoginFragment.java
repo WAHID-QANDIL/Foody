@@ -80,6 +80,9 @@ public class LoginFragment extends Fragment implements LoginView {
         binding.facebookLoginBtn.setOnClickListener(v -> {
             presenter.onLoginWithFacebookClicked();
         });
+        binding.joinAsGustBtn.setOnClickListener(v -> {
+            presenter.onJoinAsGuestClicked();
+        });
         loginButton = binding.fbLoginHidden;
 
         loginButton.setFragment(this);

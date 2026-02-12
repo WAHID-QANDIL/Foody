@@ -4,4 +4,5 @@ public enum AuthenticationServiceType {
     EMAIL_PASSWORD,
     GOOGLE,
     FACEBOOK,
+    GUEST,
 }

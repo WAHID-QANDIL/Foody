@@ -22,6 +22,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 import org.wahid.foody.R;
 import org.wahid.foody.data.remote.user_auth.firebase.FirebaseClient;
+import org.wahid.foody.data.remote.user_auth.session.GuestSessionManager;
 import org.wahid.foody.databinding.FragmentHomeBinding;
 import org.wahid.foody.presentation.model.MealDomainModel;
 import org.wahid.foody.utils.ApplicationDependencyRepository;
@@ -91,15 +92,25 @@ public class HomeFragment extends Fragment implements HomeView {
     public void onStart() {
         super.onStart();
         Bundle arguments = getArguments();
-//        assert arguments != null;
-        currentuser = FirebaseClient.getInstance().getCurrentUser();
-        Glide.with(binding.imgAvatar).load(
-                Objects.requireNonNullElse(Objects.requireNonNull(currentuser).getPhotoUrl(), ""
-        )).placeholder(R.drawable.place_holder_avatar).into(binding.imgAvatar) ;
-        String name = currentuser.getDisplayName();
-
-        if (name != null)binding.txtUsername.setText(name);
-        else binding.txtUsername.setText(R.string.amazing_chief);
+        if (GuestSessionManager.getInstance().isGuestMode()) {
+            // Set guest user UI
+            binding.imgAvatar.setImageResource(R.drawable.place_holder_avatar);
+            binding.txtUsername.setText(R.string.guest_user);
+        } else {
+            currentuser = FirebaseClient.getInstance().getCurrentUser();
+            if (currentuser != null) {
+                Glide.with(binding.imgAvatar).load(
+                        Objects.requireNonNullElse(currentuser.getPhotoUrl(), "")
+                ).placeholder(R.drawable.place_holder_avatar).into(binding.imgAvatar);
+                String name = currentuser.getDisplayName();
+                if (name != null) binding.txtUsername.setText(name);
+                else binding.txtUsername.setText(R.string.amazing_chief);
+            } else {
+                // Fallback if no user is logged in
+                binding.imgAvatar.setImageResource(R.drawable.place_holder_avatar);
+                binding.txtUsername.setText(R.string.amazing_chief);
+            }
+        }
     }
 
     @Override

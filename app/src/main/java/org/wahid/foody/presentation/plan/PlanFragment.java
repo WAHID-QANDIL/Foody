@@ -7,12 +7,15 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.google.android.material.carousel.CarouselLayoutManager;
 import com.google.android.material.carousel.MultiBrowseCarouselStrategy;
+import org.wahid.foody.R;
+import org.wahid.foody.data.remote.user_auth.session.GuestSessionManager;
 import org.wahid.foody.databinding.FragmentPlanBinding;
 import org.wahid.foody.presentation.model.MealDomainModel;
 import org.wahid.foody.utils.ApplicationDependencyRepository;
@@ -43,6 +46,10 @@ public class PlanFragment extends Fragment implements PlanView {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        if (GuestSessionManager.getInstance().isGuestMode()) {
+            showGuestRestrictionDialog();
+            return;
+        }
         presenter = new PlanPresenterImpl(this, ApplicationDependencyRepository.firestoreRepository);
 
         setupAdapters();
@@ -111,6 +118,20 @@ public class PlanFragment extends Fragment implements PlanView {
 
     private void setupCalendarCard() {
         binding.includeCalendar.cardCalendar.setOnClickListener(v -> showDatePickerDialog());
+    }
+
+    private void showGuestRestrictionDialog() {
+        new AlertDialog.Builder(requireContext())
+                .setTitle("Feature Not Available")
+                .setMessage("Meal planning feature is not available for guest users. Please sign in to plan your meals.")
+                .setPositiveButton("Sign In", (dialog, which) -> {
+                    Navigation.findNavController(requireView()).navigate(R.id.fragment_login);
+                })
+                .setNegativeButton("Go Back", (dialog, which) -> {
+                    Navigation.findNavController(requireView()).navigateUp();
+                })
+                .setCancelable(false)
+                .show();
     }
 
     private void showDatePickerDialog() {

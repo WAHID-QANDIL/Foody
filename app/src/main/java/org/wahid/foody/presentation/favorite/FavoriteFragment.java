@@ -3,12 +3,17 @@ package org.wahid.foody.presentation.favorite;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import org.wahid.foody.R;
+import org.wahid.foody.data.remote.user_auth.session.GuestSessionManager;
 import org.wahid.foody.databinding.FragmentFavoriteBinding;
 import org.wahid.foody.presentation.favorite.favorite_recuclerview_adaapter.FavoriteRecyclerViewAdapter;
 import org.wahid.foody.presentation.model.MealDomainModel;
@@ -42,6 +47,10 @@ public class FavoriteFragment extends Fragment implements FavoriteView  {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        if (GuestSessionManager.getInstance().isGuestMode()) {
+            showGuestRestrictionDialog();
+            return;
+        }
         presenter = new FavoritePresenterImpl(this, ApplicationDependencyRepository.localRepository, ApplicationDependencyRepository.firestoreRepository);
         presenter.onFragmentCreated();
         Log.d(TAG, "onViewCreated: ");
@@ -54,8 +63,20 @@ public class FavoriteFragment extends Fragment implements FavoriteView  {
 
         binding.btnSync.setOnClickListener(v -> presenter.onSyncClicked());
         binding.btnLoadFromCloud.setOnClickListener(v -> presenter.onLoadFromCloudClicked());
+    }
 
-
+    private void showGuestRestrictionDialog() {
+        new AlertDialog.Builder(requireContext())
+                .setTitle("Feature Not Available")
+                .setMessage("Favorites feature is not available for guest users. Please sign in to save your favorite meals.")
+                .setPositiveButton("Sign In", (dialog, which) -> {
+                    Navigation.findNavController(requireView()).navigate(R.id.fragment_login);
+                })
+                .setNegativeButton("Go Back", (dialog, which) -> {
+                    Navigation.findNavController(requireView()).navigateUp();
+                })
+                .setCancelable(false)
+                .show();
     }
 
     @Override
