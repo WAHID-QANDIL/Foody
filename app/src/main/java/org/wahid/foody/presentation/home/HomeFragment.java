@@ -51,7 +51,7 @@ public class HomeFragment extends Fragment implements HomeView {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         adapter = new PopularMealsRecyclerViewAdapter();
-        presenter = new HomePresenterImpl(this, ApplicationDependencyRepository.repository);
+        presenter = new HomePresenterImpl(this, ApplicationDependencyRepository.remoteRepository);
     }
 
     @Override

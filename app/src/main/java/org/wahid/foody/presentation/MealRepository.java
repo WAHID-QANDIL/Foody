@@ -25,10 +25,4 @@ public interface MealRepository {
     Single<List<CategoryDomainModel>>getAllCategories();
     Single<List<AreaDomainModel>>getAllAreas(String list);
     Single<List<IngredientDomainModel>>getAllIngredients(String list);
-
-
-    // Local
-    Flowable<List<MealDomainModel>> getAllLocalMeals();
-    Completable insertANewMeal(MealDomainModel meal);
-    Completable deleteMealById(MealDomainModel meal);
 }

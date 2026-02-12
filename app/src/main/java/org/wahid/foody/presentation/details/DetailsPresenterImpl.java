@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import androidx.annotation.RequiresApi;
 import androidx.navigation.Navigation;
+import org.wahid.foody.presentation.MealLocalRepository;
 import org.wahid.foody.presentation.MealRepository;
 import org.wahid.foody.presentation.home.HomePresenterImpl;
 import org.wahid.foody.presentation.model.MealDomainModel;
@@ -18,11 +19,13 @@ public class DetailsPresenterImpl implements DetailsPresenter {
 
     private static final String TAG = "DetailsPresenterImpl";
     private MealRepository repository;
+    private MealLocalRepository localRepository;
     private DetailsView view;
     private org.wahid.foody.presentation.model.MealDomainModel currentMeal;
 
-    public DetailsPresenterImpl(DetailsView view, MealRepository repository) {
+    public DetailsPresenterImpl(DetailsView view, MealRepository repository,MealLocalRepository localRepository) {
         this.repository = repository;
+        this.localRepository = localRepository;
         this.view = view;
     }
 
@@ -41,11 +44,7 @@ public class DetailsPresenterImpl implements DetailsPresenter {
     }
     @Override
     public void onAddToFavClicked() {
-//        Bundle bundle = new Bundle();
-//        bundle.putString("mealId", currentMeal.mealId());
-//        Navigation.findNavController(((DetailsFragment)view).requireView()).navigate(R.id.action_detailsFragment_to_favoriteFragment,bundle);
-//
-        repository.insertANewMeal(currentMeal).subscribe(new CompletableObserver() {
+        localRepository.insertANewMeal(currentMeal).subscribe(new CompletableObserver() {
             @Override
             public void onSubscribe(@NonNull Disposable d) {
 
@@ -59,10 +58,6 @@ public class DetailsPresenterImpl implements DetailsPresenter {
 
                     }
                 });
-//
-//
-//
-//                Toast.makeText(((DetailsFragment) view).requireActivity(), "New meal added to favorite successfully", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -70,7 +65,7 @@ public class DetailsPresenterImpl implements DetailsPresenter {
                 view.showErrorDialog(((DetailsFragment) view).requireActivity(), e.getMessage(), new Runnable() {
                     @Override
                     public void run() {
-//                        Toast.makeText(((DetailsFragment) view).requireActivity(), "Failed to add a new meal to favorite", Toast.LENGTH_SHORT).show();
+//
                     }
                 });
             }

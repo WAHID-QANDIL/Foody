@@ -50,7 +50,7 @@ public class DetailsFragment extends Fragment implements DetailsView {
         super.onCreate(savedInstanceState);
         ingredientsRecyclerViewAdapter = new IngredientsRecyclerViewAdapter();
         instructionsRecyclerViewAdapter = new InstructionsRecyclerViewAdapter();
-        presenter = new DetailsPresenterImpl(this, ApplicationDependencyRepository.repository);
+        presenter = new DetailsPresenterImpl(this, ApplicationDependencyRepository.remoteRepository,ApplicationDependencyRepository.localRepository);
 
     }
 
