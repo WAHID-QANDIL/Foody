@@ -9,13 +9,13 @@
         android:iconTint="@color/primary"
         />
 
-    <item android:id="@+id/action_settings"
+    <item android:id="@+id/planFragment"
         android:title="@string/plan"
         android:icon="@drawable/ic_calander"
         android:iconTint="@color/primary"
         />
 
-    <item android:id="@+id/action_favorite"
+    <item android:id="@+id/favoriteFragment"
         android:title="@string/favorite"
         android:icon="@drawable/outline_favorite_24"
         android:iconTint="@color/primary" />

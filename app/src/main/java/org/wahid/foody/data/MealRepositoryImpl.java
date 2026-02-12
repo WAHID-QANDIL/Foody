@@ -31,7 +31,7 @@ public class MealRepositoryImpl implements MealRepository {
 
     public MealRepositoryImpl(RemoteMealDatasource datasource) {
         this.datasource = datasource;
-//        mealDao = mealRoomDb.getMealDao();
+        mealDao = mealRoomDb.getMealDao();
     }
 
     @Override
@@ -150,8 +150,8 @@ public class MealRepositoryImpl implements MealRepository {
     }
 
     @Override
-    public Flowable<MealDomainModel> getAllLocalMeals() {
-        return mealDao.getAllMeals().map(MealEntity::toMealDomainModel);
+    public Flowable<List<MealDomainModel>> getAllLocalMeals() {
+        return mealDao.getAllMeals().map(mealEntities -> mealEntities.stream().map(MealEntity::toMealDomainModel).collect(Collectors.toList()));
     }
 
     @Override

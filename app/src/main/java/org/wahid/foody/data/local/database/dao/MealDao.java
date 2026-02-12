@@ -8,6 +8,8 @@ import androidx.room.Query;
 
 import org.wahid.foody.data.local.database.entity.MealEntity;
 
+import java.util.List;
+
 import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Flowable;
 
@@ -16,7 +18,7 @@ public interface MealDao {
 
 
     @Query("Select * from mealTable")
-    Flowable<MealEntity> getAllMeals();
+    Flowable<List<MealEntity>> getAllMeals();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE, entity = MealEntity.class)
     Completable insertANewMeal(MealEntity entity);

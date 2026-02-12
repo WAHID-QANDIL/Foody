@@ -13,8 +13,8 @@ import kotlin.jvm.Volatile;
 public abstract class ApplicationDependencyRepository {
 
     public @Volatile static Application application = FoodyApplication.application;
-    public static RemoteMealDatasource remoteMealDatasource = new RemoteMealDatasource();
-    public static MealRepository repository = new MealRepositoryImpl(remoteMealDatasource);
-    public static MealRoomDb mealRoomDb = MealRoomDb.getInstance(application);
+    public @Volatile static MealRoomDb mealRoomDb = MealRoomDb.getInstance(application);
+    public @Volatile static RemoteMealDatasource remoteMealDatasource = new RemoteMealDatasource();
+    public @Volatile static MealRepository repository = new MealRepositoryImpl(remoteMealDatasource);
 
 }

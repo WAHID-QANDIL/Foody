@@ -28,7 +28,7 @@ public interface MealRepository {
 
 
     // Local
-    Flowable<MealDomainModel> getAllLocalMeals();
+    Flowable<List<MealDomainModel>> getAllLocalMeals();
     Completable insertANewMeal(MealDomainModel meal);
     Completable deleteMealById(MealDomainModel meal);
 }

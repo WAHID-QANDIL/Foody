@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(bottomNavigationView,navController);
         navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
             int id = destination.getId();
-            if (id == R.id.homeFragment || id == R.id.searchFragment) {
+            if (id == R.id.homeFragment || id == R.id.searchFragment || id == R.id.favoriteFragment) {
                 showBottomNav(bottomNavigationView);
             } else {
                 hideBottomNav(bottomNavigationView);

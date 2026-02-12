@@ -4,17 +4,16 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
-
 import androidx.annotation.RequiresApi;
 import androidx.navigation.Navigation;
 import org.wahid.foody.presentation.MealRepository;
 import org.wahid.foody.presentation.home.HomePresenterImpl;
 import org.wahid.foody.presentation.model.MealDomainModel;
-
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.annotations.NonNull;
+import io.reactivex.rxjava3.core.CompletableObserver;
 import io.reactivex.rxjava3.core.SingleObserver;
 import io.reactivex.rxjava3.disposables.Disposable;
-
 public class DetailsPresenterImpl implements DetailsPresenter {
 
     private static final String TAG = "DetailsPresenterImpl";
@@ -42,7 +41,40 @@ public class DetailsPresenterImpl implements DetailsPresenter {
     }
     @Override
     public void onAddToFavClicked() {
+//        Bundle bundle = new Bundle();
+//        bundle.putString("mealId", currentMeal.mealId());
+//        Navigation.findNavController(((DetailsFragment)view).requireView()).navigate(R.id.action_detailsFragment_to_favoriteFragment,bundle);
+//
+        repository.insertANewMeal(currentMeal).subscribe(new CompletableObserver() {
+            @Override
+            public void onSubscribe(@NonNull Disposable d) {
 
+            }
+
+            @Override
+            public void onComplete() {
+                view.showSuccessDialog(((DetailsFragment) view).requireActivity(), "New meal added to favorite successfully", new Runnable() {
+                    @Override
+                    public void run() {
+
+                    }
+                });
+//
+//
+//
+//                Toast.makeText(((DetailsFragment) view).requireActivity(), "New meal added to favorite successfully", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onError(@NonNull Throwable e) {
+                view.showErrorDialog(((DetailsFragment) view).requireActivity(), e.getMessage(), new Runnable() {
+                    @Override
+                    public void run() {
+//                        Toast.makeText(((DetailsFragment) view).requireActivity(), "Failed to add a new meal to favorite", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
     }
 
     @Override

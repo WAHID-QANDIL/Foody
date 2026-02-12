@@ -26,8 +26,8 @@ public record MealDomainModel(
                 mealName,
                 category,
                 area,
-                mealImageUrl,
                 mealVideoUrl,
+                mealImageUrl,
                 sourceUrl,
                 instructions.stream().map(it-> it+DELIMITER).collect(Collectors.joining()),
                 ingredients
