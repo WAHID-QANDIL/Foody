@@ -5,7 +5,6 @@ import org.wahid.foody.data.local.database.dao.MealDao;
 import org.wahid.foody.data.local.database.entity.MealEntity;
 import org.wahid.foody.presentation.MealLocalRepository;
 import org.wahid.foody.presentation.model.MealDomainModel;
-import org.wahid.foody.utils.ApplicationDependencyRepository;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -16,8 +15,8 @@ import io.reactivex.rxjava3.core.Flowable;
 public class MealLocalRepositoryImpl implements MealLocalRepository {
     private MealDao mealDao;
 
-    public MealLocalRepositoryImpl() {
-        mealDao = ApplicationDependencyRepository.mealRoomDb.getMealDao();
+    public MealLocalRepositoryImpl(MealRoomDb mealRoomDb) {
+        mealDao =  mealRoomDb.getMealDao();
     }
 
     @Override

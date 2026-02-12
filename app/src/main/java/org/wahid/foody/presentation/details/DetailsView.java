@@ -9,4 +9,7 @@ public interface DetailsView extends BaseView {
     void showSharOptionDialog(Intent intent);
     void bindReceivedMealIntoComponents(MealDomainModel mealDomainModel);
     void prepareMediaVideoPlayer(String videoId);
+    void showDatePickerDialog();
+    void showProgressIndicator();
+    void hideProgressIndicator();
 }

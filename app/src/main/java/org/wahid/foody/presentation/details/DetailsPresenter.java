@@ -8,4 +8,5 @@ public interface DetailsPresenter {
     void onAddToFavClicked();
     void onAddToWeeklyPlay();
     void onFragmentViewCreated(Bundle bundle);
+    void onConfirmAddPlanMeal(String selectedDate, String mealType);
 }

@@ -42,7 +42,7 @@ public class FavoriteFragment extends Fragment implements FavoriteView  {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        presenter = new FavoritePresenterImpl(this, ApplicationDependencyRepository.localRepository);
+        presenter = new FavoritePresenterImpl(this, ApplicationDependencyRepository.localRepository, ApplicationDependencyRepository.firestoreRepository);
         presenter.onFragmentCreated();
         Log.d(TAG, "onViewCreated: ");
         binding.rvFavorites.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
@@ -51,6 +51,9 @@ public class FavoriteFragment extends Fragment implements FavoriteView  {
             presenter.onRemoveItem(mealDomainModel);
             return null;
         });
+
+        binding.btnSync.setOnClickListener(v -> presenter.onSyncClicked());
+        binding.btnLoadFromCloud.setOnClickListener(v -> presenter.onLoadFromCloudClicked());
 
 
     }
@@ -63,11 +66,21 @@ public class FavoriteFragment extends Fragment implements FavoriteView  {
 
     @Override
     public void showProgressIndicator() {
-
+        if (binding != null) {
+            binding.progressOverlay.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
     public void hideProgressIndicator() {
+        if (binding != null) {
+            binding.progressOverlay.setVisibility(View.GONE);
+        }
+    }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
     }
 }

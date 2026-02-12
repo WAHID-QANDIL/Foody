@@ -6,4 +6,6 @@ public interface FavoritePresenter {
     void onMealClicked(String mealId);
     void onFragmentCreated();
     void onRemoveItem(MealDomainModel mealDomainModel);
+    void onSyncClicked();
+    void onLoadFromCloudClicked();
 }

@@ -4,7 +4,6 @@ import android.animation.AnimatorListenerAdapter;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-
 import androidx.activity.EdgeToEdge;
 import androidx.activity.SystemBarStyle;
 import androidx.annotation.Nullable;
@@ -18,6 +17,7 @@ import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.FragmentContainerView;
 import androidx.navigation.NavController;
+import androidx.navigation.NavOptions;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 
@@ -93,9 +93,27 @@ public class MainActivity extends AppCompatActivity {
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment_containert);
         NavController navController = Objects.requireNonNull(navHostFragment).getNavController();
         NavigationUI.setupWithNavController(bottomNavigationView,navController);
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            if (navController.getCurrentDestination() != null &&
+                    item.getItemId() == navController.getCurrentDestination().getId()) {
+                return false;
+            }
+            NavOptions options = new NavOptions.Builder()
+                    .setLaunchSingleTop(true)
+                    .setRestoreState(true)
+                    .setPopUpTo(R.id.homeFragment, false, true)
+                    .build();
+
+            try {
+                navController.navigate(item.getItemId(), null, options);
+                return true;
+            } catch (Exception e) {
+                return NavigationUI.onNavDestinationSelected(item, navController);
+            }
+        });
         navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
             int id = destination.getId();
-            if (id == R.id.homeFragment || id == R.id.searchFragment || id == R.id.favoriteFragment) {
+            if (id == R.id.homeFragment || id == R.id.searchFragment || id == R.id.favoriteFragment || id == R.id.planFragment) {
                 showBottomNav(bottomNavigationView);
             } else {
                 hideBottomNav(bottomNavigationView);

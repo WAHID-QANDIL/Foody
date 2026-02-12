@@ -56,4 +56,13 @@
     <string name="watch_how_to_make_perfect">"Watch: How to make perfect "</string>
     <string name="video_tutorial">Video Tutorial</string>
     <string name="search_for_your_favorite_meals">Search for your favorite meals</string>
+    <string name="breakfast">BREAKFAST</string>
+    <string name="lunch">LUNCH</string>
+    <string name="dinner">DINNER</string>
+    <string name="no_breakfast_planned">No breakfast planned</string>
+    <string name="no_lunch_planned">No lunch planned</string>
+    <string name="no_dinner_planned">No dinner planned</string>
+    <string name="remove_from_favorite">Remove From Favorite</string>
+    <string name="remove">Remove</string>
+    <string name="details">details</string>
 </resources>

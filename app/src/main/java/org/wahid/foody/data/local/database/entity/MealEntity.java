@@ -7,7 +7,6 @@ import static org.wahid.foody.utils.Constants.DELIMITER;
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
-import androidx.room.PrimaryKey;
 
 import org.wahid.foody.data.remote.meal_service.dto.Ingredient;
 import org.wahid.foody.presentation.model.MealDomainModel;
@@ -16,11 +15,13 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Entity(tableName = "mealTable")
+@Entity(tableName = "mealTable", primaryKeys = {"id", "userId"})
 public record MealEntity(
-    @PrimaryKey
     @NonNull
     String id,
+    @NonNull
+    @ColumnInfo(name = "userId")
+    String userId,
     @ColumnInfo(name = "name")
     String name,
     @ColumnInfo(name = "category")

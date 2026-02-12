@@ -104,9 +104,6 @@
         <action
             android:id="@+id/action_detailsFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
-        <action
-            android:id="@+id/action_detailsFragment_to_planFragment"
-            app:destination="@id/planFragment" />
     </fragment>
     <argument android:name="mealId" app:argType="string" app:nullable="false"/>
     <fragment
@@ -148,6 +145,12 @@
         android:name="org.wahid.foody.presentation.plan.PlanFragment"
         android:label="PlanFragment"
         tools:layout="@layout/fragment_plan"
-        />
+        >
+        <action
+            android:id="@+id/action_planFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment" >
+            <argument android:name="mealId" app:argType="string" app:nullable="false"/>
+        </action>
+    </fragment>
 
 </navigation>
