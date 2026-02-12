@@ -11,8 +11,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.navigation.NavOptions;
+import androidx.navigation.Navigation;
+
 import org.wahid.foody.R;
 import org.wahid.foody.databinding.FragmentFirstOnboardingScreenBinding;
+import org.wahid.foody.utils.AppPreferences;
 
 import java.util.Objects;
 
@@ -33,6 +37,17 @@ public class FirstOnboardingScreenFragment extends Fragment implements FirstOnBo
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        AppPreferences appPreferences = AppPreferences.getInstance(requireContext());
+        if (!appPreferences.isFirstLaunch()) {
+            NavOptions navOptions = new NavOptions.Builder()
+                    .setPopUpTo(R.id.fragment_first_onboarding_screen, true)
+                    .build();
+            Navigation.findNavController(view)
+                    .navigate(R.id.action_fragment_first_onboarding_screen_to_fragment_login, null, navOptions);
+            return;
+        }
+
         binding.firstOnboardingImage.setImageResource(R.drawable.top_view_meals_tasty_yummy_different_pastries_dishes_brown_surface);
         binding.nextBtn.setOnClickListener((v)->{
             navigateNext();});
@@ -63,6 +78,7 @@ public class FirstOnboardingScreenFragment extends Fragment implements FirstOnBo
 
     @Override
     public void skipOnboarding() {
+        AppPreferences.getInstance(requireContext()).setFirstLaunchCompleted();
         presenter.onSkip();
     }
 }
