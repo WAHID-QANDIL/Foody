@@ -1,9 +1,15 @@
 package org.wahid.foody.presentation;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
+import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 import androidx.activity.EdgeToEdge;
 import androidx.activity.SystemBarStyle;
 import androidx.annotation.Nullable;
@@ -25,13 +31,20 @@ import com.facebook.CallbackManager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.wahid.foody.R;
-
+import org.wahid.foody.utils.NetworkConnectivityMonitor;
 import java.util.Objects;
+
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.disposables.CompositeDisposable;
+import io.reactivex.rxjava3.disposables.Disposable;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
 
     private CallbackManager callbackManager;
+    private NetworkConnectivityMonitor networkMonitor;
+    private CompositeDisposable compositeDisposable;
+    private Dialog offlineDialog;
 
 
     @Override
@@ -56,6 +69,10 @@ public class MainActivity extends AppCompatActivity {
 
 
         callbackManager = CallbackManager.Factory.create();
+
+        networkMonitor = new NetworkConnectivityMonitor(this);
+        compositeDisposable = new CompositeDisposable();
+
         View mainRoot = findViewById(R.id.main);
         FragmentContainerView navHost = findViewById(R.id.nav_host_fragment_containert);
 
@@ -89,6 +106,18 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        networkMonitor.startMonitoring();
+        Disposable networkDisposable = networkMonitor.observeNetworkStatus()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(isConnected -> {
+                    if (isConnected) {
+                        dismissOfflineDialog();
+                    } else {
+                        showOfflineDialog();
+                    }
+                });
+        compositeDisposable.add(networkDisposable);
+
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation_bar);
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment_containert);
         NavController navController = Objects.requireNonNull(navHostFragment).getNavController();
@@ -158,5 +187,58 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+    }
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (networkMonitor != null) {
+            networkMonitor.stopMonitoring();
+        }
+        if (compositeDisposable != null) {
+            compositeDisposable.clear();
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        dismissOfflineDialog();
+        if (compositeDisposable != null) {
+            compositeDisposable.dispose();
+        }
+    }
+
+    private void showOfflineDialog() {
+        if (isFinishing() || isDestroyed()) return;
+        if (offlineDialog != null && offlineDialog.isShowing()) return;
+
+        offlineDialog = new Dialog(this);
+        offlineDialog.setContentView(R.layout.dialog_status);
+        offlineDialog.setCancelable(false);
+        Objects.requireNonNull(offlineDialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        ImageView icon = offlineDialog.findViewById(R.id.ivStatus);
+        TextView title = offlineDialog.findViewById(R.id.tvTitle);
+        TextView message = offlineDialog.findViewById(R.id.tvMessage);
+        Button button = offlineDialog.findViewById(R.id.btnAction);
+
+        icon.setImageResource(R.drawable.ic_no_wifi);
+        title.setText(R.string.no_internet_title);
+        message.setText(R.string.no_internet_message);
+        button.setText(R.string.retry);
+        button.setOnClickListener(v -> {
+            if (networkMonitor.isNetworkAvailable()) {
+                dismissOfflineDialog();
+            }
+        });
+
+        offlineDialog.show();
+    }
+
+    private void dismissOfflineDialog() {
+        if (offlineDialog != null && offlineDialog.isShowing()) {
+            offlineDialog.dismiss();
+            offlineDialog = null;
+        }
     }
 }
