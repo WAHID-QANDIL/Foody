@@ -42,5 +42,31 @@ public class AppPreferences {
                 .putBoolean(KEY_FIRST_LAUNCH, true)
                 .apply();
     }
+
+    public String getMealOfTheDayId() {
+        String savedDate = sharedPreferences.getString(KEY_MEAL_OF_THE_DAY_DATE, null);
+        String todayDate = LocalDate.now().toString();
+
+        if (savedDate != null && savedDate.equals(todayDate)) {
+            return sharedPreferences.getString(KEY_MEAL_OF_THE_DAY_ID, null);
+        }
+        return null;
+    }
+
+
+    public void setMealOfTheDayId(String mealId) {
+        String todayDate = LocalDate.now().toString();
+        sharedPreferences.edit()
+                .putString(KEY_MEAL_OF_THE_DAY_ID, mealId)
+                .putString(KEY_MEAL_OF_THE_DAY_DATE, todayDate)
+                .apply();
+    }
+
+    public void clearMealOfTheDay() {
+        sharedPreferences.edit()
+                .remove(KEY_MEAL_OF_THE_DAY_ID)
+                .remove(KEY_MEAL_OF_THE_DAY_DATE)
+                .apply();
+    }
 }
 
