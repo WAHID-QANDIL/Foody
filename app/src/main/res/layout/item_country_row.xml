@@ -12,31 +12,37 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/bg_circle_soft_tint" />
-
-    <ImageView
-        android:id="@+id/ivIcon"
+    <LinearLayout
+        android:id="@+id/card_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="@dimen/small_padding"
-        android:layout_gravity="center"
-        android:scaleType="centerCrop"
-        android:src="@drawable/ic_share" />
+        android:orientation="vertical"
+        android:weightSum="5">
 
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/tv_country_name"
-        style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginBottom="8dp"
-        android:layout_gravity="center"
-        android:text="View Recipes"
-        android:textColor="@color/colorAccent"
-        app:strokeColor="@color/primary"
-        app:strokeWidth="2dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/tv_country_name"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginBottom="8dp"
+            android:layout_gravity="top"
+            android:text="View Recipes"
+            android:textSize="@dimen/medium_text_size"
+            android:textColor="@color/colorAccent"
+            app:strokeColor="@color/primary"
+            app:strokeWidth="3dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+        <ImageView
+            android:id="@+id/ivIcon"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="@dimen/small_padding"
+            android:layout_gravity="center"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_share" />
+    </LinearLayout>
 
 
 </com.google.android.material.carousel.MaskableFrameLayout>

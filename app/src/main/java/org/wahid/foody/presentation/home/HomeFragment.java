@@ -82,6 +82,19 @@ public class HomeFragment extends Fragment implements HomeView {
         });
         binding.tvSeeAll.setOnClickListener(v -> presenter.onShowAllClicked());
         binding.imgAvatar.setOnClickListener(this::showProfileMenu);
+        setupSwipeRefresh();
+    }
+    private void setupSwipeRefresh() {
+        binding.swipeRefreshLayout.setOnRefreshListener(this::refreshContent);
+    }
+    private void refreshContent() {
+        presenter.fetchRandomMeal();
+        presenter.fetchPopularMeals();
+    }
+    private void stopRefreshing() {
+        if (binding != null && binding.swipeRefreshLayout.isRefreshing()) {
+            binding.swipeRefreshLayout.setRefreshing(false);
+        }
     }
 
     private void showProfileMenu(View anchor) {
@@ -193,6 +206,7 @@ public class HomeFragment extends Fragment implements HomeView {
         binding.randomMealCard.txtMealName.setText(meal.mealName());
         binding.randomMealCard.cardMeal.setOnClickListener(v -> presenter.onRandomMealClicked(meal.mealId()));
         binding.randomMealCard.btnViewRecipe.setOnClickListener(v -> presenter.onRandomMealClicked(meal.mealId()));
+        stopRefreshing();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
