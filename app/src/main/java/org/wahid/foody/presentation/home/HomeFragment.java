@@ -93,7 +93,6 @@ public class HomeFragment extends Fragment implements HomeView {
         super.onStart();
         Bundle arguments = getArguments();
         if (GuestSessionManager.getInstance().isGuestMode()) {
-            // Set guest user UI
             binding.imgAvatar.setImageResource(R.drawable.place_holder_avatar);
             binding.txtUsername.setText(R.string.guest_user);
         } else {
@@ -106,7 +105,6 @@ public class HomeFragment extends Fragment implements HomeView {
                 if (name != null) binding.txtUsername.setText(name);
                 else binding.txtUsername.setText(R.string.amazing_chief);
             } else {
-                // Fallback if no user is logged in
                 binding.imgAvatar.setImageResource(R.drawable.place_holder_avatar);
                 binding.txtUsername.setText(R.string.amazing_chief);
             }
