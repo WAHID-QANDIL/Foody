@@ -8,11 +8,13 @@
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/foody_app_logo"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/foody_app_logo"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Foody">
+        android:theme="@style/Theme.Foody"
+        android:name=".FoodyApplication"
+        >
         <activity
             android:name=".presentation.MainActivity"
             android:exported="true"

@@ -70,4 +70,9 @@ dependencies {
     implementation(libs.rxandroid)
     implementation(libs.rxjava)
     implementation(libs.adapter.rxjava3)
+    implementation(libs.core)
+    annotationProcessor(libs.room.annotation.processor)
+    implementation(libs.room.database)
+    implementation(libs.room.runtime)
+    implementation(libs.firebase.firestore)
 }

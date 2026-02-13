@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/ivRecipe"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/place_holder_avatar"
+        app:layout_constraintDimensionRatio="H,3:4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearanceOverlay="@style/ShapeAppearance.App.LargeComponent" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_remove_from_favorite"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/remove"
+        android:textColor="@color/white"
+        app:background="@drawable/bg_button_primary"
+
+        app:backgroundTint="@color/primary"
+        app:layout_constraintBottom_toBottomOf="@+id/ivRecipe"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardCountry"
+        android:layout_width="wrap_content"
+        android:layout_height="28dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="12dp"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="14dp"
+        app:cardElevation="0dp"
+        app:layout_constraintStart_toStartOf="@id/ivRecipe"
+        app:layout_constraintTop_toTopOf="@id/ivRecipe">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:paddingHorizontal="8dp">
+
+            <ImageView
+                android:id="@+id/ivFlag"
+                android:layout_width="16dp"
+                android:layout_height="12dp"
+                android:scaleType="fitCenter"
+                tools:src="@drawable/outline_flag_24" />
+
+            <TextView
+                android:id="@+id/tvCountryCode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:text="IND"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+
+    <TextView
+        android:id="@+id/tvRecipeName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text="Spicy Lentil Curry"
+        android:textColor="@color/text_primary"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ivRecipe" />
+
+    <TextView
+        android:id="@+id/tvRecipeDetails"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="15 mins • Healthy"
+        android:textColor="@color/text_secondary"
+        android:textSize="13sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvRecipeName" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

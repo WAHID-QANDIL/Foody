@@ -2,10 +2,13 @@ package org.wahid.foody.data.remote.meal_service.dto;
 
 import com.google.gson.annotations.SerializedName;
 
+import org.wahid.foody.presentation.model.AreaDomainModel;
 import org.wahid.foody.presentation.model.MealDomainModel;
+import org.wahid.foody.utils.CountryCodeLocalDataSource;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public record MealDto(
         @SerializedName("idMeal")
@@ -27,13 +30,19 @@ public record MealDto(
         List<Ingredient> ingredients
 ) {
 
+
     public MealDomainModel toDomainModel(){
         return new MealDomainModel(mealId, mealName, category, area, mealImageUrl,mealVideoUrl,sourceUrl,splitInstructions(),ingredients);
     }
 
+    public AreaDomainModel toAreaDomainModel(){
+
+        return new AreaDomainModel(CountryCodeLocalDataSource.getImageUrl(area),area);
+    }
+
 
     private List<String> splitInstructions(){
-        return Arrays.asList(instructions.split("\\."));
+        return Arrays.stream(instructions.split("\\.")).map(String::trim).collect(Collectors.toList());
     }
 
 

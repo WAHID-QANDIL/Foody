@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:paddingVertical="8dp"
+    android:background="@drawable/rounded_corner_shape"
+    android:backgroundTint="@color/divider"
+    android:layout_margin="@dimen/small_padding"
+    android:padding="@dimen/medium_padding"
+    android:layout_marginVertical="@dimen/small_padding"
+    >
+    <TextView
+        android:id="@+id/tv_instruction_step_number"
+        android:layout_gravity="center"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.2"
+        android:text="STEP1: "
+        android:textColor="@color/text_primary"/>
+    <TextView
+        android:id="@+id/tv_instruction_details"
+        android:layout_width="0dp"
+        android:lines="4"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Put the water to get bla bla bla"
+        android:textColor="@color/text_primary"/>
+
+    <com.google.android.material.checkbox.MaterialCheckBox
+        android:id="@+id/cb_instruction_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        app:checkedState="unchecked"
+        android:shadowColor="@color/primary"
+        app:buttonTint="@color/primary"
+        app:buttonCompat="@style/Widget.AppCompat.Button.Borderless.Colored"
+        app:useMaterialThemeColors="true"
+        app:buttonIconTint="@color/white"/>
+
+</LinearLayout>

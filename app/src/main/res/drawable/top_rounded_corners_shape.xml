@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape android:shape="rectangle" android:tint="@color/colorPrimaryLight"  xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <corners
+        android:topLeftRadius="@dimen/extra_large_padding"
+        android:topRightRadius="@dimen/extra_large_padding"/>
+
+
+</shape>

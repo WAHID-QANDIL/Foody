@@ -1,15 +1,11 @@
 package org.wahid.foody.data.remote.meal_service;
 
 import org.wahid.foody.data.remote.meal_service.api.MealApiService;
-import org.wahid.foody.data.remote.meal_service.api.RemoteMealResponseCallback;
+import org.wahid.foody.data.remote.meal_service.dto.CategoryRemoteResponse;
+import org.wahid.foody.data.remote.meal_service.dto.IngredientRemoteResponse;
 import org.wahid.foody.data.remote.meal_service.dto.MealResponse;
 import org.wahid.foody.data.remote.network.RetrofitClient;
-
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
-import io.reactivex.rxjava3.annotations.NonNull;
 import io.reactivex.rxjava3.core.Single;
-import io.reactivex.rxjava3.core.SingleObserver;
-import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class RemoteMealDatasource implements MealApiService {
@@ -60,7 +56,12 @@ public class RemoteMealDatasource implements MealApiService {
     }
 
     @Override
-    public Single<MealResponse> getAllIngredients(String list) {
+    public Single<IngredientRemoteResponse> getAllIngredients(String list) {
         return mealsApiService.getAllIngredients(list).subscribeOn(Schedulers.io());
+    }
+
+    @Override
+    public Single<CategoryRemoteResponse> getAllCategories() {
+        return mealsApiService.getAllCategories().subscribeOn(Schedulers.io());
     }
 }

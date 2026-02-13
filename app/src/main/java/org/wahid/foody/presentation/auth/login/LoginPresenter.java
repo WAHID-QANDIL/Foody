@@ -1,12 +1,16 @@
 package org.wahid.foody.presentation.auth.login;
 
-import org.wahid.foody.data.remote.user_auth.firebase.facebook_auth_service.FacebookCredentials;
-import org.wahid.foody.data.remote.user_auth.firebase.google_auth_service.GoogleCredentials;
+import androidx.credentials.GetCredentialResponse;
+
+import com.facebook.AccessToken;
 
 interface LoginPresenter {
     void onLoginClicked(String username, String password);
-    void onLoginWithGoogleClicked(GoogleCredentials credentials);
-    void onLoginWithFacebookClicked(FacebookCredentials credentials);
+    void onLoginWithGoogleClicked();
+    void onLoginWithFacebookClicked();
+    void onLoginWithFacebookResult(AccessToken token);
+    void onLoginWithGoogleResult(GetCredentialResponse response);
+    void onJoinAsGuestClicked();
     void onRegisterClicked();
-    void onLoggedIn();
+    void onError(Throwable throwable);
 }

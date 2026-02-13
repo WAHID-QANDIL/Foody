@@ -1,10 +1,9 @@
 package org.wahid.foody.data.remote.user_auth;
 
-import org.wahid.foody.data.remote.user_auth.firebase.OnAuthenticatedCallBack;
-
+import io.reactivex.rxjava3.core.Single;
 
 // Base for all authentication services, this could be recognized as a marker interface
 public interface AuthenticationService<C>{
-    void login(C credentials, OnAuthenticatedCallBack callBack);
-    void register(C credentials, OnAuthenticatedCallBack callBack);
+    Single<UserCredentials<?>> login(C credentials);
+    Single<UserCredentials<?>> register(C credentials);
 }

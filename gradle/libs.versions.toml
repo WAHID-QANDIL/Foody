@@ -2,6 +2,7 @@
 adapterRxjava3                  = "3.0.0"
 agp                             = "8.13.2"
 browser                         = "1.9.0"
+core                            = "13.0.0"
 coreSplashscreen                = "1.2.0"
 credentials                     = "1.5.0"
 credentialsPlayServicesAuth     = "1.5.0"
@@ -29,11 +30,13 @@ googleGmsServicesVersion        = "4.4.4"
 rxandroid                       = "3.0.2"
 rxjava                          = "3.1.12"
 safeArgs                        = "2.9.7"
+room                            = "2.8.4"
 
 
 [libraries]
 adapter-rxjava3                 = { module = "com.squareup.retrofit2:adapter-rxjava3", version.ref = "adapterRxjava3" }
 browser                         = { module = "androidx.browser:browser", version.ref = "browser" }
+core                            = { module = "com.pierfrancescosoffritti.androidyoutubeplayer:core", version.ref = "core" }
 core-splashscreen               = { module = "androidx.core:core-splashscreen", version.ref = "coreSplashscreen" }
 credentials-play-services-auth  = { module = "androidx.credentials:credentials-play-services-auth", version.ref = "credentialsPlayServicesAuth" }
 credentials                     = { module = "androidx.credentials:credentials", version.ref = "credentials" }
@@ -41,6 +44,7 @@ facebook-login                  = { module = "com.facebook.android:facebook-logi
 firebase-auth                   = { module = "com.google.firebase:firebase-auth" }
 firebase-analytics              = { module ="com.google.firebase:firebase-analytics" }
 firebase-bom                    = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom" }
+firebase-firestore              = { module = "com.google.firebase:firebase-firestore" }
 firebase-ui-auth                = { module = "com.firebaseui:firebase-ui-auth", version.ref = "firebaseUiAuth" }
 glide                           = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
 googleid                        = { module = "com.google.android.libraries.identity.googleid:googleid", version.ref = "googleid" }
@@ -62,8 +66,11 @@ converter-gson                  = { module = "com.squareup.retrofit2:converter-g
 retrofit                        = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 rxandroid                       = { module = "io.reactivex.rxjava3:rxandroid", version.ref = "rxandroid" }
 rxjava                          = { module = "io.reactivex.rxjava3:rxjava", version.ref = "rxjava" }
+room-annotation-processor       = { group ="androidx.room", name ="room-compiler", version.ref = "room"}
+room-database                   = { group ="androidx.room", name ="room-rxjava3", version.ref = "room"}
+room-runtime                    = { group ="androidx.room", name ="room-runtime", version.ref = "room"}
 
 [plugins]
 android-application             = { id = "com.android.application", version.ref = "agp" }
-google-gms-services             = {id = "com.google.gms.google-services", version.ref = "googleGmsServicesVersion"}
-safe-args                       = {id = "androidx.navigation.safeargs", version.ref = "safeArgs"}
+google-gms-services             = { id = "com.google.gms.google-services", version.ref = "googleGmsServicesVersion"}
+safe-args                       = { id = "androidx.navigation.safeargs", version.ref = "safeArgs"}

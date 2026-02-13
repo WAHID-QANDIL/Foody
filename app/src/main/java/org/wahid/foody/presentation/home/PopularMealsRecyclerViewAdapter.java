@@ -1,6 +1,5 @@
 package org.wahid.foody.presentation.home;
 
-import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,7 +26,7 @@ public class PopularMealsRecyclerViewAdapter extends RecyclerView.Adapter<Popula
 
 
 
-    private List<RecyclerViewCardItem> listItems = new ArrayList<>();
+    private List<MealsRecyclerViewCardItem> listItems = new ArrayList<>();
     private Function1<String, Unit> onItemClicked = null;
     private static final String TAG = "PopularMealsRecyclerVie";
 
@@ -37,11 +36,11 @@ public class PopularMealsRecyclerViewAdapter extends RecyclerView.Adapter<Popula
     public PopularMealsRecyclerViewAdapter() {
     }
 
-    public List<RecyclerViewCardItem> getListItems() {
+    public List<MealsRecyclerViewCardItem> getListItems() {
         return listItems;
     }
 
-    public void updateListItems(List<RecyclerViewCardItem> listItems){
+    public void updateListItems(List<MealsRecyclerViewCardItem> listItems){
         this.listItems = listItems;
         Log.d(TAG, "updateListItems: " + listItems);
         notifyDataSetChanged();
@@ -64,19 +63,16 @@ public class PopularMealsRecyclerViewAdapter extends RecyclerView.Adapter<Popula
 
     @Override
     public void onBindViewHolder(@NonNull MealViewHolder holder, int position) {
-        RecyclerViewCardItem item = listItems.get(position);
+        MealsRecyclerViewCardItem item = listItems.get(position);
 
-        holder.viewRecipeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onItemClicked.invoke(item.mealId());
-            }
-        });
+
+
         Glide.with(holder.imageView.getContext())
                 .load(item.imageUrl())
                 .into(holder.imageView);
         holder.title.setText(item.mealTitle());
-
+        holder.viewRecipeButton.setOnClickListener(v -> onItemClicked.invoke(item.mealId()));
+        holder.imageView.setOnClickListener(v -> onItemClicked.invoke(item.mealId()));
     }
 
     @Override

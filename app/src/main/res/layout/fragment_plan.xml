@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background_light"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="32dp">
+
+            <!-- ============== Modern Calendar Item ============== -->
+            <include
+                android:id="@+id/includeCalendar"
+                layout="@layout/item_calendar_day"/>
+            <!-- ============= Breakfast ============= -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/breakfast"
+                android:textAllCaps="true"
+                android:textColor="@color/primary"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:drawableStartCompat="@drawable/ic_sunrise"
+                android:drawablePadding="8dp"
+                app:drawableTint="@color/colorAccent"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_breakfast"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="16dp"
+                android:nestedScrollingEnabled="false"
+                app:spanCount="2"
+                tools:listitem="@layout/item_meal_plan_card" />
+
+            <!-- Breakfast Empty State -->
+            <LinearLayout
+                android:id="@+id/empty_breakfast"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:padding="24dp"
+                android:visibility="gone">
+
+                <ImageView
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:src="@drawable/ic_sunrise"
+                    android:alpha="0.4"
+                    app:tint="@color/text_secondary"
+                    android:contentDescription="@string/breakfast"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/no_breakfast_planned"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="13sp"/>
+
+            </LinearLayout>
+
+            <!-- ============= Lunch ============= -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="24dp"
+                android:text="@string/lunch"
+                android:textAllCaps="true"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:drawableStartCompat="@drawable/ic_sun"
+                android:drawablePadding="8dp"/>
+
+            <!-- ============= Dinner ============= -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_lunch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:orientation="horizontal"
+                android:nestedScrollingEnabled="false"
+                app:spanCount="2"
+                tools:listitem="@layout/item_meal_plan_card" />
+
+            <!-- Lunch Empty State -->
+            <LinearLayout
+                android:id="@+id/empty_lunch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:padding="24dp"
+                android:visibility="gone">
+
+                <ImageView
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:src="@drawable/ic_sun"
+                    android:alpha="0.4"
+                    app:tint="@color/text_secondary"
+                    android:contentDescription="@string/lunch"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/no_lunch_planned"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="13sp"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="24dp"
+                android:text="@string/dinner"
+                android:textAllCaps="true"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:drawableStartCompat="@drawable/ic_moon"
+                android:drawablePadding="8dp"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_dinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:nestedScrollingEnabled="false"
+                app:spanCount="2"
+                tools:listitem="@layout/item_meal_plan_card" />
+
+            <!-- Dinner Empty State -->
+            <LinearLayout
+                android:id="@+id/empty_dinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:padding="24dp"
+                android:visibility="gone">
+
+                <ImageView
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:src="@drawable/ic_moon"
+                    android:alpha="0.4"
+                    app:tint="@color/text_secondary"
+                    android:contentDescription="@string/dinner"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/no_dinner_planned"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="13sp"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <!-- Progress Indicator Overlay -->
+    <FrameLayout
+        android:id="@+id/progress_overlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#80000000"
+        android:clickable="true"
+        android:focusable="true"
+        android:visibility="gone">
+
+        <com.google.android.material.progressindicator.CircularProgressIndicator
+            android:id="@+id/progress_indicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:indeterminate="true"
+            app:indicatorColor="@color/primary"
+            app:trackColor="@color/white" />
+
+    </FrameLayout>
+
+</FrameLayout>
