@@ -260,7 +260,8 @@ public class PlanFragment extends Fragment implements PlanView {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        presenter.onDestroy();
+        if (presenter!= null)
+            presenter.onDestroy();
         binding = null;
     }
 }
