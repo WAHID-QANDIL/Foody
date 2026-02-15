@@ -7,8 +7,8 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.wahid.foody.data.remote.meal_service.api.MealApiService;
-import org.wahid.foody.data.remote.network.RetrofitClient;
+import org.wahid.foody.data.meals.remote.api.MealApiService;
+import org.wahid.foody.data.core.network.RetrofitClient;
 
 import static org.junit.Assert.*;
 

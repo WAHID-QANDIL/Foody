@@ -11,9 +11,9 @@ import android.view.ViewGroup;
 import androidx.navigation.NavOptions;
 import androidx.navigation.Navigation;
 import org.wahid.foody.R;
-import org.wahid.foody.data.remote.user_auth.firebase.FirebaseClient;
+import org.wahid.foody.data.user_auth.remote.firebase.FirebaseClient;
 import org.wahid.foody.databinding.FragmentFirstOnboardingScreenBinding;
-import org.wahid.foody.data.local.shardPrefs.AppPreferences;
+import org.wahid.foody.data.core.shardPrefs.AppPreferences;
 import org.wahid.foody.utils.ApplicationDependencyRepository;
 
 import java.util.Objects;

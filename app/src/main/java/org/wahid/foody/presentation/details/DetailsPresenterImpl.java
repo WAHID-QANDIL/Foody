@@ -6,11 +6,10 @@ import android.os.Bundle;
 import android.util.Log;
 import androidx.annotation.RequiresApi;
 import androidx.navigation.Navigation;
-import org.wahid.foody.presentation.FirestoreRepository;
-import org.wahid.foody.presentation.MealLocalRepository;
-import org.wahid.foody.presentation.MealRepository;
+import org.wahid.foody.domain.repository.FirestoreRepository;
+import org.wahid.foody.domain.repository.MealRepository;
 import org.wahid.foody.presentation.home.HomePresenterImpl;
-import org.wahid.foody.presentation.model.MealDomainModel;
+import org.wahid.foody.domain.model.MealDomainModel;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.annotations.NonNull;
 import io.reactivex.rxjava3.core.CompletableObserver;
@@ -21,12 +20,12 @@ public class DetailsPresenterImpl implements DetailsPresenter {
 
     private static final String TAG = "DetailsPresenterImpl";
     private MealRepository repository;
-    private MealLocalRepository localRepository;
+    private MealRepository localRepository;
     private DetailsView view;
     private MealDomainModel currentMeal;
     private FirestoreRepository firestoreRepository;
 
-    public DetailsPresenterImpl(DetailsView view, MealRepository repository, MealLocalRepository localRepository, FirestoreRepository firestoreRepository) {
+    public DetailsPresenterImpl(DetailsView view, MealRepository repository, MealRepository localRepository, FirestoreRepository firestoreRepository) {
         this.repository = repository;
         this.localRepository = localRepository;
         this.view = view;

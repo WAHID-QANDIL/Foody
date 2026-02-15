@@ -1,6 +1,6 @@
 package org.wahid.foody.presentation.favorite;
 
-import org.wahid.foody.presentation.model.MealDomainModel;
+import org.wahid.foody.domain.model.MealDomainModel;
 
 public interface FavoritePresenter {
     void onMealClicked(String mealId);

@@ -1,23 +1,31 @@
 package org.wahid.foody.data;
 
-import org.wahid.foody.data.remote.meal_service.RemoteMealDatasource;
-import org.wahid.foody.data.remote.meal_service.dto.CategoryRemoteModel;
-import org.wahid.foody.data.remote.meal_service.dto.MealDto;
-import org.wahid.foody.data.remote.meal_service.dto.RemoteIngredientModel;
-import org.wahid.foody.presentation.model.AreaDomainModel;
-import org.wahid.foody.presentation.model.CategoryDomainModel;
-import org.wahid.foody.presentation.model.IngredientDomainModel;
-import org.wahid.foody.presentation.model.MealDomainModel;
-import org.wahid.foody.presentation.MealRepository;
+import org.wahid.foody.data.meals.MealDatasource;
+import org.wahid.foody.data.meals.local.database.MealRoomDb;
+import org.wahid.foody.data.meals.local.database.dao.MealDao;
+import org.wahid.foody.data.meals.local.database.entity.MealEntity;
+import org.wahid.foody.data.meals.remote.dto.CategoryRemoteModel;
+import org.wahid.foody.data.meals.remote.dto.MealDto;
+import org.wahid.foody.data.meals.remote.dto.RemoteIngredientModel;
+import org.wahid.foody.domain.model.AreaDomainModel;
+import org.wahid.foody.domain.model.CategoryDomainModel;
+import org.wahid.foody.domain.model.IngredientDomainModel;
+import org.wahid.foody.domain.model.MealDomainModel;
+import org.wahid.foody.domain.repository.MealRepository;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import io.reactivex.rxjava3.core.Completable;
+import io.reactivex.rxjava3.core.Flowable;
 import io.reactivex.rxjava3.core.Single;
 
 public class MealRepositoryImpl implements MealRepository {
-    private RemoteMealDatasource datasource;
+    private MealDatasource datasource;
+    private MealDao mealDao;
 
 
-    public MealRepositoryImpl(RemoteMealDatasource datasource) {
+    public MealRepositoryImpl(MealDatasource datasource, MealRoomDb mealRoomDb) {
+        this.mealDao = mealRoomDb.getMealDao();
         this.datasource = datasource;
     }
 
@@ -134,5 +142,23 @@ public class MealRepositoryImpl implements MealRepository {
                     .map(RemoteIngredientModel::toIngredientDomainModel)
                     .collect(Collectors.toList());
         });
+    }
+
+
+    //Local
+
+    @Override
+    public Flowable<List<MealDomainModel>> getAllLocalMeals(String userId) {
+        return mealDao.getAllMeals(userId).map(mealEntities -> mealEntities.stream().map(MealEntity::toMealDomainModel).collect(Collectors.toList()));
+    }
+
+    @Override
+    public Completable insertANewMeal(MealDomainModel meal) {
+        return mealDao.insertANewMeal(meal.toDatabaseEntity());
+    }
+
+    @Override
+    public Completable deleteMealById(MealDomainModel meal) {
+        return mealDao.deleteMeal(meal.toDatabaseEntity());
     }
 }

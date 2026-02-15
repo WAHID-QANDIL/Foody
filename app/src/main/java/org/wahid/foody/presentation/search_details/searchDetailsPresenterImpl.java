@@ -8,11 +8,11 @@ import android.util.Log;
 import androidx.navigation.Navigation;
 
 import org.wahid.foody.R;
-import org.wahid.foody.presentation.MealRepository;
-import org.wahid.foody.presentation.model.AreaDomainModel;
-import org.wahid.foody.presentation.model.CategoryDomainModel;
-import org.wahid.foody.presentation.model.IngredientDomainModel;
-import org.wahid.foody.presentation.model.MealDomainModel;
+import org.wahid.foody.domain.repository.MealRepository;
+import org.wahid.foody.domain.model.AreaDomainModel;
+import org.wahid.foody.domain.model.CategoryDomainModel;
+import org.wahid.foody.domain.model.IngredientDomainModel;
+import org.wahid.foody.domain.model.MealDomainModel;
 import org.wahid.foody.utils.ApplicationDependencyRepository;
 import org.wahid.foody.utils.Constants;
 import org.wahid.foody.utils.SearchType;
@@ -45,7 +45,7 @@ public class searchDetailsPresenterImpl implements SearchDetailsPresenter {
 
     public searchDetailsPresenterImpl(SearchDetailsView view) {
         this.view = view;
-        repository = ApplicationDependencyRepository.remoteRepository;
+        repository = ApplicationDependencyRepository.mealRepository;
         filterQuery = new SearchFilterQuery(null, null, null);
         loadFilterOptions();
     }

@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 
 import org.wahid.foody.R;
 import org.wahid.foody.databinding.FragmentSecondOnboardingScreenBinding;
-import org.wahid.foody.data.local.shardPrefs.AppPreferences;
+import org.wahid.foody.data.core.shardPrefs.AppPreferences;
 import org.wahid.foody.utils.ApplicationDependencyRepository;
 
 import java.util.Objects;

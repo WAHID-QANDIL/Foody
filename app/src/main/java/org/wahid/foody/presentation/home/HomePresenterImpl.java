@@ -7,9 +7,9 @@ import android.util.Log;
 import androidx.annotation.RequiresApi;
 import androidx.navigation.Navigation;
 import org.wahid.foody.R;
-import org.wahid.foody.presentation.MealRepository;
-import org.wahid.foody.presentation.model.MealDomainModel;
-import org.wahid.foody.data.local.shardPrefs.AppPreferences;
+import org.wahid.foody.domain.repository.MealRepository;
+import org.wahid.foody.domain.model.MealDomainModel;
+import org.wahid.foody.data.core.shardPrefs.AppPreferences;
 import org.wahid.foody.utils.ApplicationDependencyRepository;
 
 import java.util.List;

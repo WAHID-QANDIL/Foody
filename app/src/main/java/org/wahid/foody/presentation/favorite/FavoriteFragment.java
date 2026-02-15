@@ -13,10 +13,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import org.wahid.foody.R;
-import org.wahid.foody.data.remote.user_auth.session.GuestSessionManager;
+import org.wahid.foody.data.user_auth.local.session.GuestSessionManager;
 import org.wahid.foody.databinding.FragmentFavoriteBinding;
 import org.wahid.foody.presentation.favorite.favorite_recuclerview_adaapter.FavoriteRecyclerViewAdapter;
-import org.wahid.foody.presentation.model.MealDomainModel;
+import org.wahid.foody.domain.model.MealDomainModel;
 import org.wahid.foody.utils.ApplicationDependencyRepository;
 
 import java.util.Collections;
@@ -51,7 +51,7 @@ public class FavoriteFragment extends Fragment implements FavoriteView  {
             showGuestRestrictionDialog();
             return;
         }
-        presenter = new FavoritePresenterImpl(this, ApplicationDependencyRepository.localRepository, ApplicationDependencyRepository.firestoreRepository);
+        presenter = new FavoritePresenterImpl(this, ApplicationDependencyRepository.mealRepository, ApplicationDependencyRepository.firestoreRepository);
         presenter.onFragmentCreated();
         Log.d(TAG, "onViewCreated: ");
         binding.rvFavorites.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
