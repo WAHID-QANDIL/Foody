@@ -10,7 +10,7 @@ import io.reactivex.rxjava3.core.Flowable;
 public interface MealLocalRepository {
 
     // Local
-    Flowable<List<MealDomainModel>> getAllLocalMeals();
+    Flowable<List<MealDomainModel>> getAllLocalMeals(String userId);
     Completable insertANewMeal(MealDomainModel meal);
     Completable deleteMealById(MealDomainModel meal);
 }

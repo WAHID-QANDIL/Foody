@@ -17,8 +17,8 @@ import io.reactivex.rxjava3.core.Flowable;
 public interface MealDao {
 
 
-    @Query("Select * from mealTable")
-    Flowable<List<MealEntity>> getAllMeals();
+    @Query("Select * from mealTable where userId = :userId")
+    Flowable<List<MealEntity>> getAllMeals(String userId);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE, entity = MealEntity.class)
     Completable insertANewMeal(MealEntity entity);
