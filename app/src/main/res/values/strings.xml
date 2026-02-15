@@ -41,8 +41,8 @@
     <string name="ok">OK</string>
     <string name="join_as_gust">Join as gust</string>
     <string name="forget_password">Forget Password ?</string>
-    <string name="facebook_app_id">785199587939715</string>
-    <string name="facebook_client_token">6d6eeaa71006c1abb00967f9ff042494</string>
+    <string name="facebook_app_id">REPLACE WITH YOUR APP ID</string>
+    <string name="facebook_client_token">REPLACE WITH YOUR APP CLIENT TOKEN</string>
     <string name="popular_meal_image">Popular Meal Image</string>
     <string name="search_categories">Search categories</string>
     <string name="user_profile_picture">User profile picture</string>
@@ -73,4 +73,5 @@
     <string name="no_internet_title">No Internet Connection</string>
     <string name="no_internet_message">Please check your internet connection and try again.</string>
     <string name="retry">Retry</string>
+    <string name="ingredient">ingredient</string>
 </resources>

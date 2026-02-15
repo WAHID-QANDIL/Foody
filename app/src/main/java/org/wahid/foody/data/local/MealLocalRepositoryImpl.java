@@ -20,8 +20,8 @@ public class MealLocalRepositoryImpl implements MealLocalRepository {
     }
 
     @Override
-    public Flowable<List<MealDomainModel>> getAllLocalMeals() {
-        return mealDao.getAllMeals().map(mealEntities -> mealEntities.stream().map(MealEntity::toMealDomainModel).collect(Collectors.toList()));
+    public Flowable<List<MealDomainModel>> getAllLocalMeals(String userId) {
+        return mealDao.getAllMeals(userId).map(mealEntities -> mealEntities.stream().map(MealEntity::toMealDomainModel).collect(Collectors.toList()));
     }
 
     @Override

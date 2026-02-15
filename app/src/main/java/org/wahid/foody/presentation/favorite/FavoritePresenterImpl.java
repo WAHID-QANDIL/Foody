@@ -5,8 +5,12 @@ import static org.wahid.foody.presentation.home.HomePresenterImpl.MEAL_ID;
 import android.os.Bundle;
 import android.util.Log;
 import androidx.navigation.Navigation;
+
+import com.google.firebase.Firebase;
+
 import org.reactivestreams.Subscription;
 import org.wahid.foody.R;
+import org.wahid.foody.data.remote.user_auth.firebase.FirebaseClient;
 import org.wahid.foody.presentation.FirestoreRepository;
 import org.wahid.foody.presentation.MealLocalRepository;
 import org.wahid.foody.presentation.model.MealDomainModel;
@@ -46,7 +50,10 @@ public class FavoritePresenterImpl implements FavoritePresenter {
 
     @Override
     public void onFragmentCreated() {
-        localRepository.getAllLocalMeals().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new FlowableSubscriber<List<MealDomainModel>>() {
+        String userId = FirebaseClient.getCurrentUser().getUid();
+        Log.d(TAG, "onFragmentCreated: " + userId);
+
+        localRepository.getAllLocalMeals(userId).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new FlowableSubscriber<List<MealDomainModel>>() {
             @Override
             public void onSubscribe(@NonNull Subscription s) {
                 s.request(Long.MAX_VALUE);

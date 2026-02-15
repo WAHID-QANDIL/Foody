@@ -17,13 +17,23 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="0.2"
+        android:layout_gravity="center"
         android:text="1"
         android:textColor="@color/text_primary"/>
+    <ImageView
+        android:id="@+id/iv_ingredient"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:scaleType="centerCrop"
+        android:contentDescription="@string/ingredient"
+        />
+
     <TextView
         android:id="@+id/tv_ingredient_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:layout_gravity="center"
         android:text="Fresh Salmon Fillet"
         android:textColor="@color/text_primary"/>
 
@@ -31,6 +41,7 @@
         android:id="@+id/tv_ingredient_measure"
         android:layout_width="wrap_content"
         android:gravity="end"
+        android:layout_gravity="center"
         android:layout_weight="0.4"
         android:layout_height="wrap_content"
         android:text="300g"
