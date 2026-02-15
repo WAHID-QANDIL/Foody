@@ -91,4 +91,8 @@ Open the project in Android Studio and sync Gradle. Use the IDE Run button to bu
 
 ## License
 
+# THE CREDENTIALS WITHIN THIS APP IS FOR DEMONSTRATION ONLY AND IT HAS BEEN DELETED RN, SO MAKE SURE TO REPLACE YOUR OWN KEYS, AND TOKENT.
+
+
+
 See `LICENSE`.
