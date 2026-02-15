@@ -6,9 +6,9 @@ import android.util.Log;
 import androidx.navigation.Navigation;
 
 import org.wahid.foody.R;
-import org.wahid.foody.presentation.MealRepository;
-import org.wahid.foody.presentation.model.AreaDomainModel;
-import org.wahid.foody.presentation.model.CategoryDomainModel;
+import org.wahid.foody.domain.repository.MealRepository;
+import org.wahid.foody.domain.model.AreaDomainModel;
+import org.wahid.foody.domain.model.CategoryDomainModel;
 import org.wahid.foody.presentation.search.category_list_adapter.CategoryRecyclerViewListItem;
 import org.wahid.foody.presentation.search.countries_list_adapter.CountryListItem;
 import org.wahid.foody.utils.Constants;

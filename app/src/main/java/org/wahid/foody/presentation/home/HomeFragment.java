@@ -25,10 +25,10 @@ import com.google.android.material.carousel.MultiBrowseCarouselStrategy;
 import com.google.firebase.auth.FirebaseUser;
 
 import org.wahid.foody.R;
-import org.wahid.foody.data.remote.user_auth.firebase.FirebaseClient;
-import org.wahid.foody.data.remote.user_auth.session.GuestSessionManager;
+import org.wahid.foody.data.user_auth.remote.firebase.FirebaseClient;
+import org.wahid.foody.data.user_auth.local.session.GuestSessionManager;
 import org.wahid.foody.databinding.FragmentHomeBinding;
-import org.wahid.foody.presentation.model.MealDomainModel;
+import org.wahid.foody.domain.model.MealDomainModel;
 import org.wahid.foody.utils.ApplicationDependencyRepository;
 import org.wahid.foody.utils.ShowDialog;
 
@@ -56,7 +56,7 @@ public class HomeFragment extends Fragment implements HomeView {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         adapter = new PopularMealsRecyclerViewAdapter();
-        presenter = new HomePresenterImpl(this, ApplicationDependencyRepository.remoteRepository);
+        presenter = new HomePresenterImpl(this, ApplicationDependencyRepository.mealRepository);
     }
 
     @Override

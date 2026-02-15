@@ -7,8 +7,8 @@ import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 
-import org.wahid.foody.data.remote.meal_service.dto.Ingredient;
-import org.wahid.foody.data.remote.meal_service.dto.MealDto;
+import org.wahid.foody.data.meals.remote.dto.Ingredient;
+import org.wahid.foody.data.meals.remote.dto.MealDto;
 
 import java.io.IOException;
 import java.util.ArrayList;
