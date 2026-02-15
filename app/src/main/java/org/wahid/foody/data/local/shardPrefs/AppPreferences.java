@@ -1,4 +1,4 @@
-package org.wahid.foody.utils;
+package org.wahid.foody.data.local.shardPrefs;
 
 import android.content.Context;
 import android.content.SharedPreferences;

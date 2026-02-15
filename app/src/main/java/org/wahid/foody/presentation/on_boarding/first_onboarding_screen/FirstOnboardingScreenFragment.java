@@ -13,7 +13,8 @@ import androidx.navigation.Navigation;
 import org.wahid.foody.R;
 import org.wahid.foody.data.remote.user_auth.firebase.FirebaseClient;
 import org.wahid.foody.databinding.FragmentFirstOnboardingScreenBinding;
-import org.wahid.foody.utils.AppPreferences;
+import org.wahid.foody.data.local.shardPrefs.AppPreferences;
+import org.wahid.foody.utils.ApplicationDependencyRepository;
 
 import java.util.Objects;
 
@@ -43,7 +44,7 @@ public class FirstOnboardingScreenFragment extends Fragment implements FirstOnBo
                     .navigate(R.id.action_fragment_first_onboarding_screen_to_homeFragment, null, navOptions);
             return;
         }
-        AppPreferences appPreferences = AppPreferences.getInstance(requireContext());
+        AppPreferences appPreferences = AppPreferences.getInstance(ApplicationDependencyRepository.application);
         if (!appPreferences.isFirstLaunch()) {
             NavOptions navOptions = new NavOptions.Builder()
                     .setPopUpTo(R.id.fragment_first_onboarding_screen, true)
@@ -83,7 +84,7 @@ public class FirstOnboardingScreenFragment extends Fragment implements FirstOnBo
 
     @Override
     public void skipOnboarding() {
-        AppPreferences.getInstance(requireContext()).setFirstLaunchCompleted();
+        AppPreferences.getInstance(ApplicationDependencyRepository.application).setFirstLaunchCompleted();
         presenter.onSkip();
     }
 }

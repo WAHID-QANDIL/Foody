@@ -13,7 +13,8 @@ import android.view.ViewGroup;
 
 import org.wahid.foody.R;
 import org.wahid.foody.databinding.FragmentSecondOnboardingScreenBinding;
-import org.wahid.foody.utils.AppPreferences;
+import org.wahid.foody.data.local.shardPrefs.AppPreferences;
+import org.wahid.foody.utils.ApplicationDependencyRepository;
 
 import java.util.Objects;
 
@@ -59,13 +60,13 @@ public class SecondOnboardingScreenFragment extends Fragment implements SecondOn
 
     @Override
     public void navigateToLogin() {
-        AppPreferences.getInstance(requireContext()).setFirstLaunchCompleted();
+        AppPreferences.getInstance(ApplicationDependencyRepository.application).setFirstLaunchCompleted();
         presenter.onGetStarted();
     }
 
     @Override
     public void skipOnboarding() {
-        AppPreferences.getInstance(requireContext()).setFirstLaunchCompleted();
+        AppPreferences.getInstance(ApplicationDependencyRepository.application).setFirstLaunchCompleted();
         presenter.onSkip();
     }
 }
