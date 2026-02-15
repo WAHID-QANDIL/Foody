@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.button.MaterialButton;
 
 import org.wahid.foody.R;
-import org.wahid.foody.presentation.model.MealDomainModel;
+import org.wahid.foody.domain.model.MealDomainModel;
 import org.wahid.foody.utils.CountryCodeLocalDataSource;
 import org.wahid.foody.utils.ImageLoader;
 

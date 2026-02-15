@@ -14,7 +14,7 @@ import com.bumptech.glide.Glide;
 import com.google.android.material.button.MaterialButton;
 
 import org.wahid.foody.R;
-import org.wahid.foody.presentation.model.MealDomainModel;
+import org.wahid.foody.domain.model.MealDomainModel;
 
 import java.util.ArrayList;
 import java.util.List;

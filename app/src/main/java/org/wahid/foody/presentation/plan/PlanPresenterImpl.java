@@ -6,8 +6,8 @@ import android.util.Log;
 import androidx.navigation.Navigation;
 
 import org.wahid.foody.R;
-import org.wahid.foody.presentation.FirestoreRepository;
-import org.wahid.foody.presentation.model.MealDomainModel;
+import org.wahid.foody.domain.repository.FirestoreRepository;
+import org.wahid.foody.domain.model.MealDomainModel;
 
 import java.util.List;
 
