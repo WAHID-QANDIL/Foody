@@ -1,3 +1,4 @@
+
 # Foody
 
 Foody is an Android app for discovering meals, viewing recipes, and planning your week. It combines a remote meal API with local favorites and optional cloud sync for authenticated users.
@@ -14,6 +15,9 @@ Foody is an Android app for discovering meals, viewing recipes, and planning you
 - Offline detection with a dedicated no-internet dialog.
 
 ## Architecture
+#NOTE:
+# THE CREDENTIALS WITHIN THIS APP IS FOR DEMONSTRATION ONLY AND IT HAS BEEN DELETED RN, SO MAKE SURE TO REPLACE YOUR OWN KEYS, AND TOKENT, FROM SECURITY WISE DON'T PUT YOUR KEYS IN PROJECT FILES, INSTEAD YOU CAN EASILY ADD THEM INTO `BUILD.CONFIG` OR CREATE VARIABLES IN YOUR WORKING ENV.
+
 
 The app follows a layered, MVP-style structure with clear separation of concerns:
 
@@ -90,9 +94,4 @@ app/src/main/res/
 Open the project in Android Studio and sync Gradle. Use the IDE Run button to build and install.
 
 ## License
-
-# THE CREDENTIALS WITHIN THIS APP IS FOR DEMONSTRATION ONLY AND IT HAS BEEN DELETED RN, SO MAKE SURE TO REPLACE YOUR OWN KEYS, AND TOKENT, FROM SECURITY WISE DON'T PUT YOUR KEYS IN PROJECT FILES, INSTEAD YOU CAN EASILY ADD THEM INTO `BUILD.CONFIG` OR CREATE VARIABLES IN YOUR WORKING ENV.
-
-
-
 See `LICENSE`.
