@@ -13,7 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import org.wahid.foody.databinding.FragmentSearchDetailsBinding;
-import org.wahid.foody.presentation.model.MealDomainModel;
+import org.wahid.foody.domain.model.MealDomainModel;
 
 import java.util.Collections;
 import java.util.List;

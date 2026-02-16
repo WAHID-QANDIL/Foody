@@ -1,7 +1,7 @@
 package org.wahid.foody.presentation.home;
 
 import org.wahid.foody.presentation.BaseView;
-import org.wahid.foody.presentation.model.MealDomainModel;
+import org.wahid.foody.domain.model.MealDomainModel;
 
 import java.util.List;
 

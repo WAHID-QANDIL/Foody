@@ -7,9 +7,10 @@ import android.util.Log;
 import androidx.annotation.RequiresApi;
 import androidx.navigation.Navigation;
 import org.wahid.foody.R;
-import org.wahid.foody.presentation.MealRepository;
-import org.wahid.foody.presentation.model.MealDomainModel;
-import org.wahid.foody.utils.AppPreferences;
+import org.wahid.foody.domain.repository.MealRepository;
+import org.wahid.foody.domain.model.MealDomainModel;
+import org.wahid.foody.data.core.shardPrefs.AppPreferences;
+import org.wahid.foody.utils.ApplicationDependencyRepository;
 
 import java.util.List;
 import java.util.Random;
@@ -28,7 +29,7 @@ public class HomePresenterImpl implements HomePresenter{
     public HomePresenterImpl(HomeView view, MealRepository repositoryImpl) {
         this.view = view;
         repository = repositoryImpl;
-        appPreferences = AppPreferences.getInstance(((HomeFragment) view).requireContext());
+        appPreferences = AppPreferences.getInstance(ApplicationDependencyRepository.application);
     }
 
     @Override

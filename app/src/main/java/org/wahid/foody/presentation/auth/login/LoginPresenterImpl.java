@@ -17,15 +17,15 @@ import com.google.android.libraries.identity.googleid.GetSignInWithGoogleOption;
 import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential;
 
 import org.wahid.foody.R;
-import org.wahid.foody.data.remote.user_auth.AuthRepositoryImpl;
-import org.wahid.foody.data.remote.user_auth.AuthenticationServiceType;
-import org.wahid.foody.data.remote.user_auth.firebase.email_password_auth_service.EmailPasswordCredentials;
-import org.wahid.foody.data.remote.user_auth.firebase.facebook_auth_service.FacebookCredentials;
-import org.wahid.foody.data.remote.user_auth.firebase.google_auth_service.GoogleCredentials;
-import org.wahid.foody.data.remote.user_auth.guest.GuestCredentials;
-import org.wahid.foody.data.remote.user_auth.session.GuestSessionManager;
+import org.wahid.foody.data.user_auth.AuthRepositoryImpl;
+import org.wahid.foody.data.user_auth.core.AuthenticationServiceType;
+import org.wahid.foody.data.user_auth.remote.firebase.email_password_auth_service.EmailPasswordCredentials;
+import org.wahid.foody.data.user_auth.remote.firebase.facebook_auth_service.FacebookCredentials;
+import org.wahid.foody.data.user_auth.remote.firebase.google_auth_service.GoogleCredentials;
+import org.wahid.foody.data.user_auth.remote.guest.GuestCredentials;
+import org.wahid.foody.data.user_auth.local.session.GuestSessionManager;
 import org.wahid.foody.presentation.auth.AuthCredentials;
-import org.wahid.foody.presentation.AuthRepository;
+import org.wahid.foody.domain.repository.AuthRepository;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;

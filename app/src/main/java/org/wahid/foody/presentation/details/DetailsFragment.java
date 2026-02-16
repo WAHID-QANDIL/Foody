@@ -27,13 +27,13 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.Abs
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
 
 import org.wahid.foody.R;
-import org.wahid.foody.data.remote.meal_service.dto.Ingredient;
+import org.wahid.foody.data.meals.remote.dto.Ingredient;
 import org.wahid.foody.databinding.FragmentDetailsBinding;
 import org.wahid.foody.presentation.details.ingredient_recycler_view_adapter.IngredientRecyclerViewModel;
 import org.wahid.foody.presentation.details.ingredient_recycler_view_adapter.IngredientsRecyclerViewAdapter;
 import org.wahid.foody.presentation.details.instructions_recycler_view_adapter.InstructionsRecyclerViewAdapter;
 import org.wahid.foody.presentation.home.HomePresenterImpl;
-import org.wahid.foody.presentation.model.MealDomainModel;
+import org.wahid.foody.domain.model.MealDomainModel;
 import org.wahid.foody.utils.ApplicationDependencyRepository;
 import org.wahid.foody.utils.ImageLoader;
 
@@ -56,8 +56,8 @@ public class DetailsFragment extends Fragment implements DetailsView {
         ingredientsRecyclerViewAdapter = new IngredientsRecyclerViewAdapter();
         instructionsRecyclerViewAdapter = new InstructionsRecyclerViewAdapter();
         presenter = new DetailsPresenterImpl(this,
-                ApplicationDependencyRepository.remoteRepository,
-                ApplicationDependencyRepository.localRepository,
+                ApplicationDependencyRepository.mealRepository,
+                ApplicationDependencyRepository.mealRepository,
                 ApplicationDependencyRepository.firestoreRepository);
 
     }

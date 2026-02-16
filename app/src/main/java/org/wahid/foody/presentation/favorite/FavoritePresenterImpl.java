@@ -6,14 +6,13 @@ import android.os.Bundle;
 import android.util.Log;
 import androidx.navigation.Navigation;
 
-import com.google.firebase.Firebase;
-
 import org.reactivestreams.Subscription;
 import org.wahid.foody.R;
-import org.wahid.foody.data.remote.user_auth.firebase.FirebaseClient;
-import org.wahid.foody.presentation.FirestoreRepository;
-import org.wahid.foody.presentation.MealLocalRepository;
-import org.wahid.foody.presentation.model.MealDomainModel;
+import org.wahid.foody.data.user_auth.remote.firebase.FirebaseClient;
+import org.wahid.foody.domain.repository.FirestoreRepository;
+import org.wahid.foody.domain.model.MealDomainModel;
+import org.wahid.foody.domain.repository.MealRepository;
+
 import java.util.ArrayList;
 import java.util.List;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
@@ -28,12 +27,12 @@ public class FavoritePresenterImpl implements FavoritePresenter {
 
     private static final String TAG = "FavoritePresenterImpl";
     private final FavoriteView view;
-    private final MealLocalRepository localRepository;
+    private final MealRepository localRepository;
     private final FirestoreRepository firestoreRepository;
     private List<MealDomainModel> currentMeals = new ArrayList<>();
 
 
-    public FavoritePresenterImpl(FavoriteView view, MealLocalRepository localRepository, FirestoreRepository firestoreRepository){
+    public FavoritePresenterImpl(FavoriteView view, MealRepository localRepository, FirestoreRepository firestoreRepository){
         this.localRepository = localRepository;
         this.firestoreRepository = firestoreRepository;
         this.view = view;
